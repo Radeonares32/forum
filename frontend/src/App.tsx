@@ -1,14 +1,18 @@
-import React from 'react';
-
 import { AppBar } from './components/Navbar/AppBar'
 import { SideBar } from './components/Sidebar/Sidebar'
-
+import { Flow } from './components/Flow/Flow'
+import { Banner } from './components/Banner/Banner'
 function App() {
   return (
     <div>
       <AppBar />
-      <SideBar />
-      
+      <div className='container-fluid align-self-stretch'>
+        <div className='row'>
+          <SideBar />
+          <Flow />
+          <Banner/>
+        </div>
+      </div>
     </div>
   );
 }
