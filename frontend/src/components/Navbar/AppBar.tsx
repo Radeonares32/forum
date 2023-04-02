@@ -7,13 +7,30 @@ import { Person,Bell,Gear } from 'react-bootstrap-icons';
 export const AppBar = () => {
     return (
         <>
-            <Navbar collapseOnSelect expand="lg" style={{backgroundColor:'#341e36'}} variant="dark">
+        <Navbar collapseOnSelect expand="lg" style={{backgroundColor:'#341e36'}} variant="dark">
                 <Container fluid>
-                    <Navbar.Brand className='' href="#home">React-Bootstrap</Navbar.Brand>
+                <Navbar.Brand className='' href="#home">Logo</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">
-                            <Nav.Link href="#action2" style={{ marginLeft: '46rem',width:'22rem' }}>
+
+                            <Nav.Link href="#action1" style={{ marginLeft: '3rem' }}>Canlı Veri</Nav.Link>
+                            
+                            <Nav.Link href="#action2" style={{ marginLeft: '45rem' }}>Canlı Veri</Nav.Link>
+                        
+
+                            <Nav.Link href="#action2" style={{ marginLeft: '40rem' }}>Canlı Veri</Nav.Link>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
+            <Navbar collapseOnSelect expand="lg" style={{backgroundColor:'#341e36'}} variant="dark">
+                <Container fluid>
+                   
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                    <Navbar.Collapse id="responsive-navbar-nav">
+                        <Nav className="me-auto">
+                            <Nav.Link href="#action2" style={{ marginLeft: '57rem',width:'22rem' }}>
                                 <Form className="d-flex">
                                     <Form.Control
                                         style={{backgroundColor:'#341e36',border:'0px'}}
@@ -37,6 +54,7 @@ export const AppBar = () => {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
+            
             <Navbar collapseOnSelect expand="lg" style={{backgroundColor:'#341e36'}} variant="dark">
                 <Container fluid>
 
