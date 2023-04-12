@@ -1,7 +1,7 @@
-import { AppBar } from './components/Navbar/AppBar'
-import { SideBar } from './components/Sidebar/Sidebar'
-import { Flow } from './components/Flow/Flow'
-import { Banner } from './components/Banner/Banner'
+import { AppBar } from './components/home/Navbar/AppBar'
+import { SideBar } from './components/home/Sidebar/Sidebar'
+import { Flow } from './components/home/Flow/Flow'
+import { Banner } from './components/home/Banner/Banner'
 function App() {
   return (
     <div>
@@ -10,7 +10,7 @@ function App() {
         <div className='row'>
           <SideBar />
           <Flow />
-          <Banner/>
+          <Banner />
         </div>
       </div>
     </div>
