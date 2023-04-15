@@ -1,7 +1,10 @@
+import { Link } from 'react-router-dom'
+
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+
 import { Person,Bell,Gear } from 'react-bootstrap-icons';
 
 export const AppBar = () => {
@@ -49,8 +52,8 @@ export const AppBar = () => {
                             </Nav.Link>
                         </Nav>
                         <Nav >
-                        <Nav.Link href="#action2" style={{ marginLeft: '5rem',color:'blue' }}>Giriş Yap</Nav.Link>
-                            <Nav.Link href="#action2" style={{ marginLeft: '1rem',color:'blue' }}>Kayıt Ol</Nav.Link>
+                            <Link to="/signup" style={{ marginLeft: '5rem',color:'blue' }}>Giriş Yap</Link>
+                            <Link to="/signin" style={{ marginLeft: '1rem',color:'blue' }}>Kayıt Ol</Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
