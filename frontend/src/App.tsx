@@ -1,19 +1,14 @@
-import { AppBar } from './components/home/Navbar/AppBar'
-import { SideBar } from './components/home/Sidebar/Sidebar'
-import { Flow } from './components/home/Flow/Flow'
-import { Banner } from './components/home/Banner/Banner'
+import { BrowserRouter,Routes,Route } from 'react-router-dom'
+
+import { Home } from './components/home/home'
+
 function App() {
   return (
-    <div>
-      <AppBar />
-      <div className='container-fluid align-self-stretch'>
-        <div className='row'>
-          <SideBar />
-          <Flow />
-          <Banner />
-        </div>
-      </div>
-    </div>
+   <BrowserRouter>
+    <Routes>
+        <Route path='/' element={ <Home/>}/>
+    </Routes>
+   </BrowserRouter>
   );
 }
 
