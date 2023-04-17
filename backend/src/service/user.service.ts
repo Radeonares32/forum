@@ -200,4 +200,16 @@ export class UserService {
       };
     }
   }
+  async userGetFollowers(id: string) {
+    if (id) {
+        return {
+            followers: await this.userDataAcess.getFollowers(id),
+        }
+    }
+    else {
+        return {
+            message: "id prop empty"
+        }
+    }
+}
 }
