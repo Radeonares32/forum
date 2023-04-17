@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "dev": "tsc-watch --onSuccess",
+    "start:prod": "NODE_ENV=production node ./dist/server.js",
+    "start:dev": "NODE_ENV=development node ./dist/server.js"
+  },
   "dependencies": {
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
@@ -14,6 +19,8 @@
     "jsonwebtoken": "^9.0.0",
     "neode": "^0.4.9",
     "redis": "^4.6.5",
+    "tsc-watch": "^6.0.0",
+    "typescript": "^5.0.4",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
@@ -24,6 +31,7 @@
     "@types/express-session": "^1.17.7",
     "@types/jsonwebtoken": "^9.0.1",
     "@types/redis": "^4.0.11",
+    "@types/tsc-watch": "^4.2.0",
     "@types/uuid": "^9.0.1"
   }
 }
