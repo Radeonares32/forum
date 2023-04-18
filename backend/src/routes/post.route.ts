@@ -8,7 +8,7 @@ import { post } from "../controllers/controllers";
 //Get
 export const getPost = app.get("/getPost", post.PostController.getPost);
 export const getPostId = app.get("/getPostId", post.PostController.getPostId);
- 
+export const getLike = app.get('/getLike',post.PostController.getLike)
 //Post
 export const postPost = app.post("/postPost", post.PostController.createPost);
 export const postComment = app.post('/postComment',post.PostController.createComment)

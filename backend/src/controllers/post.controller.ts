@@ -13,7 +13,7 @@ export class PostController {
     res.json({ post: await post });
   };
   static createPost: Handler = async (req, res) => {
-    const token:any = req.headers['x-access-token']
+    const token: any = req.headers["x-access-token"];
     const postService = new PostService();
     const { title, description } = req.body;
     const post = await postService.postCreate(title, description, token);
@@ -23,40 +23,30 @@ export class PostController {
       });
     } else {
       res.json({
-        message:post?.message,
+        message: post?.message,
       });
     }
   };
   static updatePost: Handler = async (req, res) => {
-    const token:any = req.headers['x-access-token']
+    const token: any = req.headers["x-access-token"];
     const postService = new PostService();
-    const {
-      id,
-      title,
-      description,
-      userId
-    } = req.body;
-      const post = await postService.postUpdate(
-        id,
-        title,
-        description,
-        token
-      );
-      if (post?.message) {
-        res.json({
-          message: post.message,
-        });
-      } else {
-        res.json({
-          message: post?.update?.message,
-        });
-      }
+    const { id, title, description, userId } = req.body;
+    const post = await postService.postUpdate(id, title, description, token);
+    if (post?.message) {
+      res.json({
+        message: post.message,
+      });
+    } else {
+      res.json({
+        message: post?.update?.message,
+      });
+    }
   };
   static deletePost: Handler = async (req, res) => {
-    const token:any = req.headers['x-access-token']
+    const token: any = req.headers["x-access-token"];
     const postService = new PostService();
     const { id } = req.body;
-    const post = await postService.postDelete(id,token);
+    const post = await postService.postDelete(id, token);
     if (post.message) {
       res.json({
         message: post.message,
@@ -68,13 +58,13 @@ export class PostController {
     }
   };
   static createComment: Handler = async (req, res) => {
-    const token:any = req.headers['x-access-token']
+    const token: any = req.headers["x-access-token"];
     const postService = new PostService();
-    const {postId,description } = req.body;
-    const post = await postService.postComment(postId,description,token);
+    const { postId, description } = req.body;
+    const post = await postService.postComment(postId, description, token);
     if (post?.comment?.message) {
       res.json({
-        message:  post.comment.message,
+        message: post.comment.message,
       });
     } else {
       res.json({
@@ -83,10 +73,14 @@ export class PostController {
     }
   };
   static createSubComment: Handler = async (req, res) => {
-    const token:any = req.headers['x-access-token']
+    const token: any = req.headers["x-access-token"];
     const postService = new PostService();
-    const {commentId,description } = req.body;
-    const post = await postService.postSubComment(token, commentId,description);
+    const { commentId, description } = req.body;
+    const post = await postService.postSubComment(
+      token,
+      commentId,
+      description
+    );
     if (post?.subComment?.message) {
       res.json({
         message: post?.subComment?.message,
@@ -98,7 +92,7 @@ export class PostController {
     }
   };
   static createLike: Handler = async (req, res) => {
-    const token:any = req.headers['x-access-token']
+    const token: any = req.headers["x-access-token"];
     const postService = new PostService();
     const { postId } = req.body;
     const post = await postService.postLike(token, postId);
@@ -108,7 +102,22 @@ export class PostController {
       });
     } else {
       res.json({
-        message: post?.message
+        message: post?.message,
+      });
+    }
+  };
+  static getLike: Handler = async (req, res) => {
+    const token: any = req.headers["x-access-token"];
+    const postService = new PostService();
+    const { postId } = req.body;
+    const post = await postService.getLike(token, postId);
+    if (post.message) {
+      res.json({
+        message: post?.message,
+      });
+    } else {
+      res.json({
+        message: post.getLike,
       });
     }
   };

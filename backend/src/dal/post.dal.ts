@@ -1,4 +1,4 @@
-import {v4 as uuid} from 'uuid'
+import { v4 as uuid } from "uuid";
 
 //? Repository
 import { PostRepository } from "../repository/post.repository";
@@ -12,13 +12,16 @@ import { Post } from "../model/Post";
 import { neo4j } from "../db/db";
 
 export class PostDal implements PostRepository {
-  async delete(id: string,userId:string): Promise<{ message: string }> {
+  async delete(id: string, userId: string): Promise<{ message: string }> {
     return new Promise(async (resolve, reject) => {
       try {
-        await neo4j()?.writeCypher("match(u:{id:$userId}) match (p:post {id:$id})-[postRel:postRel]->(u) detach delete p", {
-          id,
-          userId
-        });
+        await neo4j()?.writeCypher(
+          "match(u:{id:$userId}) match (p:post {id:$id})-[postRel:postRel]->(u) detach delete p",
+          {
+            id,
+            userId,
+          }
+        );
         return resolve({ message: "Success deleted" });
       } catch (err) {
         return reject({ message: "Error " + err });
@@ -32,15 +35,17 @@ export class PostDal implements PostRepository {
   ): Promise<{ message: string }> {
     return new Promise(async (resolve, reject) => {
       try {
-        await neo4j()?.writeCypher(
-          "match(u:user {id:$userId}) create (p:post {id:$id,title:$title,description:$description}) create(u)-[postRel:postRel]->(p)",
-          {
-            title,
-            description,
-            userId,
-            id:uuid()
-          }
-        ).catch(err=>console.log(err));
+        await neo4j()
+          ?.writeCypher(
+            "match(u:user {id:$userId}) create (p:post {id:$id,title:$title,description:$description}) create(u)-[postRel:postRel]->(p)",
+            {
+              title,
+              description,
+              userId,
+              id: uuid(),
+            }
+          )
+          .catch((err) => console.log(err));
         resolve({ message: "Success created" });
       } catch (err) {
         reject({ message: "Error " + err });
@@ -97,7 +102,7 @@ export class PostDal implements PostRepository {
             {
               id,
               title,
-              description
+              description,
             }
           )
           .catch((err: any) => console.log(err));
@@ -114,12 +119,17 @@ export class PostDal implements PostRepository {
   ): Promise<{ message: string }> {
     return new Promise(async (resolve, reject) => {
       try {
-        await neo4j()?.writeCypher("match(u:user {id:$userId}) match(p:post {id:$postId}) create(c:comment {id:$id,description:$description}) create(u)-[commentUserRel:commentUserRel]->(c) create(c)-[commentPostRel:commentPostRel]->(p)", {
-          userId,
-          postId,
-          description,
-          id:uuid()
-        }).catch(err=>console.log(err));
+        await neo4j()
+          ?.writeCypher(
+            "match(u:user {id:$userId}) match(p:post {id:$postId}) create(c:comment {id:$id,description:$description}) create(u)-[commentUserRel:commentUserRel]->(c) create(c)-[commentPostRel:commentPostRel]->(p)",
+            {
+              userId,
+              postId,
+              description,
+              id: uuid(),
+            }
+          )
+          .catch((err) => console.log(err));
 
         resolve({ message: "Success Comment" });
       } catch (err) {
@@ -134,12 +144,17 @@ export class PostDal implements PostRepository {
   ): Promise<{ message: string }> {
     return new Promise(async (resolve, reject) => {
       try {
-        await neo4j()?.writeCypher("match(u:user {id:$userId}) match(c:comment {id:$commentId}) create(c1:comment {id:$id,description:$description}) create(u)-[subCommentUserRel:subCommentUserRel]->(c1) create(c1)-[subCommentCommentRel:subCommentCommentRel]->(c) ", {
-          userId,
-          commentId,
-          description,
-          id:uuid()
-        }).catch(err=>console.log(err));
+        await neo4j()
+          ?.writeCypher(
+            "match(u:user {id:$userId}) match(c:comment {id:$commentId}) create(c1:comment {id:$id,description:$description}) create(u)-[subCommentUserRel:subCommentUserRel]->(c1) create(c1)-[subCommentCommentRel:subCommentCommentRel]->(c) ",
+            {
+              userId,
+              commentId,
+              description,
+              id: uuid(),
+            }
+          )
+          .catch((err) => console.log(err));
 
         resolve({ message: "Success SubComment" });
       } catch (err) {
@@ -147,28 +162,44 @@ export class PostDal implements PostRepository {
       }
     });
   }
-  async postLike(userId:string,postId:string): Promise<{ message: string }> {
+  async postLike(userId: string, postId: string): Promise<{ message: string }> {
     return new Promise(async (resolve, reject) => {
       try {
-        const isLike = await neo4j()?.cypher(
-            "match(u:user {id:$userId})-[likeRel:likeRel]->(l:like) match(p:post {id:$postId})<-[likePostRel:likePostRel]-(l)"
-        ,{userId,postId}).catch(err=>console.log(err))
-        /*const like = await neo4j()?.writeCypher(
-          "match(u:user {id:$userId}) match(p:post {id:$postId}) create(l:like {id:$id}) create(u)-[likeRel:likeRel]->(l) create(l)-[likePostRel:likePostRel]->(p)",
-          { id: uuid() }
-        ); */
-        const rUser = isLike?.records.map((uss: any) => {
-          return uss.map((res: any) => {
-            return res;
-          });
-        });
-        resolve(rUser as any);
+        await neo4j()
+          ?.writeCypher(
+            "match(u:user {id:$userId}) match(p:post {id:$postId}) create(l:like {id:$id}) create(u)-[likeRel:likeRel]->(l) create(l)-[likePostRel:likePostRel]->(p)",
+            { id: uuid(), userId, postId }
+          )
+          .catch((err) => console.log(err));
+
+        resolve({ message: "Success Like" });
       } catch (err) {
         reject({ message: "Error " + err });
       }
     });
   }
- /* async getFollowers(id: string): Promise<{ message: string }> {
+  async getLike(userId: string, postId: string): Promise<IPost[]> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const isLike = await neo4j()
+          ?.cypher(
+            "match(u:user {id:$userId})-[likeRel:likeRel]->(l:like) match(p:post {id:$postId})<-[likePostRel:likePostRel]-(l) return u",
+            { userId, postId }
+          )
+          .catch((err) => console.log(err));
+        const rLike = isLike?.records.map((uss: any) => {
+          return uss.map((res: any) => {
+            return res.properties;
+          });
+        });
+
+        resolve(rLike as IPost[]);
+      } catch (err) {
+        reject({ message: "Error " + err });
+      }
+    });
+  }
+  /* async getFollowers(id: string): Promise<{ message: string }> {
     return new Promise(async (resolve, reject) => {
       try {
         const user = await neo4j()?.cypher(

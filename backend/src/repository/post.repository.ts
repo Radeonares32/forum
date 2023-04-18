@@ -13,7 +13,7 @@ export interface PostRepository {
     description: string,
     userId: string
   ): Promise<{ message: string }>;
-  delete(id: string,userId:string): Promise<{ message: string }>;
+  delete(id: string, userId: string): Promise<{ message: string }>;
   comment(
     userId: string,
     postId: string,
@@ -25,4 +25,5 @@ export interface PostRepository {
     description: string
   ): Promise<{ message: string }>;
   postLike(userId: string, postId: string): Promise<{ message: string }>;
+  getLike(userId: string, postId: string): Promise<IPost[]>;
 }

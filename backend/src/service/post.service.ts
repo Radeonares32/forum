@@ -175,4 +175,23 @@ export class PostService {
       };
     }
   }
+  async getLike(token: string, postId: string) {
+    try {
+      const email = security.jwt.token.verifyToken(token);
+      if (email.message === "Authorized") {
+        const userId = (await this.userService.userFind(token)).userId;
+        return {
+          getLike: await this.postDataAcess.getLike(userId, postId),
+        };
+      } else {
+        return {
+          message: email.message,
+        };
+      }
+    } catch (err) {
+      return {
+        message: "invalid token",
+      };
+    }
+  }
 }
