@@ -117,7 +117,7 @@ export class PostController {
       });
     } else {
       res.json({
-        message: post.getLike,
+        getLike: post.getLike,
       });
     }
   };

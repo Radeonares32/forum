@@ -165,14 +165,30 @@ export class PostDal implements PostRepository {
   async postLike(userId: string, postId: string): Promise<{ message: string }> {
     return new Promise(async (resolve, reject) => {
       try {
-        await neo4j()
-          ?.writeCypher(
-            "match(u:user {id:$userId}) match(p:post {id:$postId}) create(l:like {id:$id}) create(u)-[likeRel:likeRel]->(l) create(l)-[likePostRel:likePostRel]->(p)",
-            { id: uuid(), userId, postId }
+        const isLike = await neo4j()
+          ?.cypher(
+            "match(u:user {id:$userId})-[likeRel:likeRel]->(l:like) match(p:post {id:$postId})<-[likePostRel:likePostRel]-(l) return l",
+            { userId, postId }
           )
           .catch((err) => console.log(err));
+        const rLike: any = isLike?.records.map((uss: any) => {
+          return uss.map((res: any) => {
+            return res.properties;
+          });
+        });
+        if (rLike?.length > 0) {
+            await neo4j()?.writeCypher("match(l:like {id:$id}) detach delete l",{id:rLike[0][0].id}).catch(err=>console.log(err))
+            resolve({ message: "Success unLike" });
+        } else {
+          await neo4j()
+            ?.writeCypher(
+              "match(u:user {id:$userId}) match(p:post {id:$postId}) create(l:like {id:$id}) create(u)-[likeRel:likeRel]->(l) create(l)-[likePostRel:likePostRel]->(p)",
+              { id: uuid(), userId, postId }
+            )
+            .catch((err) => console.log(err));
 
-        resolve({ message: "Success Like" });
+          resolve({ message: "Success Like" });
+        }
       } catch (err) {
         reject({ message: "Error " + err });
       }
@@ -192,7 +208,6 @@ export class PostDal implements PostRepository {
             return res.properties;
           });
         });
-
         resolve(rLike as IPost[]);
       } catch (err) {
         reject({ message: "Error " + err });
