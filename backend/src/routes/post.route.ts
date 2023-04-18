@@ -19,4 +19,4 @@ export const postLike = app.post('/postLike',post.PostController.createLike)
 export const putPost = app.put('/putPost',post.PostController.updatePost)
 
 //delete
-export const deletePost = app.delete('/deleteUser',post.PostController.deletePost)
+export const deletePost = app.delete('/deletePost',post.PostController.deletePost)

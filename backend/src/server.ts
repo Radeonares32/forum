@@ -8,7 +8,7 @@ const app = express();
 export const server = http.createServer(app);
 
 //! Routes
-import { userRoute,postRoute } from "./routes/routes";
+import { userRoute,postRoute,categoryRoute } from "./routes/routes";
 
 app.use(
   session({
@@ -28,7 +28,7 @@ app.use(
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use("/", userRoute,postRoute);
+app.use("/", userRoute,postRoute,categoryRoute);
 
 if (process.env.NODE_ENV !== "test") {
   server.listen(3000,()=>{

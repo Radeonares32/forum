@@ -25,6 +25,14 @@ import {
   putPost,
 } from "../routes/post.route";
 
+import {
+  deleteCategory,
+  getCategory,
+  getCategoryId,
+  postCategory,
+  putCategory,
+} from "./category.route";
+
 export const userRoute = app.use(
   "/user",
   deleteUser,
@@ -46,4 +54,12 @@ export const postRoute = app.use(
   getPostId,
   postPost,
   putPost
+);
+export const categoryRoute = app.use(
+  "/category",
+  deleteCategory,
+  getCategory,
+  getCategoryId,
+  postCategory,
+  putCategory
 );
