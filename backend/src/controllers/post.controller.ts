@@ -70,7 +70,7 @@ export class PostController {
   static createComment: Handler = async (req, res) => {
     const token:any = req.headers['x-access-token']
     const postService = new PostService();
-    const { userId, postId,description } = req.body;
+    const {postId,description } = req.body;
     const post = await postService.postComment(postId,description,token);
     if (post?.comment?.message) {
       res.json({
