@@ -10,8 +10,8 @@ export class UserController {
     static getUserId: Handler = async (req, res) => {
         const token:any = req.headers['x-access-token']
         if(token) {
-            const user = await new UserService().userFind(token)
-            res.json({ user: user })
+            const user:any = await new UserService().userFind(token)
+            res.json({ user: user,userId:user.user[0][0]})
         }
         else {
             res.status(401).json({

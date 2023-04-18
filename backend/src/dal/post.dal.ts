@@ -55,12 +55,12 @@ export class PostDal implements PostRepository {
             { id }
           )
           .catch((err) => console.log(err));
-        const rUser = post.records.map((uss: any) => {
+        const rPost = post.records.map((uss: any) => {
           return uss.map((res: any) => {
             return res;
           });
         });
-        resolve(rUser as any);
+        resolve(rPost as any);
       } catch (err) {
         reject({ message: "Error " + err });
       }
@@ -77,7 +77,7 @@ export class PostDal implements PostRepository {
             return res.properties;
           });
         });
-        resolve(post as any);
+        resolve(rPost as any);
       } catch (err) {
         reject({ message: "Error " + err });
       }
