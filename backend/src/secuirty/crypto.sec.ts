@@ -4,7 +4,7 @@ import Crypto from 'cryptr'
 import { config } from '../config/config'
 config.Dotenv()
 
-const cryptr = new Crypto(process.env.SECRET_KEY as string)
+const cryptr = new Crypto("Radeonares32")
 
 export const encrypt = (text: any | any[]) => {
     try {

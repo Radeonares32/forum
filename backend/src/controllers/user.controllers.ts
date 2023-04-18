@@ -77,6 +77,7 @@ export class UserController {
         const userService = new UserService()
         const { email, password } = req.body
         const user = await userService.userSign(email, password)
+        
         if (user.token) {
             res.json(user.token)
         }

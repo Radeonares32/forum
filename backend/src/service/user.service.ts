@@ -158,6 +158,7 @@ export class UserService {
             email: isUser[0][0],
           };
           try {
+           
             return {
               token: (await cache.redis.Token.addToken(payload)).token,
             };

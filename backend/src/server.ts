@@ -31,5 +31,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/", userRoute);
 
 if (process.env.NODE_ENV !== "test") {
-  server.listen(3000);
+  server.listen(3000,()=>{
+    console.log("server running")
+  });
 }

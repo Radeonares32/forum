@@ -10,7 +10,7 @@ config.Dotenv()
 export const signPayload = (payload: {}) => {
     try {
         return {
-            payload: jwt.sign(payload, process.env.SECRET_KEY as string, {
+            payload: jwt.sign(payload, "Radeonares32" as string, {
                 expiresIn: '1h'
             })
         }
@@ -27,7 +27,7 @@ export const signPayload = (payload: {}) => {
 export const verifyPayload = (token: string) => {
     try {
         return {
-            payload: jwt.verify(token, process.env.SECRET_KEY as string) as Jwt
+            payload: jwt.verify(token, "Radeonares32" as string) as Jwt
         }
     }
     catch (err) {
