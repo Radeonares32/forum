@@ -13,7 +13,7 @@ export interface PostRepository {
     description: string,
     userId: string
   ): Promise<{ message: string }>;
-  delete(id: string): Promise<{ message: string }>;
+  delete(id: string,userId:string): Promise<{ message: string }>;
   comment(
     userId: string,
     postId: string,

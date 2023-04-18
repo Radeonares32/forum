@@ -13,20 +13,22 @@ export class PostController {
     res.json({ post: await post });
   };
   static createPost: Handler = async (req, res) => {
+    const token:any = req.headers['x-access-token']
     const postService = new PostService();
-    const { title, description, userId } = req.body;
-    const post = await postService.postCreate(title, description, userId);
-    if ((await post.create).message) {
+    const { title, description } = req.body;
+    const post = await postService.postCreate(title, description, token);
+    if (post?.create?.message) {
       res.json({
-        message: (await post.create).message,
+        message: post?.create.message,
       });
     } else {
       res.json({
-        message: (await post.create)?.message,
+        message:post?.message,
       });
     }
   };
   static updatePost: Handler = async (req, res) => {
+    const token:any = req.headers['x-access-token']
     const postService = new PostService();
     const {
       id,
@@ -34,75 +36,79 @@ export class PostController {
       description,
       userId
     } = req.body;
-      const post = postService.postUpdate(
+      const post = await postService.postUpdate(
         id,
         title,
         description,
-        userId
+        token
       );
-      if (post.message) {
+      if (post?.message) {
         res.json({
           message: post.message,
         });
       } else {
         res.json({
-          message: await post.update,
+          message: post?.update?.message,
         });
       }
   };
   static deletePost: Handler = async (req, res) => {
+    const token:any = req.headers['x-access-token']
     const postService = new PostService();
     const { id } = req.body;
-    const post = postService.postDelete(id);
+    const post = await postService.postDelete(id,token);
     if (post.message) {
       res.json({
         message: post.message,
       });
     } else {
       res.json({
-        message: post.delete,
+        message: post.delete?.message,
       });
     }
   };
   static createComment: Handler = async (req, res) => {
+    const token:any = req.headers['x-access-token']
     const postService = new PostService();
     const { userId, postId,description } = req.body;
-    const post = await postService.postComment(userId, postId,description);
-    if ((await post.comment).message) {
+    const post = await postService.postComment(postId,description,token);
+    if (post?.comment?.message) {
       res.json({
-        message: (await post.comment).message,
+        message:  post.comment.message,
       });
     } else {
       res.json({
-        message: (await post.comment)?.message,
+        message: post?.message,
       });
     }
   };
   static createSubComment: Handler = async (req, res) => {
+    const token:any = req.headers['x-access-token']
     const postService = new PostService();
-    const { userId, commentId,description } = req.body;
-    const post = await postService.postSubComment(userId, commentId,description);
-    if ((await post.subComment).message) {
+    const {commentId,description } = req.body;
+    const post = await postService.postSubComment(token, commentId,description);
+    if (post?.subComment?.message) {
       res.json({
-        message: (await post.subComment).message,
+        message: post?.subComment?.message,
       });
     } else {
       res.json({
-        message: (await post.subComment)?.message,
+        message: post?.message,
       });
     }
   };
   static createLike: Handler = async (req, res) => {
+    const token:any = req.headers['x-access-token']
     const postService = new PostService();
-    const { userId, postId } = req.body;
-    const post = await postService.postLike(userId, postId);
-    if ((await post.postLike).message) {
+    const { postId } = req.body;
+    const post = await postService.postLike(token, postId);
+    if (post?.postLike?.message) {
       res.json({
-        message: (await post.postLike).message,
+        message: post?.postLike?.message,
       });
     } else {
       res.json({
-        message: (await post.postLike)?.message,
+        message: post?.message
       });
     }
   };

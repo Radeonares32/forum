@@ -7,7 +7,7 @@ import { post } from "../controllers/controllers";
 
 //Get
 export const getPost = app.get("/getPost", post.PostController.getPost);
-export const getPostId = app.get("/getPostrId", post.PostController.getPostId);
+export const getPostId = app.get("/getPostId", post.PostController.getPostId);
 
 //Post
 export const postPost = app.post("/postPost", post.PostController.createPost);
