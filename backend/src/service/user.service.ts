@@ -15,18 +15,26 @@ export class UserService {
   userFindAll() {
     return this.userDataAcess.findAll();
   }
-  async userFind(id: string) {
-    const isValidId = validation.isIdValidation(id);
-    if (isValidId.isValid === true) {
-      return {
-        user: await this.userDataAcess.find(id),
-        message: isValidId.message,
-      };
-    } else {
-      return {
-        message: isValidId.message,
-      };
+  async userFind(token:string) {
+    try {
+      const email:any = security.jwt.token.verifyToken(token)
+      if (email.message === 'Authorized') {
+        return {
+          user: await this.userDataAcess.find(email.token?.payload?.email),
+          message: email.message,
+        };
+      } else {
+        return {
+          message: email.message,
+        };
+      }
     }
+    catch(err) {
+      return {
+        message:"invalid token"
+      }
+    }
+   
   }
   userDelete(id: string) {
     const isValidId = validation.isIdValidation(id);

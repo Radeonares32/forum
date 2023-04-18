@@ -7,7 +7,7 @@ export interface UserRepository {
     gender: string,
     password: string
   ): Promise<{ message: string }>;
-  find(id: string): Promise<IUser>;
+  find(email: string): Promise<IUser>;
   findAll(): Promise<IUser[]>;
   update(
     id: string,

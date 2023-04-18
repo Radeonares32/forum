@@ -44,12 +44,12 @@ export class UserDal implements UserRepository {
       }
     });
   }
-  async find(id: string): Promise<IUser> {
+  async find(email: string): Promise<IUser> {
     return new Promise(async (resolve, reject) => {
       try {
         const user: any = await neo4j()?.cypher(
-          "match (n1:user {id:$id}) return n1.id,n1.nickname,n1.email,n1.date,n1.gender,n1.password",
-          { id }
+          "match (n1:user {email:$email}) return n1.id,n1.nickname,n1.email,n1.date,n1.gender,n1.password",
+          { email }
         ).catch(err=>console.log(err));
         const rUser = user.records.map((uss: any) => {
           return uss.map((res: any) => {
