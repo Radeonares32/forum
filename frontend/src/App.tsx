@@ -1,19 +1,18 @@
-import { AppBar } from './components/Navbar/AppBar'
-import { SideBar } from './components/Sidebar/Sidebar'
-import { Flow } from './components/Flow/Flow'
-import { Banner } from './components/Banner/Banner'
+import { BrowserRouter,Routes,Route } from 'react-router-dom'
+
+import { Home } from './components/home/home'
+import { SignUp } from './components/sign/signup'
+import { SignIn } from './components/sign/signin'
+
 function App() {
   return (
-    <div>
-      <AppBar />
-      <div className='container-fluid align-self-stretch'>
-        <div className='row'>
-          <SideBar />
-          <Flow />
-          <Banner/>
-        </div>
-      </div>
-    </div>
+   <BrowserRouter>
+    <Routes>
+        <Route path='/' element={ <Home/>}/>
+        <Route path='signup' element={<SignUp/>}/>
+        <Route path='signin' element={<SignIn/>}/>
+    </Routes>
+   </BrowserRouter>
   );
 }
 
