@@ -17,6 +17,14 @@ import {
   unFollowUser,
 } from "../routes/user.route";
 
+import {
+  deletePost,
+  getPost,
+  getPostId,
+  postPost,
+  putPost,
+} from "../routes/post.route";
+
 export const userRoute = app.use(
   "/user",
   deleteUser,
@@ -30,4 +38,12 @@ export const userRoute = app.use(
   putUser,
   signUser,
   unFollowUser
-)
+);
+export const postRoute = app.use(
+  "/post",
+  deletePost,
+  getPost,
+  getPostId,
+  postPost,
+  putPost
+);
