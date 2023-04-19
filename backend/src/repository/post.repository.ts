@@ -27,5 +27,6 @@ export interface PostRepository {
   postLike(userId: string, postId: string): Promise<{ message: string }>;
   getLike(userId: string, postId: string): Promise<IPost[]>;
   createCategoryRel(categoryId:string,userId:string,postId:string):Promise<{ message: string }>
+  getCategoryRel(categoryId:string):Promise<IPost[]>
 
 }

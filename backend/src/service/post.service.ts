@@ -213,4 +213,22 @@ export class PostService {
       };
     }
   }
+  async getCategoryRel(token: string, categoryId: string) {
+    try {
+      const email = security.jwt.token.verifyToken(token);
+      if (email.message === "Authorized") {
+        return {
+          getCategoryRel: await this.postDataAcess.getCategoryRel( categoryId),
+        };
+      } else {
+        return {
+          message: email.message,
+        };
+      }
+    } catch (err) {
+      return {
+        message: "invalid token",
+      };
+    }
+  }
 }

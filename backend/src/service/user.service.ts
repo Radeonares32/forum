@@ -105,7 +105,7 @@ export class UserService {
     const isEmail = validation.isEmailValidation(email);
     if (isEmail.isEmail) {
       return {
-        create: this.userDataAcess.create(nickname, email, date, gender, hash),
+        create: this.userDataAcess.create(nickname,email,date,gender,hash),
       };
     } else {
       return {

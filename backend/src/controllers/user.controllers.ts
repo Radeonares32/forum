@@ -28,7 +28,7 @@ export class UserController {
             })
         }
         else {
-            const user = await userService.userCreate(nickname, email, gender, date, password)
+            const user = await userService.userCreate(nickname, email, date, gender, password)
             if (user.message) {
                 res.json({
                     message: user.message

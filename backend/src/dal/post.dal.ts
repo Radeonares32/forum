@@ -238,4 +238,24 @@ async comment(
       }
     });
   }
+  async getCategoryRel(categoryId:string): Promise<IPost[]> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const category = await neo4j()
+          ?.cypher(
+            "match(c:category {id:$categoryId}) match(p:post) match(c)-[categoryPostRel:categoryPostRel]->(p) return p",
+            { categoryId }
+          )
+          .catch((err) => console.log(err));
+        const rCategory = category?.records.map((uss: any) => {
+          return uss.map((res: any) => {
+            return res.properties;
+          });
+        });
+        resolve(rCategory as IPost[]);
+      } catch (err) {
+        reject({ message: "Error " + err });
+      }
+    });
+  }
 }

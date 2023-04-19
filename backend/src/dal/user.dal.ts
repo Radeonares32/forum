@@ -1,3 +1,5 @@
+import { v4 as uuid } from "uuid";
+
 //? Repository
 import { UserRepository } from "../repository/user.repository";
 //? Entity
@@ -31,13 +33,17 @@ export class UserDal implements UserRepository {
   ): Promise<{ message: string }> {
     return new Promise(async (resolve, reject) => {
       try {
-        await User?.create({
-          nickname,
-          email,
-          date,
-          gender,
-          password,
-        });
+        await neo4j()?.writeCypher(
+          "create (u:user {id:$id,nickname:$nickname,email:$email,date:$date,gender:$gender,password:$password})",
+          {
+            id: uuid(),
+            nickname,
+            email,
+            date,
+            gender,
+            password,
+          }
+        );
         resolve({ message: "Success created" });
       } catch (err) {
         reject({ message: "Error " + err });
@@ -47,10 +53,12 @@ export class UserDal implements UserRepository {
   async find(email: string): Promise<IUser> {
     return new Promise(async (resolve, reject) => {
       try {
-        const user: any = await neo4j()?.cypher(
-          "match (n1:user {email:$email}) return n1.id,n1.nickname,n1.email,n1.date,n1.gender,n1.password",
-          { email }
-        ).catch(err=>console.log(err));
+        const user: any = await neo4j()
+          ?.cypher(
+            "match (n1:user {email:$email}) return n1.id,n1.nickname,n1.email,n1.date,n1.gender,n1.password",
+            { email }
+          )
+          .catch((err) => console.log(err));
         const rUser = user.records.map((uss: any) => {
           return uss.map((res: any) => {
             return res;
@@ -65,7 +73,9 @@ export class UserDal implements UserRepository {
   async findAll(): Promise<IUser[]> {
     return new Promise(async (resolve, reject) => {
       try {
-        const user: any = await neo4j()?.cypher("match (u:user) return u", {}).catch(err=>console.log(err));
+        const user: any = await neo4j()
+          ?.cypher("match (u:user) return u", {})
+          .catch((err) => console.log(err));
         const rUser = user.records.map((uss: any) => {
           return uss.map((res: any) => {
             return res.properties;
