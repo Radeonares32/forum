@@ -14,6 +14,7 @@ export const postPost = app.post("/postPost", post.PostController.createPost);
 export const postComment = app.post('/postComment',post.PostController.createComment)
 export const postSubComment = app.post('/postSubComment',post.PostController.createSubComment)
 export const postLike = app.post('/postLike',post.PostController.createLike)
+export const postCategoryRel = app.post('/categoryRel',post.PostController.postCategoryRel)
 
 //Put
 export const putPost = app.put('/putPost',post.PostController.updatePost)

@@ -19,7 +19,7 @@ export const postCategory = app.post(
   "/postCategory",
   category.CategoryController.createCategory
 );
-
+ 
 //Put
 export const putCategory = app.put(
   "/putCategory",

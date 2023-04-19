@@ -121,4 +121,19 @@ export class PostController {
       });
     }
   };
+  static postCategoryRel: Handler = async (req, res) => {
+    const token: any = req.headers["x-access-token"];
+    const postService = new PostService();
+    const { postId,categoryId } = req.body;
+    const category = await postService.postCategoryRel(token,postId,categoryId);
+    if (category.message) {
+      res.json({
+        message: category?.message,
+      });
+    } else {
+      res.json({
+        getLike: category.postCategoryRel?.message,
+      });
+    }
+  };
 }

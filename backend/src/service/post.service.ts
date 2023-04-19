@@ -194,4 +194,23 @@ export class PostService {
       };
     }
   }
+  async postCategoryRel(token: string, postId: string,categoryId:string) {
+    try {
+      const email = security.jwt.token.verifyToken(token);
+      if (email.message === "Authorized") {
+        const userId = (await this.userService.userFind(token)).userId;
+        return {
+          postCategoryRel: await this.postDataAcess.createCategoryRel(userId,postId,categoryId),
+        };
+      } else {
+        return {
+          message: email.message,
+        };
+      }
+    } catch (err) {
+      return {
+        message: "invalid token",
+      };
+    }
+  }
 }

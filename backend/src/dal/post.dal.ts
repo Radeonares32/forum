@@ -112,7 +112,7 @@ export class PostDal implements PostRepository {
       }
     });
   }
-  async comment(
+async comment(
     userId: string,
     postId: string,
     description: string
@@ -209,6 +209,30 @@ export class PostDal implements PostRepository {
           });
         });
         resolve(rLike as IPost[]);
+      } catch (err) {
+        reject({ message: "Error " + err });
+      }
+    });
+  }
+  async createCategoryRel(
+    userId: string,
+    postId: string,
+    categoryId:string
+  ): Promise<{ message: string }> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        await neo4j()
+          ?.writeCypher(
+            "match(u:user {id:$userId}) match(p:post {id:$postId}) match(c:category {id:$categoryId}) match(u)-[categoryRel:categoryRel]->(c) create (c)<-[categoryPostRel:categoryPostRel]-(p) ",
+            {
+              userId,
+              postId,
+              categoryId,
+            }
+          )
+          .catch((err) => console.log(err));
+
+        resolve({ message: "Success Category Rel" });
       } catch (err) {
         reject({ message: "Error " + err });
       }
