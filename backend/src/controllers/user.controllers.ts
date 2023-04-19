@@ -8,9 +8,16 @@ export class UserController {
         res.json({ user })
     }
     static getUserId: Handler = async (req, res) => {
-        const { id } = req.body
-        const user = new UserService().userFind(id)
-        res.json({ user: await user })
+        const token:any = req.headers['x-access-token']
+        if(token) {
+            const user:any = await new UserService().userFind(token)
+            res.json({ user: user,userId:user.user[0][0]})
+        }
+        else {
+            res.status(401).json({
+                message: "not found token"
+            })
+        } 
     }
     static createUser: Handler = async (req, res) => {
         const userService = new UserService()
@@ -21,7 +28,7 @@ export class UserController {
             })
         }
         else {
-            const user = await userService.userCreate(nickname, email, gender, date, password)
+            const user = await userService.userCreate(nickname, email, date, gender, password)
             if (user.message) {
                 res.json({
                     message: user.message

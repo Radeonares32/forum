@@ -13,96 +13,141 @@ export class PostController {
     res.json({ post: await post });
   };
   static createPost: Handler = async (req, res) => {
+    const token: any = req.headers["x-access-token"];
     const postService = new PostService();
-    const { title, description, userId } = req.body;
-    const post = await postService.postCreate(title, description, userId);
-    if ((await post.create).message) {
+    const { title, description } = req.body;
+    const post = await postService.postCreate(title, description, token);
+    if (post?.create?.message) {
       res.json({
-        message: (await post.create).message,
+        message: post?.create.message,
       });
     } else {
       res.json({
-        message: (await post.create)?.message,
+        message: post?.message,
       });
     }
   };
   static updatePost: Handler = async (req, res) => {
+    const token: any = req.headers["x-access-token"];
     const postService = new PostService();
-    const {
-      id,
-      title,
-      description,
-      userId
-    } = req.body;
-      const post = postService.postUpdate(
-        id,
-        title,
-        description,
-        userId
-      );
-      if (post.message) {
-        res.json({
-          message: post.message,
-        });
-      } else {
-        res.json({
-          message: await post.update,
-        });
-      }
+    const { id, title, description, userId } = req.body;
+    const post = await postService.postUpdate(id, title, description, token);
+    if (post?.message) {
+      res.json({
+        message: post.message,
+      });
+    } else {
+      res.json({
+        message: post?.update?.message,
+      });
+    }
   };
   static deletePost: Handler = async (req, res) => {
+    const token: any = req.headers["x-access-token"];
     const postService = new PostService();
     const { id } = req.body;
-    const post = postService.postDelete(id);
+    const post = await postService.postDelete(id, token);
     if (post.message) {
       res.json({
         message: post.message,
       });
     } else {
       res.json({
-        message: post.delete,
+        message: post.delete?.message,
       });
     }
   };
   static createComment: Handler = async (req, res) => {
+    const token: any = req.headers["x-access-token"];
     const postService = new PostService();
-    const { userId, postId,description } = req.body;
-    const post = await postService.postComment(userId, postId,description);
-    if ((await post.comment).message) {
+    const { postId, description } = req.body;
+    const post = await postService.postComment(postId, description, token);
+    if (post?.comment?.message) {
       res.json({
-        message: (await post.comment).message,
+        message: post.comment.message,
       });
     } else {
       res.json({
-        message: (await post.comment)?.message,
+        message: post?.message,
       });
     }
   };
   static createSubComment: Handler = async (req, res) => {
+    const token: any = req.headers["x-access-token"];
     const postService = new PostService();
-    const { userId, commentId,description } = req.body;
-    const post = await postService.postSubComment(userId, commentId,description);
-    if ((await post.subComment).message) {
+    const { commentId, description } = req.body;
+    const post = await postService.postSubComment(
+      token,
+      commentId,
+      description
+    );
+    if (post?.subComment?.message) {
       res.json({
-        message: (await post.subComment).message,
+        message: post?.subComment?.message,
       });
     } else {
       res.json({
-        message: (await post.subComment)?.message,
+        message: post?.message,
       });
     }
   };
   static createLike: Handler = async (req, res) => {
+    const token: any = req.headers["x-access-token"];
     const postService = new PostService();
-    const { userId, postId } = req.body;
-    const post = await postService.postLike(userId, postId);
-    if ((await post.postLike).message) {
+    const { postId } = req.body;
+    const post = await postService.postLike(token, postId);
+    if (post?.postLike?.message) {
       res.json({
-        message: (await post.postLike).message,
+        message: post?.postLike?.message,
       });
     } else {
       res.json({
-        message: (await post.postLike)?.message,
+        message: post?.message,
+      });
+    }
+  };
+  static getLike: Handler = async (req, res) => {
+    const token: any = req.headers["x-access-token"];
+    const postService = new PostService();
+    const { postId } = req.body;
+    const post = await postService.getLike(token, postId);
+    if (post.message) {
+      res.json({
+        message: post?.message,
+      });
+    } else {
+      res.json({
+        getLike: post.getLike,
+      });
+    }
+  };
+  static postCategoryRel: Handler = async (req, res) => {
+    const token: any = req.headers["x-access-token"];
+    const postService = new PostService();
+    const { postId,categoryId } = req.body;
+    const category = await postService.postCategoryRel(token,postId,categoryId);
+    if (category.message) {
+      res.json({
+        message: category?.message,
+      });
+    } else {
+      res.json({
+        getLike: category.postCategoryRel?.message,
+      });
+    }
+  };
+   static getCategoryRel: Handler = async (req, res) => {
+    const token: any = req.headers["x-access-token"];
+    const postService = new PostService();
+    const { categoryId } = req.body;
+    const post = await postService.getCategoryRel(token, categoryId);
+    if (post.message) {
+      res.json({
+        message: post?.message,
+      });
+    } else {
+      res.json({
+        getLike: post.getCategoryRel,
       });
     }
   };
