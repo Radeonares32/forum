@@ -1,13 +1,15 @@
 import { Link } from 'react-router-dom'
-
+import {useAuthUser,useIsAuthenticated,useSignOut } from 'react-auth-kit'
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
-import { Person,Bell,Gear } from 'react-bootstrap-icons';
 
 export const AppBar = () => {
+    const auth:any = useAuthUser()
+    const isAuthenticated = useIsAuthenticated()
+    const signOut = useSignOut()
     return (
         <>
         <Navbar collapseOnSelect expand="lg" style={{backgroundColor:'#fff'}} variant="dark">
@@ -52,8 +54,21 @@ export const AppBar = () => {
                             </Nav.Link>
                         </Nav>
                         <Nav >
-                            <Link to="/signup" style={{ marginLeft: '5rem',color:'blue' }}>Giriş Yap</Link>
-                            <Link to="/signin" style={{ marginLeft: '1rem',color:'blue' }}>Kayıt Ol</Link>
+                            {
+                                isAuthenticated() ? (
+                                    <>
+                                        <Link to="/profile" style={{ marginLeft: '5rem',color:'blue' }}>{auth().nickname}</Link>
+                                        <Link to="" onClick={() => signOut()} style={{ marginLeft: '1rem',color:'blue' }}>Logout</Link>
+                                       
+                                    </>
+                                ) : (
+                                    <>
+                                    <Link to="/signin" style={{ marginLeft: '5rem',color:'blue' }}>Giriş Yap</Link>
+                                    <Link to="/signup" style={{ marginLeft: '1rem',color:'blue' }}>Kayıt Ol</Link>
+                                    </>
+                                )
+                            }
+                           
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
