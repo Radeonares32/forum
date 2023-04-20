@@ -165,4 +165,32 @@ export class PostController {
       });
     }
   };
+  static getPostRelComment: Handler = async (req, res) => {
+    const postService = new PostService();
+    const { postId } = req.body;
+    const post = await postService.getPostRelComment(postId);
+    if (post.message) {
+      res.json({
+        message: post?.message,
+      });
+    } else {
+      res.json({
+        getPost: post.comment,
+      });
+    }
+  };
+  static getSubCommentRelComment: Handler = async (req, res) => {
+    const postService = new PostService();
+    const { commentId } = req.body;
+    const post = await postService.getSubCommentRelComment(commentId);
+    if (post.message) {
+      res.json({
+        message: post?.message,
+      });
+    } else {
+      res.json({
+        getPost: post.subComment,
+      });
+    }
+  };
 }

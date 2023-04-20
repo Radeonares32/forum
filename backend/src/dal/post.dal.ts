@@ -57,13 +57,13 @@ export class PostDal implements PostRepository {
       try {
         const post: any = await neo4j()
           ?.cypher(
-            "match (p:post {id:$id}) return p.id,p.title,p.description",
+            "match (p:post {id:$id})<-[postRel:postRel]-(u:user) return u,p",
             { id }
           )
           .catch((err) => console.log(err));
         const rPost = post.records.map((uss: any) => {
           return uss.map((res: any) => {
-            return res;
+            return res.properties;
           });
         });
         resolve(rPost as any);
@@ -76,18 +76,57 @@ export class PostDal implements PostRepository {
     return new Promise(async (resolve, reject) => {
       try {
         const post: any = await neo4j()
-          ?.cypher("match (p:post) return p", {})
-          .catch((err) => console.log(err));
+          ?.readCypher("match(u:user)-[:postRel]->(p:post) return u,p", {})
+          .catch((err) => console.log(err))
         const rPost = post.records.map((uss: any) => {
           return uss.map((res: any) => {
             return res.properties;
           });
-        });
+        })
+        
         resolve(rPost as any);
       } catch (err) {
         reject({ message: "Error " + err });
       }
     });
+  }
+  async getPostRelComment(postId:string): Promise<IPost[]> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const post: any = await neo4j()
+          ?.readCypher("match (u:user)-[:commentUserRel]->(c:comment)-[:commentPostRel]->(p:post{id:$postId}) return u,c", {postId})
+          .catch((err) => console.log(err))
+        const rPost = post.records.map((uss: any) => {
+          return uss.map((res: any) => {
+            return res.properties;
+          });
+        })
+        
+        resolve(rPost as any);
+      } catch (err) {
+        reject({ message: "Error " + err });
+      }
+    });
+    
+  }
+  async getSubCommentRelComment(commentId:string): Promise<IPost[]> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const post: any = await neo4j()
+          ?.readCypher("match (u:user)-[:subCommentUserRel]->(c:comment)-[:subCommentCommentRel]->(c1:comment {id:$commentId}) return u,c", {commentId})
+          .catch((err) => console.log(err))
+        const rPost = post.records.map((uss: any) => {
+          return uss.map((res: any) => {
+            return res.properties;
+          });
+        })
+        
+        resolve(rPost as any);
+      } catch (err) {
+        reject({ message: "Error " + err });
+      }
+    });
+    
   }
   async update(
     id: string,

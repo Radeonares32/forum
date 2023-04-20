@@ -14,13 +14,39 @@ export class PostService {
   private postDataAcess: PostDal = new PostDal();
   private userService: UserService = new UserService();
   postFindAll() {
-    return this.postDataAcess.findAll();
+    return this.postDataAcess.findAll()
   }
   async postFind(id: string) {
     const isValidId = validation.isIdValidation(id);
     if (isValidId.isValid === true) {
       return {
         post: await this.postDataAcess.find(id),
+        message: isValidId.message,
+      };
+    } else {
+      return {
+        message: isValidId.message,
+      };
+    }
+  }
+  async getPostRelComment(postId: string) {
+    const isValidId = validation.isIdValidation(postId);
+    if (isValidId.isValid === true) {
+      return {
+        comment: await this.postDataAcess.getPostRelComment(postId),
+        message: isValidId.message,
+      };
+    } else {
+      return {
+        message: isValidId.message,
+      };
+    }
+  }
+  async getSubCommentRelComment(commentId: string) {
+    const isValidId = validation.isIdValidation(commentId);
+    if (isValidId.isValid === true) {
+      return {
+        subComment: await this.postDataAcess.getSubCommentRelComment(commentId),
         message: isValidId.message,
       };
     } else {

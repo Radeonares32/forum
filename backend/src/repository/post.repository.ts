@@ -29,4 +29,6 @@ export interface PostRepository {
   createCategoryRel(categoryId:string,userId:string,postId:string):Promise<{ message: string }>
   getCategoryRel(categoryId:string):Promise<IPost[]>
   getUserRelPost(userId:string):Promise<IPost[]>
+  getPostRelComment(postId:string):Promise<IPost[]>
+  getSubCommentRelComment(commentId:string):Promise<IPost[]>
 }
