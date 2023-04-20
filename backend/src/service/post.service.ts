@@ -231,4 +231,23 @@ export class PostService {
       };
     }
   }
+  async getUserRelPost(token: string) {
+    try {
+      const email = security.jwt.token.verifyToken(token);
+      if (email.message === "Authorized") {
+        const userId = (await this.userService.userFind(token)).userId;
+        return {
+          getPost: await this.postDataAcess.getUserRelPost(userId),
+        };
+      } else {
+        return {
+          message: email.message,
+        };
+      }
+    } catch (err) {
+      return {
+        message: "invalid token",
+      };
+    }
+  }
 }

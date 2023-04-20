@@ -258,4 +258,24 @@ async comment(
       }
     });
   }
+  async getUserRelPost(userId:string): Promise<IPost[]> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const category = await neo4j()
+          ?.cypher(
+            "match(u:user {id:$userId})-[postRel:postRel]->(p:post) return p",
+            { userId }
+          )
+          .catch((err) => console.log(err));
+        const rCategory = category?.records.map((uss: any) => {
+          return uss.map((res: any) => {
+            return res.properties;
+          });
+        });
+        resolve(rCategory as IPost[]);
+      } catch (err) {
+        reject({ message: "Error " + err });
+      }
+    });
+  }
 }

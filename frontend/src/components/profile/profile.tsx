@@ -1,106 +1,156 @@
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-
-import { useRef } from "react";
-import {useAuthUser } from 'react-auth-kit'
+import { useState } from "react";
+import { useAuthUser,useSignOut } from "react-auth-kit";
 
 import axios from "axios";
-export const Profile = () => {
-  let auth:any = useAuthUser()
-  const nickname: any = useRef(null);
-  const email: any = useRef(null);
-  const date: any = useRef(null);
-  const gender: any = useRef(null);
-  const newPassword: any = useRef(null);
-  const oldPassword: any = useRef(null);
-  const passwordRepeat: any = useRef(null);
+import { AppBar } from "../home/Navbar/AppBar";
 
-  const submit = async () =>{
-    if(newPassword.current.value === "") {
-        alert("new password empty")
+export const Profile = () => {
+  let auth: any = useAuthUser();
+  let signOut = useSignOut()
+  const [nickname, setNickname] = useState(auth().nickname);
+  const [email, setEmail] = useState(auth().email);
+  const [date, setDate] = useState(auth().date);
+  const [gender, setGender] = useState(auth().gender);
+  const [newPassword, setNewPassword] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
+  const [passwordRepeat, setPasswordRepeat] = useState("");
+  const [message, setMessage] = useState("");
+
+  const submit = async () => {
+    if (newPassword === "") {
+      alert("new password empty");
     }
-    if(oldPassword.current.value === "") {
-        alert("old password empty")
+    if (oldPassword === "") {
+      alert("old password empty");
     }
-    if(passwordRepeat.current.value === "") {
-        alert("password repeat empty")
+    if (passwordRepeat === "") {
+      alert("password repeat empty");
     }
-    const user = await axios.put('http://localhost:3000/user/putUser',{
-        id:auth().id,
-        nickname:nickname.current.value,
-        email:email.current.value,
-        gender:gender.current.value,
-        date:date.current.value,
-        password:passwordRepeat.current.value,
-        hash:auth().hash,
-        oldPassword:oldPassword.current.value,
-        newPassword:newPassword.current.value
-    })
-    console.log(user.data)
-  }
+    const user = await axios.put("http://localhost:3000/user/putUser", {
+      id: auth().id,
+      nickname: nickname,
+      email: email,
+      gender: gender,
+      date: date,
+      password: passwordRepeat,
+      hash: auth().hash,
+      oldPassword: oldPassword,
+      newPassword: newPassword,
+    });
+    if (user.data.message === "password not match hash") {
+      setMessage("Old Password Wrong");
+    }
+   else {
+    setMessage("Succces Updated");
+    signOut()
+   }
+  };
 
   return (
-    <div className="col-md-5 mt-5">
-      <Form>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Nickname</Form.Label>
-          <Form.Control ref={nickname} value={auth().nickname}  type="text" placeholder="Nickname" />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email</Form.Label>
-          <Form.Control ref={email} value={auth().email} type="email" placeholder="Email" />
-        </Form.Group>
-        <Form.Group controlId="dob"  className="mb-3">
-          <Form.Label>Select Date</Form.Label>
-          <Form.Control
-            value={auth().date}
-            ref={date}
-            type="date"
-            name="dob"
-            placeholder="Date of Birth"
-          />
-        </Form.Group>
-        <Form.Group controlId="dob" className="mb-3">
-          <Form.Label>Gender</Form.Label>
-          <Form.Select value={auth().gender} ref={gender} aria-label="Default select example">
-            <option>Gender</option>
-            <option value="male">Male</option>
-            <option value="famale">Famale</option>
-            <option value="other">Other</option>
-          </Form.Select>
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Old Password</Form.Label>
-          <Form.Control ref={oldPassword} type="password" placeholder="Password" />
-          <Form.Text className="text-muted">
-            password is at least 8 characters at least one capital letter a
-            lowercase letter must contain numbers.
-          </Form.Text>
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>New Password</Form.Label>
-          <Form.Control ref={newPassword} type="password" placeholder="Password" />
-          <Form.Text className="text-muted">
-            password is at least 8 characters at least one capital letter a
-            lowercase letter must contain numbers.
-          </Form.Text>
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Password Repeat</Form.Label>
-          <Form.Control
-            ref={passwordRepeat}
-            type="password"
-            placeholder="Password repeat"
-          />
-          <Form.Text className="text-muted">
-            password is at least 8 characters at least one capital letter a
-            lowercase letter must contain numbers.
-          </Form.Text>
-        </Form.Group>
-        <Button onClick={submit} variant="primary" type="button">
-          Update
-        </Button>
-      </Form>
-    </div>
+    <>
+      <AppBar />
+      <div className="container rounded bg-white mt-5 mb-5">
+        <div className="row">
+          <div className="col-md-3 border-right"></div>
+          <div className="col-md-5 border-right">
+            <div className="p-3 py-5">
+              {message ? (
+                <div className="alert alert-danger">{message}</div>
+              ) : (
+                <div></div>
+              )}
+              <div className="d-flex justify-content-between align-items-center mb-3">
+                <h4 className="text-right">Profile Settings</h4>
+              </div>
+              <div className="row mt-2">
+                <div className="col-md-6">
+                  <label className="labels">Nickname</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="nickname"
+                    value={nickname}
+                    onChange={(e) => setNickname(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-6">
+                  <label className="labels">Email</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="email"
+                  />
+                </div>
+              </div>
+              <div className="row mt-3">
+                <div className="col-md-12">
+                  <label className="labels">old password</label>
+                  <input
+                    type="password"
+                    className="form-control"
+                    placeholder="Password"
+                    value={oldPassword}
+                    onChange={(e) => setOldPassword(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-12">
+                  <label className="labels">old password repeat</label>
+                  <input
+                    type="password"
+                    className="form-control"
+                    placeholder="Password"
+                    value={passwordRepeat}
+                    onChange={(e) => setPasswordRepeat(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-12">
+                  <label className="labels">new password</label>
+                  <input
+                    type="password"
+                    className="form-control"
+                    placeholder="New password"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-12">
+                  <label className="labels">date</label>
+                  <input
+                    type="date"
+                    className="form-control"
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                  />
+                </div>
+                <div className="col-md-12">
+                  <label className="labels">Gender</label>
+                  <select
+                    value={gender}
+                    onChange={(e) => setGender(e.target.value)}
+                    className="form-select"
+                  >
+                    <option selected>Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+              </div>
+              <div className="mt-5 text-center">
+                <button
+                  className="btn btn-primary profile-button"
+                  type="button"
+                  onClick={submit}
+                >
+                  Save Profile
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };

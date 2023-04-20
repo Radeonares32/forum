@@ -21,7 +21,7 @@ function App() {
           <Route
             path="profile"
             element={
-              <RequireAuth loginPath={"/signin"} >
+              <RequireAuth loginPath={"/"} >
                 <Profile />
               </RequireAuth>
             }
