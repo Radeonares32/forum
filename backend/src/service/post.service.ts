@@ -34,7 +34,7 @@ export class PostService {
     if (isValidId.isValid === true) {
       return {
         comment: await this.postDataAcess.getPostRelComment(postId),
-        message: isValidId.message,
+       
       };
     } else {
       return {
@@ -46,8 +46,7 @@ export class PostService {
     const isValidId = validation.isIdValidation(commentId);
     if (isValidId.isValid === true) {
       return {
-        subComment: await this.postDataAcess.getSubCommentRelComment(commentId),
-        message: isValidId.message,
+        subComment: await this.postDataAcess.getSubCommentRelComment(commentId)
       };
     } else {
       return {

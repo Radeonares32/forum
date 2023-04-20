@@ -101,6 +101,7 @@ export class PostDal implements PostRepository {
             return res.properties;
           });
         })
+       
         
         resolve(rPost as any);
       } catch (err) {
