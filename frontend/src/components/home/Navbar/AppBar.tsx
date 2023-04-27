@@ -42,14 +42,14 @@ export const AppBar = () => {
 
               <Nav.Link
                 href="#action2"
-                style={{ marginLeft: "45rem", color: "black" }}
+                style={{ marginLeft: "24rem", color: "black" }}
               >
                 Canlı Veri
               </Nav.Link>
 
               <Nav.Link
                 href="#action2"
-                style={{ marginLeft: "40rem", color: "black" }}
+                style={{ marginLeft: "30rem", color: "black" }}
               >
                 Canlı Veri
               </Nav.Link>
@@ -69,7 +69,7 @@ export const AppBar = () => {
             <Nav className="me-auto">
               <Nav.Link
                 href="#action2"
-                style={{ marginLeft: "37rem", width: "22rem" }}
+                style={{ marginLeft: "30rem", width: "22rem" }}
               >
                 <Form className="d-flex">
                   <Form.Control
@@ -148,7 +148,7 @@ export const AppBar = () => {
             <Nav className="me-auto">
               <Nav.Link
                 href="#action2"
-                style={{ marginLeft: "18rem", color: "blue" }}
+                style={{ marginLeft: "16rem", color: "blue" }}
               >
                 X1
               </Nav.Link>
@@ -185,7 +185,7 @@ export const AppBar = () => {
 
               <Nav.Link
                 href="#action2"
-                style={{ marginLeft: "19rem", color: "blue" }}
+                style={{ marginLeft: "10rem", color: "blue" }}
               >
                 X7
               </Nav.Link>
