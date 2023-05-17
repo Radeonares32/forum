@@ -14,7 +14,7 @@ export class PostService {
   private postDataAcess: PostDal = new PostDal();
   private userService: UserService = new UserService();
   postFindAll() {
-    return this.postDataAcess.findAll()
+    return this.postDataAcess.findAll();
   }
   async postFind(id: string) {
     const isValidId = validation.isIdValidation(id);
@@ -34,7 +34,6 @@ export class PostService {
     if (isValidId.isValid === true) {
       return {
         comment: await this.postDataAcess.getPostRelComment(postId),
-       
       };
     } else {
       return {
@@ -46,7 +45,7 @@ export class PostService {
     const isValidId = validation.isIdValidation(commentId);
     if (isValidId.isValid === true) {
       return {
-        subComment: await this.postDataAcess.getSubCommentRelComment(commentId)
+        subComment: await this.postDataAcess.getSubCommentRelComment(commentId),
       };
     } else {
       return {
@@ -84,7 +83,8 @@ export class PostService {
     id: string,
     title: string,
     description: string,
-    token: string
+    token: string,
+    image: string
   ) {
     try {
       const email = security.jwt.token.verifyToken(token);
@@ -96,7 +96,8 @@ export class PostService {
             update: await this.postDataAcess.update(
               id,
               title,
-              description
+              description,
+              image
             ),
           };
         } else {
@@ -115,13 +116,23 @@ export class PostService {
       };
     }
   }
-  async postCreate(title: string, description: string, token: string) {
+  async postCreate(
+    title: string,
+    description: string,
+    token: string,
+    image: string
+  ) {
     try {
       const email = security.jwt.token.verifyToken(token);
       if (email.message === "Authorized") {
         const userId = (await this.userService.userFind(token)).userId;
         return {
-          create: await this.postDataAcess.create(title, description, userId),
+          create: await this.postDataAcess.create(
+            title,
+            description,
+            image,
+            userId
+          ),
         };
       } else {
         return {
@@ -219,13 +230,17 @@ export class PostService {
       };
     }
   }
-  async postCategoryRel(token: string, postId: string,categoryId:string) {
+  async postCategoryRel(token: string, postId: string, categoryId: string) {
     try {
       const email = security.jwt.token.verifyToken(token);
       if (email.message === "Authorized") {
         const userId = (await this.userService.userFind(token)).userId;
         return {
-          postCategoryRel: await this.postDataAcess.createCategoryRel(userId,postId,categoryId),
+          postCategoryRel: await this.postDataAcess.createCategoryRel(
+            userId,
+            postId,
+            categoryId
+          ),
         };
       } else {
         return {
@@ -243,7 +258,7 @@ export class PostService {
       const email = security.jwt.token.verifyToken(token);
       if (email.message === "Authorized") {
         return {
-          getCategoryRel: await this.postDataAcess.getCategoryRel( categoryId),
+          getCategoryRel: await this.postDataAcess.getCategoryRel(categoryId),
         };
       } else {
         return {
