@@ -3,8 +3,6 @@ export interface UserRepository {
   create(
     nickname: string,
     email: string,
-    date: string,
-    gender: string,
     password: string,
     bio: string,
     image: string,
@@ -16,8 +14,6 @@ export interface UserRepository {
     id: string,
     nickname: string,
     email: string,
-    date: string,
-    gender: string,
     password: string,
     bio: string,
     image: string,
