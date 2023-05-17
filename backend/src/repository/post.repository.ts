@@ -3,6 +3,7 @@ export interface PostRepository {
   create(
     title: string,
     description: string,
+    image:string,
     userId: string
   ): Promise<{ message: string }>;
   find(id: string): Promise<IPost>;
@@ -11,6 +12,7 @@ export interface PostRepository {
     id: string,
     title: string,
     description: string,
+    image:string,
     userId: string
   ): Promise<{ message: string }>;
   delete(id: string, userId: string): Promise<{ message: string }>;
