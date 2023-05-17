@@ -4,6 +4,7 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import { PersonFill, GearFill, BellFill } from "react-bootstrap-icons";
 
 export const AppBar = () => {
   const auth: any = useAuthUser();
@@ -51,7 +52,45 @@ export const AppBar = () => {
                 href="#action2"
                 style={{ marginLeft: "30rem", color: "black" }}
               >
-                Canlı Veri
+                <Nav>
+                  {isAuthenticated() ? (
+                    <>
+                      <Link
+                        to="/profile"
+                        style={{ marginLeft: "1rem", color: "blue" }}
+                      >
+                        <PersonFill
+                          to="/profile"
+                          size={30}
+                          style={{ marginLeft: "1rem" }}
+                        />
+                      </Link>
+                      <Link
+                        to="/profile"
+                        style={{ marginLeft: "1rem", color: "blue" }}
+                      >
+                        <GearFill
+                          to="/profile"
+                          size={27}
+                          style={{ marginLeft: "1rem" }}
+                        />
+                      </Link>
+                      <Link
+                        to="/"
+                        onClick={logout}
+                        style={{ marginLeft: "1rem", color: "blue" }}
+                      >
+                        <BellFill
+                          to="/profile"
+                          size={27}
+                          style={{ marginLeft: "1rem" }}
+                        />
+                      </Link>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                </Nav>
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
@@ -86,6 +125,7 @@ export const AppBar = () => {
                 </Form>
               </Nav.Link>
             </Nav>
+
             <Nav>
               {isAuthenticated() ? (
                 <>
@@ -95,18 +135,7 @@ export const AppBar = () => {
                   >
                     {auth().nickname}
                   </Link>
-                  <Link
-                    to="/profile"
-                    style={{ marginLeft: "1rem", color: "blue" }}
-                  >
-                    My Post
-                  </Link>
-                  <Link
-                    to="/profile"
-                    style={{ marginLeft: "1rem", color: "blue" }}
-                  >
-                    My Category
-                  </Link>
+
                   <Link
                     to="/"
                     onClick={logout}
@@ -117,7 +146,7 @@ export const AppBar = () => {
                 </>
               ) : (
                 <>
-                    <Link
+                  <Link
                     to="/signin"
                     style={{ marginLeft: "1rem", color: "blue" }}
                   >
@@ -154,44 +183,72 @@ export const AppBar = () => {
             <Nav className="me-auto">
               <Nav.Link
                 href="#action2"
-                style={{ marginLeft: "30rem",border:'1px solid #fff', color: "blue" }}
+                style={{
+                  marginLeft: "30rem",
+                  border: "1px solid #fff",
+                  color: "blue",
+                }}
               >
                 X1
               </Nav.Link>
               <Nav.Link
                 href="#action2"
-                style={{ marginLeft: "4rem", border:'1px solid #fff',color: "blue" }}
+                style={{
+                  marginLeft: "4rem",
+                  border: "1px solid #fff",
+                  color: "blue",
+                }}
               >
                 X2
               </Nav.Link>
               <Nav.Link
                 href="#action2"
-                style={{ marginLeft: "4rem", border:'1px solid #fff',color: "blue" }}
+                style={{
+                  marginLeft: "4rem",
+                  border: "1px solid #fff",
+                  color: "blue",
+                }}
               >
                 X3
               </Nav.Link>
               <Nav.Link
                 href="#action2"
-                style={{ marginLeft: "4rem", border:'1px solid #fff',color: "blue" }}
+                style={{
+                  marginLeft: "4rem",
+                  border: "1px solid #fff",
+                  color: "blue",
+                }}
               >
                 X4
               </Nav.Link>
               <Nav.Link
                 href="#action2"
-                style={{ marginLeft: "4rem", border:'1px solid #fff',color: "blue" }}
+                style={{
+                  marginLeft: "4rem",
+                  border: "1px solid #fff",
+                  color: "blue",
+                }}
               >
                 X5
               </Nav.Link>
               <Nav.Link
                 href="#action2"
-                style={{ marginLeft: "4rem", border:'1px solid #fff',color: "blue" }}
+                style={{
+                  marginLeft: "4rem",
+                  border: "1px solid #fff",
+                  color: "blue",
+                }}
               >
                 X6
               </Nav.Link>
 
               <Nav.Link
                 href="#action2"
-                style={{ marginLeft: "4rem", border:'1px solid #fff',color: "blue" }}
+                style={{
+                  marginLeft: "4rem",
+                  border: "1px solid #fff",
+                  color: "blue",
+                }}
               >
                 X8
               </Nav.Link>
