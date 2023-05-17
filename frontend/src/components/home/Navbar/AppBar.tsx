@@ -4,6 +4,12 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import {
+  PersonFill,
+  GearFill,
+  BellFill,
+  ChatFill,
+} from "react-bootstrap-icons";
 
 export const AppBar = () => {
   const auth: any = useAuthUser();
@@ -49,9 +55,59 @@ export const AppBar = () => {
 
               <Nav.Link
                 href="#action2"
-                style={{ marginLeft: "30rem", color: "black" }}
+                style={{ marginLeft: "24rem", color: "black" }}
               >
-                Canlı Veri
+                <Nav>
+                  {isAuthenticated() ? (
+                    <>
+                      <Link
+                        to="/profile"
+                        style={{ marginLeft: "1rem", color: "blue" }}
+                      >
+                        <PersonFill
+                          to="/profile"
+                          size={30}
+                          style={{ marginLeft: "1rem" }}
+                        />
+                      </Link>
+                     
+                      <Link
+                        to="/"
+                        onClick={logout}
+                        style={{ marginLeft: "1rem", color: "blue" }}
+                      >
+                        <BellFill
+                          to="/profile"
+                          size={27}
+                          style={{ marginLeft: "1rem" }}
+                        />
+                      </Link>
+                      <Link
+                        to="/"
+                        onClick={logout}
+                        style={{ marginLeft: "1rem", color: "blue" }}
+                      >
+                        <ChatFill
+                          to="/profile"
+                          size={27}
+                          style={{ marginLeft: "1rem" }}
+                        />
+                      </Link>
+                      <Link
+                        to="/profile"
+                        style={{ marginLeft: "1rem", color: "blue" }}
+                      >
+                        <GearFill
+                          to="/profile"
+                          size={27}
+                          style={{ marginLeft: "1rem" }}
+                        />
+                      </Link>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                </Nav>
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
@@ -86,27 +142,23 @@ export const AppBar = () => {
                 </Form>
               </Nav.Link>
             </Nav>
+
             <Nav>
               {isAuthenticated() ? (
                 <>
                   <Link
+                    to="/signin"
+                    style={{ marginLeft: "1rem", color: "blue" }}
+                  >
+                    X7
+                  </Link>
+                  <Link
                     to="/profile"
-                    style={{ marginLeft: "5rem", color: "blue" }}
+                    style={{ marginLeft: "1rem", color: "blue" }}
                   >
                     {auth().nickname}
                   </Link>
-                  <Link
-                    to="/profile"
-                    style={{ marginLeft: "1rem", color: "blue" }}
-                  >
-                    My Post
-                  </Link>
-                  <Link
-                    to="/profile"
-                    style={{ marginLeft: "1rem", color: "blue" }}
-                  >
-                    My Category
-                  </Link>
+
                   <Link
                     to="/"
                     onClick={logout}
@@ -117,7 +169,7 @@ export const AppBar = () => {
                 </>
               ) : (
                 <>
-                    <Link
+                  <Link
                     to="/signin"
                     style={{ marginLeft: "1rem", color: "blue" }}
                   >
@@ -154,46 +206,69 @@ export const AppBar = () => {
             <Nav className="me-auto">
               <Nav.Link
                 href="#action2"
-                style={{ marginLeft: "30rem",border:'1px solid #fff', color: "blue" }}
+                style={{
+                  marginLeft: "30rem",
+                  border: "1px solid #fff",
+                  color: "blue",
+                  textDecoration: "underline",
+                }}
               >
                 X1
               </Nav.Link>
               <Nav.Link
                 href="#action2"
-                style={{ marginLeft: "4rem", border:'1px solid #fff',color: "blue" }}
+                style={{
+                  marginLeft: "4rem",
+                  border: "1px solid #fff",
+                  color: "blue",
+                  textDecoration: "underline",
+                }}
               >
                 X2
               </Nav.Link>
               <Nav.Link
                 href="#action2"
-                style={{ marginLeft: "4rem", border:'1px solid #fff',color: "blue" }}
+                style={{
+                  marginLeft: "4rem",
+                  border: "1px solid #fff",
+                  color: "blue",
+                  textDecoration: "underline",
+                }}
               >
                 X3
               </Nav.Link>
               <Nav.Link
                 href="#action2"
-                style={{ marginLeft: "4rem", border:'1px solid #fff',color: "blue" }}
+                style={{
+                  marginLeft: "4rem",
+                  border: "1px solid #fff",
+                  color: "blue",
+                  textDecoration: "underline",
+                }}
               >
                 X4
               </Nav.Link>
               <Nav.Link
                 href="#action2"
-                style={{ marginLeft: "4rem", border:'1px solid #fff',color: "blue" }}
+                style={{
+                  marginLeft: "4rem",
+                  border: "1px solid #fff",
+                  color: "blue",
+                  textDecoration: "underline",
+                }}
               >
                 X5
               </Nav.Link>
               <Nav.Link
                 href="#action2"
-                style={{ marginLeft: "4rem", border:'1px solid #fff',color: "blue" }}
+                style={{
+                  marginLeft: "4rem",
+                  border: "1px solid #fff",
+                  color: "blue",
+                  textDecoration: "underline",
+                }}
               >
                 X6
-              </Nav.Link>
-
-              <Nav.Link
-                href="#action2"
-                style={{ marginLeft: "4rem", border:'1px solid #fff',color: "blue" }}
-              >
-                X8
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
