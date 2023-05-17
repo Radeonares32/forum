@@ -10,8 +10,8 @@ export const AppBar = () => {
   const isAuthenticated = useIsAuthenticated();
   const signOut = useSignOut();
   const logout = () => {
-    signOut()
-  }
+    signOut();
+  };
   return (
     <>
       <Navbar
