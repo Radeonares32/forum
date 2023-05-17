@@ -117,9 +117,15 @@ export const AppBar = () => {
                 </>
               ) : (
                 <>
+                    <Link
+                    to="/signin"
+                    style={{ marginLeft: "1rem", color: "blue" }}
+                  >
+                    X7
+                  </Link>
                   <Link
                     to="/signin"
-                    style={{ marginLeft: "5rem", color: "blue" }}
+                    style={{ marginLeft: "2rem", color: "blue" }}
                   >
                     Giriş Yap
                   </Link>
@@ -148,50 +154,44 @@ export const AppBar = () => {
             <Nav className="me-auto">
               <Nav.Link
                 href="#action2"
-                style={{ marginLeft: "16rem", color: "blue" }}
+                style={{ marginLeft: "30rem",border:'1px solid #fff', color: "blue" }}
               >
                 X1
               </Nav.Link>
               <Nav.Link
                 href="#action2"
-                style={{ marginLeft: "7rem", color: "blue" }}
+                style={{ marginLeft: "4rem", border:'1px solid #fff',color: "blue" }}
               >
                 X2
               </Nav.Link>
               <Nav.Link
                 href="#action2"
-                style={{ marginLeft: "7rem", color: "blue" }}
+                style={{ marginLeft: "4rem", border:'1px solid #fff',color: "blue" }}
               >
                 X3
               </Nav.Link>
               <Nav.Link
                 href="#action2"
-                style={{ marginLeft: "7rem", color: "blue" }}
+                style={{ marginLeft: "4rem", border:'1px solid #fff',color: "blue" }}
               >
                 X4
               </Nav.Link>
               <Nav.Link
                 href="#action2"
-                style={{ marginLeft: "7rem", color: "blue" }}
+                style={{ marginLeft: "4rem", border:'1px solid #fff',color: "blue" }}
               >
                 X5
               </Nav.Link>
               <Nav.Link
                 href="#action2"
-                style={{ marginLeft: "7rem", color: "blue" }}
+                style={{ marginLeft: "4rem", border:'1px solid #fff',color: "blue" }}
               >
                 X6
               </Nav.Link>
 
               <Nav.Link
                 href="#action2"
-                style={{ marginLeft: "10rem", color: "blue" }}
-              >
-                X7
-              </Nav.Link>
-              <Nav.Link
-                href="#action2"
-                style={{ marginLeft: "4rem", color: "blue" }}
+                style={{ marginLeft: "4rem", border:'1px solid #fff',color: "blue" }}
               >
                 X8
               </Nav.Link>
