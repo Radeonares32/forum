@@ -5,7 +5,10 @@ export interface UserRepository {
     email: string,
     date: string,
     gender: string,
-    password: string
+    password: string,
+    bio: string,
+    image: string,
+    note: string
   ): Promise<{ message: string }>;
   find(email: string): Promise<IUser>;
   findAll(): Promise<IUser[]>;
@@ -15,7 +18,10 @@ export interface UserRepository {
     email: string,
     date: string,
     gender: string,
-    password: string
+    password: string,
+    bio: string,
+    image: string,
+    note: string
   ): Promise<{ message: string }>;
   delete(id: string): Promise<{ message: string }>;
 }
