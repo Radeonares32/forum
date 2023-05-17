@@ -54,12 +54,13 @@ export class UserService {
     id: string,
     nickname: string,
     email: string,
-    date: string,
     oldPassword: string,
     newPassword: string,
     hash: string,
-    gender: string,
-    password: string
+    password: string,
+    bio:string,
+    image:string,
+    note:string
   ) {
     const isValidId = validation.isIdValidation(id);
     const isEmail = validation.isEmailValidation(email);
@@ -69,14 +70,7 @@ export class UserService {
         if (decrypt.isDencrypt) {
           const encrypt = security.bcrypt.encrypt(newPassword);
           return {
-            update: this.userDataAcess.update(
-              id,
-              nickname,
-              email,
-              date,
-              gender,
-              encrypt
-            ),
+            update: this.userDataAcess.update(id,nickname,email,encrypt,bio,image,note),
           };
         } else {
           return {
@@ -97,15 +91,16 @@ export class UserService {
   async userCreate(
     nickname: string,
     email: string,
-    date: string,
-    gender: string,
-    password: string
+    password: string,
+    bio:string,
+    image:string,
+    note:string
   ) {
     const hash = security.bcrypt.encrypt(password);
     const isEmail = validation.isEmailValidation(email);
     if (isEmail.isEmail) {
       return {
-        create: this.userDataAcess.create(nickname,email,date,gender,hash),
+        create: this.userDataAcess.create(nickname,email,hash,bio,image,note),
       };
     } else {
       return {

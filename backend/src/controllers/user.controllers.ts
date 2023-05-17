@@ -21,14 +21,15 @@ export class UserController {
     }
     static createUser: Handler = async (req, res) => {
         const userService = new UserService()
-        const { nickname, email, gender, date, password, passwordRepeat} = req.body
+        const { nickname, email,bio,note, password, passwordRepeat} = req.body
+        const { image } = req.file as any
         if (password !== passwordRepeat) {
             res.json({
                 error: "password not match"
             })
         }
         else {
-            const user = await userService.userCreate(nickname, email, date, gender, password)
+            const user = await userService.userCreate(nickname,email,password,bio,image,note)
             if (user.message) {
                 res.json({
                     message: user.message
@@ -44,14 +45,15 @@ export class UserController {
     }
     static updateUser: Handler = async (req, res) => {
         const userService = new UserService()
-        const { id, nickname, email, gender, date, password, hash, oldPassword, newPassword} = req.body
+        const { id, nickname, email, bio,note, password, hash, oldPassword, newPassword} = req.body
+        const { image } = req.file as any
         if (!newPassword) {
             res.json({
                 message: "newPassword empty !!"
             })
         }
         else {
-            const user = userService.userUpdate(id,nickname,email,date,oldPassword,newPassword,hash,gender,password)
+            const user = userService.userUpdate(id,nickname,email,oldPassword,newPassword,hash,password,bio,image,note)
             if (user.message) {
                 res.json({
                     message: user.message

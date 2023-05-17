@@ -27,21 +27,23 @@ export class UserDal implements UserRepository {
   async create(
     nickname: string,
     email: string,
-    date: string,
-    gender: string,
-    password: string
+    password: string,
+    bio: string,
+    image: string,
+    note: string
   ): Promise<{ message: string }> {
     return new Promise(async (resolve, reject) => {
       try {
         await neo4j()?.writeCypher(
-          "create (u:user {id:$id,nickname:$nickname,email:$email,date:$date,gender:$gender,password:$password})",
+          "create (u:user {id:$id,nickname:$nickname,email:$email,password:$password,bio:$bio,image:$image,note:$note})",
           {
             id: uuid(),
             nickname,
             email,
-            date,
-            gender,
             password,
+            bio,
+            image,
+            note,
           }
         );
         resolve({ message: "Success created" });
@@ -55,7 +57,7 @@ export class UserDal implements UserRepository {
       try {
         const user: any = await neo4j()
           ?.cypher(
-            "match (n1:user {email:$email}) return n1.id,n1.nickname,n1.email,n1.date,n1.gender,n1.password",
+            "match (n1:user {email:$email}) return n1",
             { email }
           )
           .catch((err) => console.log(err));
@@ -91,22 +93,24 @@ export class UserDal implements UserRepository {
     id: string,
     nickname: string,
     email: string,
-    date: string,
-    gender: string,
-    password: string
+    password: string,
+    bio: string,
+    image: string,
+    note: string
   ): Promise<{ message: string }> {
     return new Promise(async (resolve, reject) => {
       try {
         const user = await neo4j()
           ?.writeCypher(
-            "match (u:user {id:$id}) set u.nickname=$nickname,u.email=$email,u.date=$date,u.gender=$gender,u.password=$password return u",
+            "match (u:user {id:$id}) set u.nickname=$nickname,u.email=$email,u.password=$password,u.bio=$bio,u.image=$image,u.note=$notr return u",
             {
               id,
               nickname,
               email,
-              date,
-              gender,
               password,
+              bio,
+              image,
+              note,
             }
           )
           .catch((err: any) => console.log(err));
@@ -153,7 +157,7 @@ export class UserDal implements UserRepository {
     return new Promise(async (resolve, reject) => {
       try {
         const user = await neo4j()?.cypher(
-          "match (n:user {id:$id})-[follow:FOLLOW]->(n1:user) return n1.id,n1.nickname,n1.email,n1.date,n1.gender,n1.password",
+          "match (n:user {id:$id})-[follow:FOLLOW]->(n1:user) return n1",
           { id: id }
         );
         const rUser = user?.records.map((uss: any) => {
@@ -171,7 +175,7 @@ export class UserDal implements UserRepository {
     return new Promise(async (resolve, reject) => {
       try {
         const user = await neo4j()?.cypher(
-          "match (n:user {id:$id})-[followers:FOLLOWERS]->(n1:user) return  n1.id,n1.nickname,n1.email,n1.date,n1.gender,n1.password",
+          "match (n:user {id:$id})-[followers:FOLLOWERS]->(n1:user) return  n1",
           { id: id }
         );
         const rUser = user?.records.map((uss: any) => {
