@@ -22,7 +22,7 @@ export class UserController {
     static createUser: Handler = async (req, res) => {
         const userService = new UserService()
         const { nickname, email,bio,note, password, passwordRepeat} = req.body
-        const { image } = req.file
+        const { image } = req.file as any
         if (password !== passwordRepeat) {
             res.json({
                 error: "password not match"
@@ -46,7 +46,7 @@ export class UserController {
     static updateUser: Handler = async (req, res) => {
         const userService = new UserService()
         const { id, nickname, email, bio,note, password, hash, oldPassword, newPassword} = req.body
-        const { image } = req.file
+        const { image } = req.file as any
         if (!newPassword) {
             res.json({
                 message: "newPassword empty !!"
