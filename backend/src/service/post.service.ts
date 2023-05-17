@@ -14,7 +14,7 @@ export class PostService {
   private postDataAcess: PostDal = new PostDal();
   private userService: UserService = new UserService();
   postFindAll() {
-    return this.postDataAcess.findAll();
+    return this.postDataAcess.findAll()
   }
   async postFind(id: string) {
     const isValidId = validation.isIdValidation(id);
@@ -22,6 +22,31 @@ export class PostService {
       return {
         post: await this.postDataAcess.find(id),
         message: isValidId.message,
+      };
+    } else {
+      return {
+        message: isValidId.message,
+      };
+    }
+  }
+  async getPostRelComment(postId: string) {
+    const isValidId = validation.isIdValidation(postId);
+    if (isValidId.isValid === true) {
+      return {
+        comment: await this.postDataAcess.getPostRelComment(postId),
+       
+      };
+    } else {
+      return {
+        message: isValidId.message,
+      };
+    }
+  }
+  async getSubCommentRelComment(commentId: string) {
+    const isValidId = validation.isIdValidation(commentId);
+    if (isValidId.isValid === true) {
+      return {
+        subComment: await this.postDataAcess.getSubCommentRelComment(commentId)
       };
     } else {
       return {
@@ -219,6 +244,25 @@ export class PostService {
       if (email.message === "Authorized") {
         return {
           getCategoryRel: await this.postDataAcess.getCategoryRel( categoryId),
+        };
+      } else {
+        return {
+          message: email.message,
+        };
+      }
+    } catch (err) {
+      return {
+        message: "invalid token",
+      };
+    }
+  }
+  async getUserRelPost(token: string) {
+    try {
+      const email = security.jwt.token.verifyToken(token);
+      if (email.message === "Authorized") {
+        const userId = (await this.userService.userFind(token)).userId;
+        return {
+          getPost: await this.postDataAcess.getUserRelPost(userId),
         };
       } else {
         return {

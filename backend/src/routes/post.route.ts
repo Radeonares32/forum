@@ -10,6 +10,9 @@ export const getPost = app.get("/getPost", post.PostController.getPost);
 export const getPostId = app.get("/getPostId", post.PostController.getPostId);
 export const getLike = app.get('/getLike',post.PostController.getLike)
 export const getCategoryRel = app.get('/getCategoryRel',post.PostController.getCategoryRel)
+export const getUserRelPost = app.get('/getUserRelPost',post.PostController.getUserRelPost)
+export const getPostRelComment = app.get('/getPostRelComment',post.PostController.getPostRelComment)
+export const getSubCommentRelComment = app.get('/getSubCommentRelComment',post.PostController.getSubCommentRelComment)
 //Post
 export const postPost = app.post("/postPost", post.PostController.createPost);
 export const postComment = app.post('/postComment',post.PostController.createComment)
