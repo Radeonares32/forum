@@ -16,7 +16,8 @@ export class PostController {
     const token: any = req.headers["x-access-token"];
     const postService = new PostService();
     const { title, description } = req.body;
-    const post = await postService.postCreate(title, description, token);
+    const { image } = req.file;
+    const post = await postService.postCreate(title, description, token, image);
     if (post?.create?.message) {
       res.json({
         message: post?.create.message,
@@ -31,7 +32,14 @@ export class PostController {
     const token: any = req.headers["x-access-token"];
     const postService = new PostService();
     const { id, title, description, userId } = req.body;
-    const post = await postService.postUpdate(id, title, description, token);
+    const { image } = req.file;
+    const post = await postService.postUpdate(
+      id,
+      title,
+      description,
+      token,
+      image
+    );
     if (post?.message) {
       res.json({
         message: post.message,
@@ -124,8 +132,12 @@ export class PostController {
   static postCategoryRel: Handler = async (req, res) => {
     const token: any = req.headers["x-access-token"];
     const postService = new PostService();
-    const { postId,categoryId } = req.body;
-    const category = await postService.postCategoryRel(token,postId,categoryId);
+    const { postId, categoryId } = req.body;
+    const category = await postService.postCategoryRel(
+      token,
+      postId,
+      categoryId
+    );
     if (category.message) {
       res.json({
         message: category?.message,
@@ -136,7 +148,7 @@ export class PostController {
       });
     }
   };
-   static getCategoryRel: Handler = async (req, res) => {
+  static getCategoryRel: Handler = async (req, res) => {
     const token: any = req.headers["x-access-token"];
     const postService = new PostService();
     const { categoryId } = req.body;
