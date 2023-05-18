@@ -16,7 +16,7 @@ export class PostController {
     const token: any = req.headers["x-access-token"];
     const postService = new PostService();
     const { title, description } = req.body;
-    const { image } = req.file;
+    const { image } = req.file as any;
     const post = await postService.postCreate(title, description, token, image);
     if (post?.create?.message) {
       res.json({
@@ -32,7 +32,7 @@ export class PostController {
     const token: any = req.headers["x-access-token"];
     const postService = new PostService();
     const { id, title, description, userId } = req.body;
-    const { image } = req.file;
+    const { image } = req.file as any;
     const post = await postService.postUpdate(
       id,
       title,
