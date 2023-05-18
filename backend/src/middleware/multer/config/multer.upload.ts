@@ -1,10 +1,15 @@
 import multer from "multer";
 
 //! Storage
-import { postStorage } from "../config/multer.storage";
+import { userStorage, postStorage } from "../config/multer.storage";
 
 //! Filter
-import { postFilter } from "./multer.filter";
+import { userFilter, postFilter } from "./multer.filter";
+
+export const userUpload = multer({
+  storage: userStorage,
+  fileFilter: (_, file, cb) => userFilter({ _, file, cb }),
+});
 
 export const postUpload = multer({
   storage: postStorage,

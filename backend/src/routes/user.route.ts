@@ -25,7 +25,7 @@ export const getFollowerUser = app.get(
 //Post
 export const postUser = app.post(
   "/postUser",
-  Middlewares.multer.postUploads,
+  Middlewares.multer.userUploads,
   user.UserController.createUser
 );
 export const signUser = app.post("/sign", user.UserController.signUser);
@@ -44,7 +44,7 @@ export const unFollowUser = app.post(
 //Put
 export const putUser = app.put(
   "/putUser",
-  [Middlewares.userAuth, Middlewares.multer.postUploads],
+  [Middlewares.userAuth, Middlewares.multer.userUploads],
   user.UserController.updateUser
 );
 
