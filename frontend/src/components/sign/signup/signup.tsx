@@ -35,8 +35,7 @@ export const Signup = () => {
     const user = await axios.post("http://localhost:3000/user/postUser", {
       nickname: nickname.current.value,
       email: email.current.value,
-      gender: gender.current.value,
-      date: date.current.value,
+     
       password: password.current.value,
       passwordRepeat: passwordRepeat.current.value,
     });
@@ -55,24 +54,8 @@ export const Signup = () => {
           <Form.Label>Email</Form.Label>
           <Form.Control ref={email} type="email" placeholder="Email" />
         </Form.Group>
-        <Form.Group controlId="dob" className="mb-3">
-          <Form.Label>Select Date</Form.Label>
-          <Form.Control
-            ref={date}
-            type="date"
-            name="dob"
-            placeholder="Date of Birth"
-          />
-        </Form.Group>
-        <Form.Group controlId="dob" className="mb-3">
-          <Form.Label>Gender</Form.Label>
-          <Form.Select ref={gender} aria-label="Default select example">
-            <option>Gender</option>
-            <option value="male">Male</option>
-            <option value="famale">Famale</option>
-            <option value="other">Other</option>
-          </Form.Select>
-        </Form.Group>
+      
+        
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Password</Form.Label>
           <Form.Control ref={password} type="password" placeholder="Password" />

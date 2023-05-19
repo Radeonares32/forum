@@ -49,8 +49,7 @@ export const Signin = () => {
             id: userInfo.data?.user?.user[0][0],
             email: userInfo.data?.user?.user[0][2],
             nickname: userInfo.data?.user?.user[0][1],
-            date: userInfo.data?.user?.user[0][3],
-            gender: userInfo.data?.user?.user[0][4],
+           
             hash: userInfo.data?.user?.user[0][5],
           },
           expiresIn: 120,

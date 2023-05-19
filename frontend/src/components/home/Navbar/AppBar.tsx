@@ -208,7 +208,7 @@ export const AppBar = () => {
                 href="#action2"
                 style={{
                   marginLeft: "30rem",
-                  border: "1px solid #fff",
+                  border: "1px solid black",
                   color: "blue",
                   textDecoration: "underline",
                 }}
@@ -219,7 +219,7 @@ export const AppBar = () => {
                 href="#action2"
                 style={{
                   marginLeft: "4rem",
-                  border: "1px solid #fff",
+                  border: "1px solid black",
                   color: "blue",
                   textDecoration: "underline",
                 }}
@@ -230,7 +230,7 @@ export const AppBar = () => {
                 href="#action2"
                 style={{
                   marginLeft: "4rem",
-                  border: "1px solid #fff",
+                  border: "1px solid black",
                   color: "blue",
                   textDecoration: "underline",
                 }}
@@ -241,7 +241,7 @@ export const AppBar = () => {
                 href="#action2"
                 style={{
                   marginLeft: "4rem",
-                  border: "1px solid #fff",
+                  border: "1px solid black",
                   color: "blue",
                   textDecoration: "underline",
                 }}
@@ -252,7 +252,7 @@ export const AppBar = () => {
                 href="#action2"
                 style={{
                   marginLeft: "4rem",
-                  border: "1px solid #fff",
+                  border: "1px solid black",
                   color: "blue",
                   textDecoration: "underline",
                 }}
@@ -263,7 +263,7 @@ export const AppBar = () => {
                 href="#action2"
                 style={{
                   marginLeft: "4rem",
-                  border: "1px solid #fff",
+                  border: "1px solid black",
                   color: "blue",
                   textDecoration: "underline",
                 }}
