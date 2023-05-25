@@ -20,7 +20,7 @@ export const Flow = () => {
               placeholder="post description"
             ></textarea>
           </div>
-          <button className="btn btn-primary mt-1">Create Post</button>
+          <button className="btn btn-primary mt-1" style={{backgroundColor:'#1D9BF0'}}>Create Post</button>
         </div>
       ) : (
         <></>
@@ -89,8 +89,9 @@ export const Flow = () => {
                   className="btn btn-primary"
                   type="button"
                   id="button-addon2"
+                  style={{backgroundColor:'#1D9BF0'}}
                 >
-                  <i className="fa fa-paper-plane"></i>
+                  <i className="fa fa-paper-plane">Commnet</i>
                 </button>
               </div>
             </div>
@@ -192,8 +193,9 @@ export const Flow = () => {
                   className="btn btn-primary"
                   type="button"
                   id="button-addon2"
+                  style={{backgroundColor:'#1D9BF0'}}
                 >
-                  <i className="fa fa-paper-plane"></i>
+                  <i className="fa fa-paper-plane">Comment</i>
                 </button>
               </div>
             </div>
