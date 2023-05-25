@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { useAuthUser,useSignOut } from "react-auth-kit";
+import { useAuthUser, useSignOut } from "react-auth-kit";
 
 import axios from "axios";
 import { AppBar } from "../home/Navbar/AppBar";
 
 export const Profile = () => {
   let auth: any = useAuthUser();
-  let signOut = useSignOut()
+  let signOut = useSignOut();
   const [nickname, setNickname] = useState(auth().nickname);
   const [email, setEmail] = useState(auth().email);
   const [date, setDate] = useState(auth().date);
@@ -30,8 +30,7 @@ export const Profile = () => {
       id: auth().id,
       nickname: nickname,
       email: email,
-      gender: gender,
-      date: date,
+
       password: passwordRepeat,
       hash: auth().hash,
       oldPassword: oldPassword,
@@ -39,11 +38,10 @@ export const Profile = () => {
     });
     if (user.data.message === "password not match hash") {
       setMessage("Old Password Wrong");
+    } else {
+      setMessage("Succces Updated");
+      signOut();
     }
-   else {
-    setMessage("Succces Updated");
-    signOut()
-   }
   };
 
   return (
@@ -116,26 +114,12 @@ export const Profile = () => {
                   />
                 </div>
                 <div className="col-md-12">
-                  <label className="labels">date</label>
-                  <input
-                    type="date"
-                    className="form-control"
-                    value={date}
-                    onChange={(e) => setDate(e.target.value)}
-                  />
+                  <label className="labels">bio</label>
+                  <textarea className="form-control" ></textarea>
                 </div>
                 <div className="col-md-12">
-                  <label className="labels">Gender</label>
-                  <select
-                    value={gender}
-                    onChange={(e) => setGender(e.target.value)}
-                    className="form-select"
-                  >
-                    <option selected>Gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                  </select>
+                  <label className="labels">note</label>
+                  <textarea className="form-control" ></textarea>
                 </div>
               </div>
               <div className="mt-5 text-center">

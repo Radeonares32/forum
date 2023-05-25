@@ -4,6 +4,7 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import './appbar.css'
 import {
   PersonFill,
   GearFill,
@@ -39,19 +40,6 @@ export const AppBar = () => {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link
-                href="#action1"
-                style={{ marginLeft: "3rem", color: "black" }}
-              >
-                Canlı Veri
-              </Nav.Link>
-
-              <Nav.Link
-                href="#action2"
-                style={{ marginLeft: "24rem", color: "black" }}
-              >
-                Canlı Veri
-              </Nav.Link>
 
               <Nav.Link
                 href="#action2"
@@ -70,7 +58,7 @@ export const AppBar = () => {
                           style={{ marginLeft: "1rem" }}
                         />
                       </Link>
-                     
+
                       <Link
                         to="/"
                         onClick={logout}
@@ -131,7 +119,7 @@ export const AppBar = () => {
                   <Form.Control
                     style={{
                       backgroundColor: "#fff",
-                      border: "2px solid blue",
+                      border: "2px solid #1D9BF0",
                       borderRadius: "20px",
                     }}
                     type="search"
@@ -148,13 +136,13 @@ export const AppBar = () => {
                 <>
                   <Link
                     to="/signin"
-                    style={{ marginLeft: "1rem", color: "blue" }}
+                    style={{ marginLeft: "1rem", color: "#1D9BF0" }}
                   >
                     X7
                   </Link>
                   <Link
                     to="/profile"
-                    style={{ marginLeft: "1rem", color: "blue" }}
+                    style={{ marginLeft: "1rem", color: "#1D9BF0" }}
                   >
                     {auth().nickname}
                   </Link>
@@ -162,7 +150,7 @@ export const AppBar = () => {
                   <Link
                     to="/"
                     onClick={logout}
-                    style={{ marginLeft: "1rem", color: "blue" }}
+                    style={{ marginLeft: "1rem", color: "#1D9BF0" }}
                   >
                     Logout
                   </Link>
@@ -171,19 +159,19 @@ export const AppBar = () => {
                 <>
                   <Link
                     to="/signin"
-                    style={{ marginLeft: "1rem", color: "blue" }}
+                    style={{ marginLeft: "1rem", color: "#1D9BF0" }}
                   >
                     X7
                   </Link>
                   <Link
                     to="/signin"
-                    style={{ marginLeft: "2rem", color: "blue" }}
+                    style={{ marginLeft: "2rem", color: "#1D9BF0" }}
                   >
                     Giriş Yap
                   </Link>
                   <Link
                     to="/signup"
-                    style={{ marginLeft: "1rem", color: "blue" }}
+                    style={{ marginLeft: "1rem", color: "#1D9BF0" }}
                   >
                     Kayıt Ol
                   </Link>
@@ -206,66 +194,72 @@ export const AppBar = () => {
             <Nav className="me-auto">
               <Nav.Link
                 href="#action2"
+                className="xlink"
                 style={{
                   marginLeft: "30rem",
-                  border: "1px solid #fff",
-                  color: "blue",
-                  textDecoration: "underline",
+                  border: "1px solid black",
+                  color: "#1D9BF0",
+                 
                 }}
               >
                 X1
               </Nav.Link>
               <Nav.Link
                 href="#action2"
+                className="xlink"
                 style={{
                   marginLeft: "4rem",
-                  border: "1px solid #fff",
-                  color: "blue",
-                  textDecoration: "underline",
+                  border: "1px solid black",
+                  color: "#1D9BF0",
+                 
                 }}
               >
                 X2
               </Nav.Link>
               <Nav.Link
+                className="xlink"
                 href="#action2"
                 style={{
                   marginLeft: "4rem",
-                  border: "1px solid #fff",
-                  color: "blue",
-                  textDecoration: "underline",
+                  border: "1px solid black",
+                  color: "#1D9BF0",
+                 
                 }}
               >
                 X3
               </Nav.Link>
               <Nav.Link
+                className="xlink"
                 href="#action2"
                 style={{
                   marginLeft: "4rem",
-                  border: "1px solid #fff",
-                  color: "blue",
-                  textDecoration: "underline",
+                  border: "1px solid black",
+                  color: "#1D9BF0",
+                 
                 }}
               >
                 X4
               </Nav.Link>
               <Nav.Link
+                className="xlink"
                 href="#action2"
                 style={{
                   marginLeft: "4rem",
-                  border: "1px solid #fff",
-                  color: "blue",
-                  textDecoration: "underline",
+                  border: "1px solid black",
+                  color: "#1D9BF0",
+                  
                 }}
               >
                 X5
               </Nav.Link>
               <Nav.Link
+                className="xlink"
                 href="#action2"
                 style={{
                   marginLeft: "4rem",
-                  border: "1px solid #fff",
-                  color: "blue",
-                  textDecoration: "underline",
+                  border: "1px solid black",
+                  color: "#1D9BF0",
+                 
                 }}
               >
                 X6
