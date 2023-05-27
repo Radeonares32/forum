@@ -10,6 +10,7 @@ import {
   GearFill,
   BellFill,
   ChatFill,
+  ThreeDots
 } from "react-bootstrap-icons";
 
 export const AppBar = () => {
@@ -266,6 +267,18 @@ export const AppBar = () => {
                 }}
               >
                 X6
+              </Nav.Link>
+              <Nav.Link
+                className="xlink"
+                href="#action2"
+                style={{
+                  marginLeft: "3rem",
+                  
+                  color: "#1D9BF0",
+                 
+                }}
+              >
+                <ThreeDots size={25} ></ThreeDots>
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
