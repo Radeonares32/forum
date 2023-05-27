@@ -9,8 +9,6 @@ export const Signup = () => {
   let navigate = useNavigate(); 
   const nickname: any = useRef(null);
   const email: any = useRef(null);
-  const date: any = useRef(null);
-  const gender: any = useRef(null);
   const password: any = useRef(null);
   const passwordRepeat: any = useRef(null);
   const submit = async (e: any) => {
@@ -19,12 +17,6 @@ export const Signup = () => {
     }
     if (email.current.value === "") {
       alert("email empty");
-    }
-    if (date.current.value === "") {
-      alert("date empty");
-    }
-    if (gender.current.value === "") {
-      alert("gender empty");
     }
     if (password.current.value === "") {
       alert("password empty");

@@ -35,17 +35,16 @@ export class UserDal implements UserRepository {
     return new Promise(async (resolve, reject) => {
       try {
         await neo4j()?.writeCypher(
-          "create (u:user {id:$id,nickname:$nickname,email:$email,password:$password,bio:$bio,image:$image,note:$note})",
+          "create (u:user {id:$id,nickname:$nickname,email:$email,password:$password,image:$image})",
           {
             id: uuid(),
             nickname,
             email,
             password,
-            bio,
             image,
-            note,
+            
           }
-        );
+        ).catch(err=>console.log(err));
         resolve({ message: "Success created" });
       } catch (err) {
         reject({ message: "Error " + err });

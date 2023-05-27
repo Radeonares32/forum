@@ -61,7 +61,7 @@ export const Profile = () => {
                 <h4 className="text-right">Profile Settings</h4>
               </div>
               <div className="row mt-2">
-                <div className="col-md-6">
+              <div className="col-md-6">
                   <label className="labels">Nickname</label>
                   <input
                     type="text"
@@ -71,6 +71,11 @@ export const Profile = () => {
                     onChange={(e) => setNickname(e.target.value)}
                   />
                 </div>
+              <div className="col-md-6">
+                  <label className="labels">Profile</label>
+                  <img src="/logo192.png"/>
+                </div>
+                
                 <div className="col-md-6">
                   <label className="labels">Email</label>
                   <input
