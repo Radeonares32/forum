@@ -22,14 +22,13 @@ export class UserController {
     static createUser: Handler = async (req, res) => {
         const userService = new UserService()
         const { nickname, email,bio,note, password, passwordRepeat} = req.body
-        const { image } = req.file as any
         if (password !== passwordRepeat) {
             res.json({
                 error: "password not match"
             })
         }
         else {
-            const user = await userService.userCreate(nickname,email,password,bio,image,note)
+            const user = await userService.userCreate(nickname,email,password,bio,"null",note)
             if (user.message) {
                 res.json({
                     message: user.message

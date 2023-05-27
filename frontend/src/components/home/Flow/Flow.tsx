@@ -1,4 +1,5 @@
 import { useIsAuthenticated } from "react-auth-kit";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import "./flow.css";
 export const Flow = () => {
   let isSign = useIsAuthenticated();
@@ -34,6 +35,7 @@ export const Flow = () => {
               </div>
               <div>
                 <h5 className="mb-0">
+                  <img  width={50} height={50} src="/logo192.png" />
                   <a href="#!" className="text-dark">
                     Kiran Acharya
                   </a>
@@ -47,7 +49,14 @@ export const Flow = () => {
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione
               laboriosam non atque, porro cupiditate commodi? Provident culpa
               vel sit enim!
+              
             </p>
+            <div className="post-block__content mb-2">
+            <p className="mt-4 text-muted" style={{display:"inline-block"}}><i className="fa-solid fa-heart"></i></p>
+            <p className="mb-0 mx-4 text-muted" style={{display:"inline-block"}}><i className="fa-solid fa-bookmark"></i></p>
+            <p className="mb-0 mx-0 text-muted" style={{display:"inline-block"}}><i className="fa-solid fa-share"></i></p>
+            </div>
+            
           </div>
            {/* <div className="mb-3">
             <div className="d-flex justify-content-between mb-2">
@@ -91,7 +100,7 @@ export const Flow = () => {
                   id="button-addon2"
                   style={{backgroundColor:'#1D9BF0'}}
                 >
-                  <i className="fa fa-paper-plane">Commnet</i>
+                  <i className="">Commnet</i>
                 </button>
               </div>
             </div>
@@ -111,7 +120,7 @@ export const Flow = () => {
                   <div className="d-flex">
                     <a href="#!" className="text-dark mr-2">
                       <span>
-                        <i className="fa fa-heart-o"></i>
+                        {/* <i className="fa fa-heart-o"></i> */}
                       </span>
                     </a>
                     <a href="#!" className="text-dark mr-2">

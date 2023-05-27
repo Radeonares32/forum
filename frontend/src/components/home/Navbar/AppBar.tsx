@@ -50,7 +50,7 @@ export const AppBar = () => {
                     <>
                       <Link
                         to="/profile"
-                        style={{ marginLeft: "1rem", color: "blue" }}
+                        style={{ marginLeft: "38rem", color: "blue" }}
                       >
                         <PersonFill
                           to="/profile"
@@ -62,22 +62,25 @@ export const AppBar = () => {
                       <Link
                         to="/"
                         onClick={logout}
-                        style={{ marginLeft: "1rem", color: "blue" }}
+                        style={{ marginLeft: "1rem", color: "#1D9BF0" }}
                       >
                         <BellFill
                           to="/profile"
                           size={27}
-                          style={{ marginLeft: "1rem" }}
+                          color="royalblue"
+                          
+                          style={{ marginLeft: "1rem" ,backgroundColor:'#1D9BF0'}}
                         />
                       </Link>
                       <Link
                         to="/"
                         onClick={logout}
-                        style={{ marginLeft: "1rem", color: "blue" }}
+                        style={{ marginLeft: "1rem", color: "#1D9BF0" }}
                       >
                         <ChatFill
                           to="/profile"
                           size={27}
+                          color="royalblue"
                           style={{ marginLeft: "1rem" }}
                         />
                       </Link>
