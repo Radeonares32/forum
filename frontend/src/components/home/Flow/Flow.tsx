@@ -33,28 +33,28 @@ export const Flow = () => {
               <div className="className-2">
                 <a href="#!" className="text-dark"></a>
               </div>
-              <div>
+              <div style={{marginLeft:400}}>
                 <h5 className="mb-0">
-                  <img  width={50} height={50} src="/logo192.png" />
-                  <a href="#!" className="text-dark">
-                    Kiran Acharya
+                  <img  width={50} height={50}  src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" />
+                  <a href="#!" className="text-dark" style={{fontSize:10}}>
+                    Ahmet yılmaz
                   </a>
                 </h5>
-                <p className="mb-0 text-muted">5m</p>
+                <p className="mb-0 text-muted" style={{fontSize:10}}>5m</p>
               </div>
             </div>
           </div>
+          
           <div className="post-block__content mb-2">
+            
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione
-              laboriosam non atque, porro cupiditate commodi? Provident culpa
-              vel sit enim!
-              
+              Bugun havalar iyi gibi ne diyorsunuz
             </p>
             <div className="post-block__content mb-2">
             <p className="mt-4 text-muted" style={{display:"inline-block"}}><i className="fa-solid fa-heart"></i></p>
             <p className="mb-0 mx-4 text-muted" style={{display:"inline-block"}}><i className="fa-solid fa-bookmark"></i></p>
             <p className="mb-0 mx-0 text-muted" style={{display:"inline-block"}}><i className="fa-solid fa-share"></i></p>
+            <p className="mb-0 mx-0 text-muted" style={{display:"inline-block",paddingLeft:350}}><i className="fa-solid fa-ellipsis"></i></p>
             </div>
             
           </div>
@@ -100,7 +100,7 @@ export const Flow = () => {
                   id="button-addon2"
                   style={{backgroundColor:'#1D9BF0'}}
                 >
-                  <i className="">Commnet</i>
+                  <i className="">Yorum Yap</i>
                 </button>
               </div>
             </div>
@@ -109,13 +109,14 @@ export const Flow = () => {
               <div className="d-flex mb-2">
                 <div>
                   <h6 className="mb-1">
+                  <img  width={50} height={50} src="/logo192.png" />
                     <a href="#!" className="text-dark">
-                      John doe
+                      Bugra Atik
                     </a>{" "}
                     <small className="text-muted">1m</small>
                   </h6>
                   <p className="mb-1">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Güzel, bence havalar
                   </p>
                   <div className="d-flex">
                     <a href="#!" className="text-dark mr-2">
@@ -124,7 +125,7 @@ export const Flow = () => {
                       </span>
                     </a>
                     <a href="#!" className="text-dark mr-2">
-                      <span>Reply</span>
+                      <span>Cevapla</span>
                     </a>
                   </div>
                 </div>
@@ -133,7 +134,7 @@ export const Flow = () => {
 
             <hr />
             <a href="#!" className="text-dark">
-              View More comments <span className="font-weight-bold">(12)</span>
+             Diğer Yorumlar <span className="font-weight-bold">(12)</span>
             </a>
           </div>
         </div>

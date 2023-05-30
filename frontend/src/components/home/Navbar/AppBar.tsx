@@ -51,7 +51,7 @@ export const AppBar = () => {
                     <>
                       <Link
                         to="/profile"
-                        style={{ marginLeft: "38rem", color: "blue" }}
+                        style={{ marginLeft: "38rem", color: "#1D9BF0" }}
                       >
                         <PersonFill
                           to="/profile"
@@ -68,9 +68,9 @@ export const AppBar = () => {
                         <BellFill
                           to="/profile"
                           size={27}
-                          color="royalblue"
+                          color="#1D9BF0"
                           
-                          style={{ marginLeft: "1rem" ,backgroundColor:'#1D9BF0'}}
+                          style={{ marginLeft: "1rem" }}
                         />
                       </Link>
                       <Link
@@ -81,13 +81,13 @@ export const AppBar = () => {
                         <ChatFill
                           to="/profile"
                           size={27}
-                          color="royalblue"
+                          color="#1D9BF0"
                           style={{ marginLeft: "1rem" }}
                         />
                       </Link>
                       <Link
                         to="/profile"
-                        style={{ marginLeft: "1rem", color: "blue" }}
+                        style={{ marginLeft: "1rem", color: "#1D9BF0" }}
                       >
                         <GearFill
                           to="/profile"
