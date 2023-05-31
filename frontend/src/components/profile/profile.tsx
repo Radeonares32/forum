@@ -47,95 +47,73 @@ export const Profile = () => {
   return (
     <>
       <AppBar />
-      <div className="container rounded bg-white mt-5 mb-5">
+      <div className="container rounded bg-white mt-2">
         <div className="row">
-          <div className="col-md-3 border-right"></div>
-          <div className="col-md-5 border-right">
+          <div className="col-md-6 border-right">
             <div className="p-3 py-5">
-              {message ? (
-                <div className="alert alert-danger">{message}</div>
-              ) : (
-                <div></div>
-              )}
               <div className="d-flex justify-content-between align-items-center mb-3">
                 <h4 className="text-right">Profile Settings</h4>
               </div>
               <div className="row mt-2">
-              <div className="col-md-6">
-                  <label className="labels">Nickname</label>
+                <div className="col-md-6">
+                  <label className="labels">Takma İsim</label>
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="nickname"
-                    value={nickname}
-                    onChange={(e) => setNickname(e.target.value)}
+                    placeholder="takma isim"
+                    value="rade"
                   />
                 </div>
-              <div className="col-md-6">
-                  <label className="labels">Profile</label>
-                  <img src="/logo192.png"/>
-                </div>
-                
                 <div className="col-md-6">
                   <label className="labels">Email</label>
                   <input
                     type="text"
                     className="form-control"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value="rade@gmail.com"
                     placeholder="email"
                   />
                 </div>
               </div>
               <div className="row mt-3">
                 <div className="col-md-12">
-                  <label className="labels">old password</label>
+                  <label className="labels">Biyografi</label>
                   <input
-                    type="password"
+                    type="text"
                     className="form-control"
-                    placeholder="Password"
-                    value={oldPassword}
-                    onChange={(e) => setOldPassword(e.target.value)}
+                    placeholder="biyografi"
+                    value="yazılımcı"
                   />
-                </div>
-                <div className="col-md-12">
-                  <label className="labels">old password repeat</label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    placeholder="Password"
-                    value={passwordRepeat}
-                    onChange={(e) => setPasswordRepeat(e.target.value)}
-                  />
-                </div>
-                <div className="col-md-12">
-                  <label className="labels">new password</label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    placeholder="New password"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                  />
-                </div>
-                <div className="col-md-12">
-                  <label className="labels">bio</label>
-                  <textarea className="form-control" ></textarea>
-                </div>
-                <div className="col-md-12">
-                  <label className="labels">note</label>
-                  <textarea className="form-control" ></textarea>
                 </div>
               </div>
+
               <div className="mt-5 text-center">
                 <button
                   className="btn btn-primary profile-button"
                   type="button"
-                  onClick={submit}
                 >
                   Save Profile
                 </button>
               </div>
+            </div>
+          </div>
+          <div className="col-md-3 border-left">
+            <div className="d-flex flex-column align-items-center text-center p-3 py-5">
+              <img
+                className="rounded-circle mt-5"
+                width="150px"
+                src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+              />
+              <span className="font-weight-bold">Umut Yılmaz</span>
+              <span className="text-black-50">umut@gmail.com</span>
+              <div className="col-md-10 mt-2">
+                <textarea
+                  style={{ width: 200, height: 100 }}
+                  className="form-control"
+                  value=""
+                  placeholder="notlar"
+                ></textarea>
+              </div>
+              <span> </span>
             </div>
           </div>
         </div>
