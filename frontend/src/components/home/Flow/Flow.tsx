@@ -125,7 +125,7 @@ export const Flow = () => {
             </p>
           </div> */}
           <hr />
-          <div className="post-block__comments">
+         {/*  <div className="post-block__comments">
             <div className="input-group mb-3">
               <input
                 type="text"
@@ -171,7 +171,7 @@ export const Flow = () => {
             <a href="#!" className="text-dark">
               Diğer Yorumlar <span className="font-weight-bold">(12)</span>
             </a>
-          </div>
+          </div> */}
         </div>
       </section>
     </div>
