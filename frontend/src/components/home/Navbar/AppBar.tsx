@@ -38,12 +38,25 @@ export const AppBar = () => {
                 </form>
               </li>
             </ul>
-            <a className="nav-item text-decoration-none mx-3">
-              <a className="nav-link active" aria-current="page" href="#" style={{color:'#1D9BF0'}}>Giriş Yap</a>
-            </a>
-            <a className="nav-item text-decoration-none">
-              <a className="nav-link active" aria-current="page" href="#" style={{color:'#1D9BF0'}}>Kayıt Ol</a>
-            </a>
+            {isAuthenticated() ? (
+              <>
+                <Link to='/profile' className="nav-item text-decoration-none mx-3">
+                  <a className="nav-link active" aria-current="page" href="#" style={{ color: '#1D9BF0' }}>Profil</a>
+                </Link>
+                <a onClick={() => logout()} className="nav-item text-decoration-none mx-3">
+                  <a className="nav-link active" aria-current="page" href="#" style={{ color: '#1D9BF0' }}>Çıkış Yap</a>
+                </a>
+
+              </>) : (
+              <>
+                <Link to='/signin' className="nav-item text-decoration-none mx-3">
+                  <a className="nav-link active" aria-current="page" href="#" style={{ color: '#1D9BF0' }}>Giriş Yap</a>
+                </Link>
+                <Link to='/signup' className="nav-item text-decoration-none">
+                  <a className="nav-link active" aria-current="page" href="#" style={{ color: '#1D9BF0' }}>Kayıt Ol</a>
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </nav>
@@ -56,7 +69,7 @@ export const AppBar = () => {
           <div className="collapse navbar-collapse d-flex justify-content-evenly" id="navbarSupportedContent">
             <ul className="navbar-nav mb-2 mb-lg-0 d-flex justify-content-evenly">
               <li className="nav-item  d-flex me-5 ">
-                <a className="nav-link active links"  aria-current="page" href="#">debe</a>
+                <a className="nav-link active links" aria-current="page" href="#">debe</a>
               </li>
               <li className="nav-item  me-5">
                 <a className="nav-link active links" aria-current="page" href="#">sorunlar</a>
@@ -80,7 +93,7 @@ export const AppBar = () => {
           </div>
         </div>
       </nav>
-      
+
 
     </>
 
