@@ -22,270 +22,67 @@ export const AppBar = () => {
   };
   return (
     <>
-      <Navbar
-        collapseOnSelect
-        expand="lg"
-        style={{ backgroundColor: "#fff" }}
-        variant="dark"
-      >
-        <Container fluid>
-          <Navbar.Brand style={{ color: "black" }} href="#home">
-            <img
-              src="/img/logo/logo.png"
-              width="100"
-              height="70"
-              className="d-inline-block align-top"
-              alt="React Bootstrap logo"
-            />
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="me-auto">
+      <nav className="navbar navbar-expand-lg navbar-light ">
+        <div className="container-fluid">
+          <a className="navbar-brand" href="#">
+            <img src="img/logo/logo.png" alt="" width="50" height="50" />
+          </a>
+          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <li className="nav-link" id="search">
+                <form className="d-flex">
+                  <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                </form>
+              </li>
+            </ul>
+            <a className="nav-item text-decoration-none mx-3">
+              <a className="nav-link active" aria-current="page" href="#" style={{color:'#1D9BF0'}}>Giriş Yap</a>
+            </a>
+            <a className="nav-item text-decoration-none">
+              <a className="nav-link active" aria-current="page" href="#" style={{color:'#1D9BF0'}}>Kayıt Ol</a>
+            </a>
+          </div>
+        </div>
+      </nav>
+      <nav className="navbar navbar-expand-lg navbar-light d-flex border-bottom border-2 border-dark">
+        <div className="container-fluid">
 
-              <Nav.Link
-                href="#action2"
-                style={{ marginLeft: "24rem", color: "black" }}
-              >
-                <Nav>
-                  {isAuthenticated() ? (
-                    <>
-                      <Link
-                        to="/profile"
-                        style={{ marginLeft: "38rem", color: "#1D9BF0" }}
-                      >
-                        <PersonFill
-                          to="/profile"
-                          size={30}
-                          style={{ marginLeft: "1rem" }}
-                        />
-                      </Link>
+          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse d-flex justify-content-evenly" id="navbarSupportedContent">
+            <ul className="navbar-nav mb-2 mb-lg-0 d-flex justify-content-evenly">
+              <li className="nav-item  d-flex me-5 ">
+                <a className="nav-link active links"  aria-current="page" href="#">debe</a>
+              </li>
+              <li className="nav-item  me-5">
+                <a className="nav-link active links" aria-current="page" href="#">sorunlar</a>
+              </li>
+              <li className="nav-item  me-5">
+                <a className="nav-link active links" aria-current="page" href="#">#spor</a>
+              </li>
+              <li className="nav-item  me-5">
+                <a className="nav-link active links" aria-current="page" href="#">#ilişkiler</a>
+              </li>
+              <li className="nav-item  me-5">
+                <a className="nav-link active links" aria-current="page" href="#">#siyaset</a>
+              </li>
+              <li className="nav-item  me-5">
+                <a className="nav-link active links" aria-current="page" href="#">dert</a>
+              </li>
+              <li className="nav-item  me-5">
+                <a className="nav-link active links" aria-current="page" href="#">...</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      
 
-                      <Link
-                        to="/"
-                        onClick={logout}
-                        style={{ marginLeft: "1rem", color: "#1D9BF0" }}
-                      >
-                        <BellFill
-                          to="/profile"
-                          size={27}
-                          color="#1D9BF0"
-                          
-                          style={{ marginLeft: "1rem" }}
-                        />
-                      </Link>
-                      <Link
-                        to="/"
-                        onClick={logout}
-                        style={{ marginLeft: "1rem", color: "#1D9BF0" }}
-                      >
-                        <ChatFill
-                          to="/profile"
-                          size={27}
-                          color="#1D9BF0"
-                          style={{ marginLeft: "1rem" }}
-                        />
-                      </Link>
-                      <Link
-                        to="/profile"
-                        style={{ marginLeft: "1rem", color: "#1D9BF0" }}
-                      >
-                        <GearFill
-                          to="/profile"
-                          size={27}
-                          style={{ marginLeft: "1rem" }}
-                        />
-                      </Link>
-                    </>
-                  ) : (
-                    <></>
-                  )}
-                </Nav>
-              </Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-      <Navbar
-        collapseOnSelect
-        expand="lg"
-        style={{ backgroundColor: "#fff" }}
-        variant="dark"
-      >
-        <Container fluid>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link
-                href="#action2"
-                style={{ marginLeft: "30rem", width: "22rem" }}
-              >
-                <Form className="d-flex">
-                  <Form.Control
-                    style={{
-                      backgroundColor: "#fff",
-                      border: "2px solid #1D9BF0",
-                      borderRadius: "20px",
-                    }}
-                    type="search"
-                    placeholder="Search"
-                    className="me-2"
-                    aria-label="Search"
-                  />
-                </Form>
-              </Nav.Link>
-            </Nav>
-
-            <Nav>
-              {isAuthenticated() ? (
-                <>
-                  <Link
-                    to="/signin"
-                    style={{ marginLeft: "1rem", color: "#1D9BF0" }}
-                  >
-                    X7
-                  </Link>
-                  <Link
-                    to="/profile"
-                    style={{ marginLeft: "1rem", color: "#1D9BF0" }}
-                  >
-                    {auth().nickname}
-                  </Link>
-
-                  <Link
-                    to="/"
-                    onClick={logout}
-                    style={{ marginLeft: "1rem", color: "#1D9BF0" }}
-                  >
-                    Logout
-                  </Link>
-                </>
-              ) : (
-                <>
-                  <Link
-                    to="/signin"
-                    style={{ marginLeft: "1rem", color: "#1D9BF0" }}
-                  >
-                    X7
-                  </Link>
-                  <Link
-                    to="/signin"
-                    style={{ marginLeft: "2rem", color: "#1D9BF0" }}
-                  >
-                    Giriş Yap
-                  </Link>
-                  <Link
-                    to="/signup"
-                    style={{ marginLeft: "1rem", color: "#1D9BF0" }}
-                  >
-                    Kayıt Ol
-                  </Link>
-                </>
-              )}
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-
-      <Navbar
-        collapseOnSelect
-        expand="lg"
-        style={{ backgroundColor: "#fff" }}
-        variant="dark"
-      >
-        <Container fluid>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link
-                href="#action2"
-                className="xlink"
-                style={{
-                  marginLeft: "30rem",
-                  border: "1px solid black",
-                  color: "#1D9BF0",
-                 
-                }}
-              >
-                X1
-              </Nav.Link>
-              <Nav.Link
-                href="#action2"
-                className="xlink"
-                style={{
-                  marginLeft: "4rem",
-                  border: "1px solid black",
-                  color: "#1D9BF0",
-                 
-                }}
-              >
-                X2
-              </Nav.Link>
-              <Nav.Link
-                className="xlink"
-                href="#action2"
-                style={{
-                  marginLeft: "4rem",
-                  border: "1px solid black",
-                  color: "#1D9BF0",
-                 
-                }}
-              >
-                X3
-              </Nav.Link>
-              <Nav.Link
-                className="xlink"
-                href="#action2"
-                style={{
-                  marginLeft: "4rem",
-                  border: "1px solid black",
-                  color: "#1D9BF0",
-                 
-                }}
-              >
-                X4
-              </Nav.Link>
-              <Nav.Link
-                className="xlink"
-                href="#action2"
-                style={{
-                  marginLeft: "4rem",
-                  border: "1px solid black",
-                  color: "#1D9BF0",
-                  
-                }}
-              >
-                X5
-              </Nav.Link>
-              <Nav.Link
-                className="xlink"
-                href="#action2"
-                style={{
-                  marginLeft: "4rem",
-                  border: "1px solid black",
-                  color: "#1D9BF0",
-                 
-                }}
-              >
-                X6
-              </Nav.Link>
-              <Nav.Link
-                className="xlink"
-                href="#action2"
-                style={{
-                  marginLeft: "3rem",
-                  
-                  color: "#1D9BF0",
-                 
-                }}
-              >
-                <ThreeDots size={25} ></ThreeDots>
-              </Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
     </>
-    /* */
+
   );
 };
-/*  */
