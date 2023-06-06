@@ -2,9 +2,21 @@ export const SideBar = () => {
   return (
     <div className="col-md-4">
       <div className="col-lg-9">
-        <p className="text-center" style={{ fontSize: "40px" }}>
+        <p className="" style={{ fontSize: "40px",color:'#1D9BF0' }}>
           Gündem
         </p>
+      </div>
+      <div className="border border-3 p-4" >
+      <div className="d-flex justify-content-between">
+        <p>spor</p>
+        <p>siyaset</p>
+        <p>anket</p>
+      </div>
+      <div className="d-flex justify-content-between">
+        <p>seçim</p>
+        <p>yetiskin</p>
+        <p>iliski</p>
+      </div>
       </div>
       <hr />
       <div className="col-lg-12  my-4">
