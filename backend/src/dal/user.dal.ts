@@ -10,8 +10,70 @@ import { User } from "../model/User";
 
 //? DataBase
 import { neo4j } from "../db/db";
+import { IComplain } from "../entity/IComplain";
 
 export class UserDal implements UserRepository {
+  adminUser(email: string, password: string): Promise<{ message: string }> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        await neo4j()
+          ?.writeCypher(
+            "create(:admin{id:$id,email:$email,$password:$password})",
+            {
+              id: uuid(),
+              email,
+              password,
+            }
+          )
+          .catch((err) => console.log(err));
+        resolve({ message: "Success addmin created" });
+      } catch (err) {
+        reject({ message: err });
+      }
+    });
+  }
+  postComplain(
+    userId: string,
+    title: string,
+    description: string
+  ): Promise<{ message: string }> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        await neo4j()
+          ?.writeCypher(
+            "match(u:user {id:$userId}) create(c:complain{id:$id,title:$title,description:$description}) create(u)-[complainUserRel:complainUserRel]->(c) create(c)-[userComplainRel:userComplainRel]->(u)",
+            {
+              id: uuid(),
+              title,
+              description,
+              userId,
+            }
+          )
+          .catch((err) => console.log(err));
+        resolve({ message: "Success complain" });
+      } catch (err) {
+        reject({ message: err });
+      }
+    });
+  }
+  getComplain(): Promise<IComplain[]> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const user = await neo4j()?.writeCypher(
+          "match (u:user) match(c:complain) match(u)-[complainUserRel:complainUserRel]->(c)",
+          {}
+        );
+        const rLike = user?.records.map((uss: any) => {
+          return uss.map((res: any) => {
+            return res.properties;
+          });
+        });
+        resolve(rLike as IComplain[]);
+      } catch (err) {
+        reject({ message: err });
+      }
+    });
+  }
   async delete(id: string): Promise<{ message: string }> {
     return new Promise(async (resolve, reject) => {
       try {
@@ -34,17 +96,18 @@ export class UserDal implements UserRepository {
   ): Promise<{ message: string }> {
     return new Promise(async (resolve, reject) => {
       try {
-        await neo4j()?.writeCypher(
-          "create (u:user {id:$id,nickname:$nickname,email:$email,password:$password,image:$image})",
-          {
-            id: uuid(),
-            nickname,
-            email,
-            password,
-            image,
-            
-          }
-        ).catch(err=>console.log(err));
+        await neo4j()
+          ?.writeCypher(
+            "create (u:user {id:$id,nickname:$nickname,email:$email,password:$password,image:$image})",
+            {
+              id: uuid(),
+              nickname,
+              email,
+              password,
+              image,
+            }
+          )
+          .catch((err) => console.log(err));
         resolve({ message: "Success created" });
       } catch (err) {
         reject({ message: "Error " + err });
@@ -55,10 +118,7 @@ export class UserDal implements UserRepository {
     return new Promise(async (resolve, reject) => {
       try {
         const user: any = await neo4j()
-          ?.cypher(
-            "match (n1:user {email:$email}) return n1",
-            { email }
-          )
+          ?.cypher("match (n1:user {email:$email}) return n1", { email })
           .catch((err) => console.log(err));
         const rUser = user.records.map((uss: any) => {
           return uss.map((res: any) => {
@@ -88,6 +148,7 @@ export class UserDal implements UserRepository {
       }
     });
   }
+
   async update(
     id: string,
     nickname: string,
