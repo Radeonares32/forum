@@ -64,6 +64,24 @@ export const Flow = () => {
       setPost(post.data.post)
     })
   })
+  const likePostHandle = async (e: any) => {
+    e.preventDefault()
+    const postId = e.target.id
+
+    const post = await axios.post('http://localhost:3000/post/postLike', {
+      postId
+    }, {
+      headers: {
+        'x-access-token': auth().token
+      }
+    })
+    if (post.data.message == 'Success Like') {
+      alert("Beğenildi")
+    }
+    if (post.data.message == 'Success unLike') {
+      alert("Beğeni kaldırıldı")
+    }
+  }
   return (
     <div className="col-md-5">
       {isSign() ? (
@@ -178,9 +196,11 @@ export const Flow = () => {
               <div className="post-block__content mb-2">
                 <p
                   className="mt-4 text-muted"
+
                   style={{ display: "inline-block" }}
+
                 >
-                  <i className="fa-solid fa-heart"></i>
+                  <i id={post[1].id} onClick={likePostHandle} className="fa-solid fa-heart"></i>
                 </p>
                 <p
                   className="mb-0 mx-4 text-muted"
