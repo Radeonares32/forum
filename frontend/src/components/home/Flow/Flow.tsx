@@ -1,23 +1,38 @@
 import { useIsAuthenticated, useAuthUser } from "react-auth-kit";
 import { Modal } from "react-bootstrap";
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
 import "./flow.css";
 export const Flow = () => {
   const isSign = useIsAuthenticated();
   const auth: any = useAuthUser()
   const [show, setShow] = useState(false)
+  const [category, setCategory] = useState<any>()
+  const [categories, setCategories] = useState<any>()
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
   const categoryCreate = (e: any) => {
     e.preventDefault()
-    axios.post('http://localhost:3000/category/postCategory', {}, {
+    axios.post('http://localhost:3000/category/postCategory', {
+      title: category
+    }, {
       headers: {
         'x-access-token': auth().token
       }
     })
+    setCategory(null)
   }
-  console.log(auth())
+  /*  */
+  const  catSelectChange = () => {
+    axios.get('http://localhost:3000/category/getCategory', {
+      headers: {
+        'x-access-token': auth().token
+      }
+    }).then((cat: any) => {
+    
+      setCategories(cat.data.category)
+    })
+  }
   return (
     <div className="col-md-5">
       {isSign() ? (
@@ -37,11 +52,15 @@ export const Flow = () => {
                 placeholder="post açıklaması"
               ></textarea>
             </div>
-            <select className="form-select mt-3" aria-label="Default select example">
-              <option selected></option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+
+            <select onClick={catSelectChange}  className="form-select mt-3" aria-label="Default select example">
+              {categories && categories.map((cat: any,key:number) => (
+                <>
+                
+                  <option value={cat[0].title} key={key}>{cat[0].title}</option>
+                </>
+              ))}
+
             </select>
             <button
               className="btn btn-primary mt-2"
@@ -57,6 +76,8 @@ export const Flow = () => {
                 type="text"
                 className="form-control"
                 placeholder="entry kategori ismi"
+                onChange={(e: any) => setCategory(e.target.value)}
+                value={category}
               />
             </div>
             <button
