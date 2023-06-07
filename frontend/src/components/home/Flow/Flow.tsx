@@ -1,12 +1,23 @@
-import { useIsAuthenticated } from "react-auth-kit";
+import { useIsAuthenticated, useAuthUser } from "react-auth-kit";
 import { Modal } from "react-bootstrap";
 import { useState } from 'react'
+import axios from 'axios'
 import "./flow.css";
 export const Flow = () => {
+  const isSign = useIsAuthenticated();
+  const auth: any = useAuthUser()
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
-  let isSign = useIsAuthenticated();
+  const categoryCreate = (e: any) => {
+    e.preventDefault()
+    axios.post('http://localhost:3000/category/postCategory', {}, {
+      headers: {
+        'x-access-token': auth().token
+      }
+    })
+  }
+  console.log(auth())
   return (
     <div className="col-md-5">
       {isSign() ? (
@@ -49,6 +60,7 @@ export const Flow = () => {
               />
             </div>
             <button
+              onClick={categoryCreate}
               className="btn btn-primary mt-1"
               style={{ backgroundColor: "#1D9BF0" }}
             >
@@ -124,7 +136,7 @@ export const Flow = () => {
               </p>
             </div>
           </div>
-          <Modal show={show} onHide={handleClose}>
+          <Modal show={show} className="text-center" onHide={handleClose}>
             <Modal.Header closeButton></Modal.Header>
             <Modal.Body>
               <img width={300} height={300} src="logo512.png" />

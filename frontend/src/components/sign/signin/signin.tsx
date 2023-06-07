@@ -40,17 +40,15 @@ export const Signin = () => {
           "x-access-token": user.data as any,
         },
       });
-
       if (
         signIn({
           token: user.data as any,
           tokenType: "Bearer",
           authState: {
-            id: userInfo.data?.user?.user[0][0],
-            email: userInfo.data?.user?.user[0][2],
-            nickname: userInfo.data?.user?.user[0][1],
-           
-            hash: userInfo.data?.user?.user[0][5],
+            id: userInfo.data.user.user[0][0].properties.id,
+            email: userInfo.data.user.user[0][0].properties.email,
+            nickname:userInfo.data.user.user[0][0].properties.nickname,
+            token: user.data as any,
           },
           expiresIn: 120,
         })
