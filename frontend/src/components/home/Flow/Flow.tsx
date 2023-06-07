@@ -3,35 +3,59 @@ import { Modal } from "react-bootstrap";
 import { useState } from 'react'
 import "./flow.css";
 export const Flow = () => {
-  const [show,setShow] = useState(false)
+  const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
   let isSign = useIsAuthenticated();
   return (
     <div className="col-md-5">
       {isSign() ? (
-        <div className="col-lg-9" style={{ margin: "5rem" }}>
-          <div className="">
-            <label className="form-label">Create Post</label>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="post title"
-            />
+        <>
+          <div className="col-lg-8" style={{ margin: "5rem" }}>
+            <div className="">
+              <label className="form-label">Post</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="post başlıgı"
+              />
+            </div>
+            <div className="mt-3">
+              <textarea
+                className="form-control"
+                placeholder="post açıklaması"
+              ></textarea>
+            </div>
+            <select className="form-select mt-3" aria-label="Default select example">
+              <option selected></option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+            <button
+              className="btn btn-primary mt-2"
+              style={{ backgroundColor: "#1D9BF0" }}
+            >
+              Post oluştur
+            </button>
           </div>
-          <div className="mt-3">
-            <textarea
-              className="form-control"
-              placeholder="post description"
-            ></textarea>
+          <div className="col-lg-8" style={{ margin: "5rem" }}>
+            <div className="">
+              <label className="form-label">Entry kategorisi</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="entry kategori ismi"
+              />
+            </div>
+            <button
+              className="btn btn-primary mt-1"
+              style={{ backgroundColor: "#1D9BF0" }}
+            >
+              kategori oluştur
+            </button>
           </div>
-          <button
-            className="btn btn-primary mt-1"
-            style={{ backgroundColor: "#1D9BF0" }}
-          >
-            Create Post
-          </button>
-        </div>
+        </>
       ) : (
         <></>
       )}
@@ -61,8 +85,8 @@ export const Flow = () => {
           </div>
 
           <div className="post-block__content mb-2">
-          <img width={300} height={300} onClick={handleShow} src="logo512.png" />
-            
+            <img width={300} height={300} onClick={handleShow} src="logo512.png" />
+
             <p>Bugun havalar iyi gibi ne diyorsunuz</p>
             <div className="post-block__content mb-2">
               <p
@@ -85,18 +109,27 @@ export const Flow = () => {
               </p>
               <p
                 className="mb-0 mx-0 text-muted"
-                style={{ display: "inline-block", paddingLeft: 350 }}
+                style={{ display: "inline-block", paddingLeft: 300 }}
               >
-                <i className="fa-solid fa-ellipsis"></i>
+
+                <div className="dropdown">
+                  <a className="text-muted" style={{ display: 'inline-block', margin: '2px' }} href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i className="fa-solid fa-ellipsis"></i>
+                  </a>
+                  <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <li><a className="dropdown-item" href="#">Şikayet Et</a></li>
+                  </ul>
+                </div>
+
               </p>
             </div>
           </div>
           <Modal show={show} onHide={handleClose}>
-              <Modal.Header closeButton></Modal.Header>
-              <Modal.Body>
-                <img width={300} height={300} src="logo512.png"  />
-              </Modal.Body>
-            </Modal>
+            <Modal.Header closeButton></Modal.Header>
+            <Modal.Body>
+              <img width={300} height={300} src="logo512.png" />
+            </Modal.Body>
+          </Modal>
           {/* <div className="mb-3">
             <div className="d-flex justify-content-between mb-2">
               <div className="d-flex">
@@ -125,7 +158,7 @@ export const Flow = () => {
             </p>
           </div> */}
           <hr />
-         {/*  <div className="post-block__comments">
+          {/*  <div className="post-block__comments">
             <div className="input-group mb-3">
               <input
                 type="text"
