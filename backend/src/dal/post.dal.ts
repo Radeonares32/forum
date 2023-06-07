@@ -268,6 +268,27 @@ export class PostDal implements PostRepository {
       }
     });
   }
+
+  async getSavedPost(userId: string): Promise<IPost[]> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const isLike = await neo4j()
+          ?.cypher(
+            "match(u:user {id:$userId})-[savedPostRel:savedPostRel]->(p:post) return p",
+            { userId }
+          )
+          .catch((err) => console.log(err));
+        const rLike = isLike?.records.map((uss: any) => {
+          return uss.map((res: any) => {
+            return res.properties;
+          });
+        });
+        resolve(rLike as IPost[]);
+      } catch (err) {
+        reject({ message: "Error " + err });
+      }
+    });
+  }
   async getLike(userId: string, postId: string): Promise<IPost[]> {
     return new Promise(async (resolve, reject) => {
       try {
