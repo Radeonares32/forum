@@ -28,6 +28,11 @@ export const getSubCommentRelComment = app.get(
   "/getSubCommentRelComment",
   post.PostController.getSubCommentRelComment
 );
+export const getSavedPost = app.get(
+  "/getSavedPost",
+  Middlewares.userAuth,
+  post.PostController.getSavedPost
+);
 //Post
 export const postPost = app.post(
   "/postPost",
