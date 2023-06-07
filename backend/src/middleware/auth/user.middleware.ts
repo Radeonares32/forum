@@ -15,7 +15,7 @@ export const userAuth: Handler = async (req, res, next) => {
         .json({ message: isVerifyToken.message });
     } else {
       const email = isVerifyToken.token?.payload?.email;
-      const isUser = userService.userFind(email as string);
+      const isUser = userService.userFind(token);
       if ((await isUser).user) {
         next();
       } else {

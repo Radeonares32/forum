@@ -9,6 +9,11 @@ export const Flow = () => {
   const [show, setShow] = useState(false)
   const [category, setCategory] = useState<any>()
   const [categories, setCategories] = useState<any>()
+  const [postTitle, setPostTitle] = useState<any>()
+  const [postDesc, setPostDesc] = useState<any>()
+  const [postCat, setPostCat] = useState<any>()
+  const [postImage, setPostImage] = useState<any>()
+
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
   const categoryCreate = (e: any) => {
@@ -23,16 +28,37 @@ export const Flow = () => {
     setCategory(null)
   }
   /*  */
-  const  catSelectChange = () => {
+  const catSelectChange = () => {
     axios.get('http://localhost:3000/category/getCategory', {
       headers: {
         'x-access-token': auth().token
       }
     }).then((cat: any) => {
-    
+
       setCategories(cat.data.category)
     })
   }
+
+  const catSelectHandle = (e: any) => {
+    setPostCat(e.target.value)
+  }
+  const postClickHandle = async (e: any) => {
+    e.preventDefault()
+    const formData = new FormData()
+    formData.append('title', postTitle)
+    formData.append('description', postDesc)
+    formData.append('image', postImage)
+    formData.append('categoryId', postCat)
+    const post = await axios.post('http://localhost:3000/post/postPost', formData, {
+      headers: {
+        'x-access-token': auth().token
+      }
+    })
+    if(post.data.message == 'Success created') {
+      alert('Post oluşturuldu')
+    }
+  }
+
   return (
     <div className="col-md-5">
       {isSign() ? (
@@ -44,25 +70,31 @@ export const Flow = () => {
                 type="text"
                 className="form-control"
                 placeholder="post başlıgı"
+                value={postTitle}
+                onChange={(e: any) => setPostTitle(e.target.value)}
               />
             </div>
             <div className="mt-3">
               <textarea
                 className="form-control"
                 placeholder="post açıklaması"
+                value={postDesc}
+                onChange={(e: any) => setPostDesc(e.target.value)}
               ></textarea>
             </div>
 
-            <select onClick={catSelectChange}  className="form-select mt-3" aria-label="Default select example">
-              {categories && categories.map((cat: any,key:number) => (
+            <select onClick={catSelectChange} className="form-select mt-3" aria-label="Default select example">
+              {categories && categories.map((cat: any, key: number) => (
                 <>
-                
-                  <option value={cat[0].title} key={key}>{cat[0].title}</option>
+
+                  <option onClick={catSelectHandle} value={cat[0].id} key={key}>{cat[0].title}</option>
                 </>
               ))}
 
             </select>
+            <input type="file" className="mt-2"  onChange={(e: any) => setPostImage(e.target.files[0])} />
             <button
+              onClick={postClickHandle}
               className="btn btn-primary mt-2"
               style={{ backgroundColor: "#1D9BF0" }}
             >

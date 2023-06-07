@@ -13,19 +13,45 @@ export class PostController {
     res.json({ post: await post });
   };
   static createPost: Handler = async (req, res) => {
-    const token: any = req.headers["x-access-token"];
+    const token: any = req.headers["x-access-token"] as string;
+
     const postService = new PostService();
-    const { title, description } = req.body;
-    const { image } = req.file as any;
-    const post = await postService.postCreate(title, description, token, image);
-    if (post?.create?.message) {
-      res.json({
-        message: post?.create.message,
-      });
+    const { title, description, categoryId } = req.body;
+    const { image } = req.files as any;
+    if (image) {
+      const post = await postService.postCreate(
+        title,
+        description,
+        token,
+        image[0].path,
+        categoryId
+      );
+      if (post?.create?.message) {
+        res.json({
+          message: post?.create.message,
+        });
+      } else {
+        res.json({
+          message: post?.message,
+        });
+      }
     } else {
-      res.json({
-        message: post?.message,
-      });
+      const post = await postService.postCreate(
+        title,
+        description,
+        token,
+        "null",
+        categoryId
+      );
+      if (post?.create?.message) {
+        res.json({
+          message: post?.create.message,
+        });
+      } else {
+        res.json({
+          message: post?.message,
+        });
+      }
     }
   };
   static updatePost: Handler = async (req, res) => {
@@ -38,7 +64,8 @@ export class PostController {
       title,
       description,
       token,
-      image
+      image,
+      "null"
     );
     if (post?.message) {
       res.json({

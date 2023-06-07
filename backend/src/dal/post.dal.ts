@@ -32,18 +32,20 @@ export class PostDal implements PostRepository {
     title: string,
     description: string,
     image: string,
-    userId: string
+    userId: string,
+    categoryId:string
   ): Promise<{ message: string }> {
     return new Promise(async (resolve, reject) => {
       try {
         await neo4j()
           ?.writeCypher(
-            "match(u:user {id:$userId}) create (p:post {id:$id,title:$title,description:$description,image:$image}) create(u)-[postRel:postRel]->(p)",
+            "match(u:user {id:$userId}) match(c:category {id:$categoryId}) create (p:post {id:$id,title:$title,description:$description,image:$image}) create(u)-[postRel:postRel]->(p) create(p)-[categoryPostRel:categoryPostRel]->(c)",
             {
               title,
               description,
               image,
               userId,
+              categoryId,
               id: uuid(),
             }
           )
@@ -138,7 +140,8 @@ export class PostDal implements PostRepository {
     id: string,
     title: string,
     description: string,
-    image: string
+    image: string,
+    categoryId:string
   ): Promise<{ message: string }> {
     return new Promise(async (resolve, reject) => {
       try {

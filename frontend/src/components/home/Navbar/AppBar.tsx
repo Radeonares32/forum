@@ -79,8 +79,6 @@ useEffect(()=>{
                 <a className="nav-link active links" aria-current="page" href="#">#{cat[0].title}</a>
               </li>
               ))}
-              
-             
               <li className="nav-item  me-5">
                 <a className="nav-link active links" aria-current="page" href="#">...</a>
               </li>
