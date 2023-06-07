@@ -60,7 +60,7 @@ export class UserDal implements UserRepository {
     return new Promise(async (resolve, reject) => {
       try {
         const user = await neo4j()?.writeCypher(
-          "match (u:user) match(c:complain) match(u)-[complainUserRel:complainUserRel]->(c)",
+          "match (u:user) match(c:complain) match(u)-[complainUserRel:complainUserRel]->(c) return u,c",
           {}
         );
         const rLike = user?.records.map((uss: any) => {
