@@ -33,7 +33,7 @@ export class CategoryService {
     try {
       const email = security.jwt.token.verifyToken(token);
       if (email.message === "Authorized") {
-        const userId = (await this.userService.userFind(token)).userId;
+        const userId = (await this.userService.userFind(token)).userId.userId.properties.id;
         const isValidId = validation.isIdValidation(id);
         if (isValidId.isValid === true) {
           return {
@@ -55,22 +55,15 @@ export class CategoryService {
       };
     }
   }
-  async categoryUpdate(
-    id: string,
-    title: string,
-    token: string
-  ) {
+  async categoryUpdate(id: string, title: string, token: string) {
     try {
       const email = security.jwt.token.verifyToken(token);
       if (email.message === "Authorized") {
-        const userId = (await this.userService.userFind(token)).userId;
+        const userId = (await this.userService.userFind(token)).userId.userId.properties.id;
         const isValidId = validation.isIdValidation(id);
         if (isValidId.isValid) {
           return {
-            update: await this.categoryDataAcess.update(
-              id,
-              title
-            ),
+            update: await this.categoryDataAcess.update(id, title),
           };
         } else {
           return {
@@ -92,9 +85,12 @@ export class CategoryService {
     try {
       const email = security.jwt.token.verifyToken(token);
       if (email.message === "Authorized") {
-        const userId = (await this.userService.userFind(token)).userId;
+        const userId = (await this.userService.userFind(token)).userId.properties.id;
         return {
-          create: await this.categoryDataAcess.create(title,userId),
+          create: await this.categoryDataAcess.create(
+            title,
+            userId
+          ),
         };
       } else {
         return {

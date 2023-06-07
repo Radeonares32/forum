@@ -1,25 +1,28 @@
 import { Link } from "react-router-dom";
 import { useAuthUser, useIsAuthenticated, useSignOut } from "react-auth-kit";
-import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
+import axios from 'axios'
 import './appbar.css'
 import {
-  PersonFill,
-  GearFill,
   BellFill,
-  ChatFill,
-  ThreeDots
 } from "react-bootstrap-icons";
+import { useEffect,useState } from "react";
 
 export const AppBar = () => {
   const auth: any = useAuthUser();
   const isAuthenticated = useIsAuthenticated();
   const signOut = useSignOut();
+  const [categories, setCategories] = useState<any>()
   const logout = () => {
     signOut();
   };
+useEffect(()=>{
+  axios.get('http://localhost:3000/category/getCategory', {
+   
+  }).then((cat: any) => {
+  
+    setCategories(cat.data.category)
+  })
+},[])
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light ">
@@ -40,6 +43,9 @@ export const AppBar = () => {
             </ul>
             {isAuthenticated() ? (
               <>
+              <Link to='/profile' className="nav-item text-decoration-none mx-3">
+                  <BellFill color="#1D9BF0" size={25} />
+                </Link>
                 <Link to='/profile' className="nav-item text-decoration-none mx-3">
                   <a className="nav-link active" aria-current="page" href="#" style={{ color: '#1D9BF0' }}>Profil</a>
                 </Link>
@@ -68,24 +74,13 @@ export const AppBar = () => {
           </button>
           <div className="collapse navbar-collapse d-flex justify-content-evenly" id="navbarSupportedContent">
             <ul className="navbar-nav mb-2 mb-lg-0 d-flex justify-content-evenly">
-              <li className="nav-item  d-flex me-5 ">
-                <a className="nav-link active links" aria-current="page" href="#">debe</a>
+              {categories && categories.map((cat:any,key:any)=>(
+                <li key={key} className="nav-item  d-flex me-5 ">
+                <a className="nav-link active links" aria-current="page" href="#">#{cat[0].title}</a>
               </li>
-              <li className="nav-item  me-5">
-                <a className="nav-link active links" aria-current="page" href="#">sorunlar</a>
-              </li>
-              <li className="nav-item  me-5">
-                <a className="nav-link active links" aria-current="page" href="#">#spor</a>
-              </li>
-              <li className="nav-item  me-5">
-                <a className="nav-link active links" aria-current="page" href="#">#ilişkiler</a>
-              </li>
-              <li className="nav-item  me-5">
-                <a className="nav-link active links" aria-current="page" href="#">#siyaset</a>
-              </li>
-              <li className="nav-item  me-5">
-                <a className="nav-link active links" aria-current="page" href="#">dert</a>
-              </li>
+              ))}
+              
+             
               <li className="nav-item  me-5">
                 <a className="nav-link active links" aria-current="page" href="#">...</a>
               </li>

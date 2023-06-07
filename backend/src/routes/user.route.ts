@@ -25,7 +25,6 @@ export const getFollowerUser = app.get(
 //Post
 export const postUser = app.post(
   "/postUser",
-  Middlewares.multer.userUploads,
   user.UserController.createUser
 );
 export const signUser = app.post("/sign", user.UserController.signUser);

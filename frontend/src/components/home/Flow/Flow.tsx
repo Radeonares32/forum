@@ -1,37 +1,94 @@
-import { useIsAuthenticated } from "react-auth-kit";
+import { useIsAuthenticated, useAuthUser } from "react-auth-kit";
 import { Modal } from "react-bootstrap";
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 import "./flow.css";
 export const Flow = () => {
-  const [show,setShow] = useState(false)
+  const isSign = useIsAuthenticated();
+  const auth: any = useAuthUser()
+  const [show, setShow] = useState(false)
+  const [category, setCategory] = useState<any>()
+  const [categories, setCategories] = useState<any>()
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
-  let isSign = useIsAuthenticated();
+  const categoryCreate = (e: any) => {
+    e.preventDefault()
+    axios.post('http://localhost:3000/category/postCategory', {
+      title: category
+    }, {
+      headers: {
+        'x-access-token': auth().token
+      }
+    })
+    setCategory(null)
+  }
+  /*  */
+  const  catSelectChange = () => {
+    axios.get('http://localhost:3000/category/getCategory', {
+      headers: {
+        'x-access-token': auth().token
+      }
+    }).then((cat: any) => {
+    
+      setCategories(cat.data.category)
+    })
+  }
   return (
     <div className="col-md-5">
       {isSign() ? (
-        <div className="col-lg-9" style={{ margin: "5rem" }}>
-          <div className="">
-            <label className="form-label">Create Post</label>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="post title"
-            />
+        <>
+          <div className="col-lg-8" style={{ margin: "5rem" }}>
+            <div className="">
+              <label className="form-label">Post</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="post başlıgı"
+              />
+            </div>
+            <div className="mt-3">
+              <textarea
+                className="form-control"
+                placeholder="post açıklaması"
+              ></textarea>
+            </div>
+
+            <select onClick={catSelectChange}  className="form-select mt-3" aria-label="Default select example">
+              {categories && categories.map((cat: any,key:number) => (
+                <>
+                
+                  <option value={cat[0].title} key={key}>{cat[0].title}</option>
+                </>
+              ))}
+
+            </select>
+            <button
+              className="btn btn-primary mt-2"
+              style={{ backgroundColor: "#1D9BF0" }}
+            >
+              Post oluştur
+            </button>
           </div>
-          <div className="mt-3">
-            <textarea
-              className="form-control"
-              placeholder="post description"
-            ></textarea>
+          <div className="col-lg-8" style={{ margin: "5rem" }}>
+            <div className="">
+              <label className="form-label">Entry kategorisi</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="entry kategori ismi"
+                onChange={(e: any) => setCategory(e.target.value)}
+                value={category}
+              />
+            </div>
+            <button
+              onClick={categoryCreate}
+              className="btn btn-primary mt-1"
+              style={{ backgroundColor: "#1D9BF0" }}
+            >
+              kategori oluştur
+            </button>
           </div>
-          <button
-            className="btn btn-primary mt-1"
-            style={{ backgroundColor: "#1D9BF0" }}
-          >
-            Create Post
-          </button>
-        </div>
+        </>
       ) : (
         <></>
       )}
@@ -61,8 +118,8 @@ export const Flow = () => {
           </div>
 
           <div className="post-block__content mb-2">
-          <img width={300} height={300} onClick={handleShow} src="logo512.png" />
-            
+            <img width={300} height={300} onClick={handleShow} src="logo512.png" />
+
             <p>Bugun havalar iyi gibi ne diyorsunuz</p>
             <div className="post-block__content mb-2">
               <p
@@ -85,18 +142,27 @@ export const Flow = () => {
               </p>
               <p
                 className="mb-0 mx-0 text-muted"
-                style={{ display: "inline-block", paddingLeft: 350 }}
+                style={{ display: "inline-block", paddingLeft: 300 }}
               >
-                <i className="fa-solid fa-ellipsis"></i>
+
+                <div className="dropdown">
+                  <a className="text-muted" style={{ display: 'inline-block', margin: '2px' }} href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i className="fa-solid fa-ellipsis"></i>
+                  </a>
+                  <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <li><a className="dropdown-item" href="#">Şikayet Et</a></li>
+                  </ul>
+                </div>
+
               </p>
             </div>
           </div>
-          <Modal show={show} onHide={handleClose}>
-              <Modal.Header closeButton></Modal.Header>
-              <Modal.Body>
-                <img width={300} height={300} src="logo512.png"  />
-              </Modal.Body>
-            </Modal>
+          <Modal show={show} className="text-center" onHide={handleClose}>
+            <Modal.Header closeButton></Modal.Header>
+            <Modal.Body>
+              <img width={300} height={300} src="logo512.png" />
+            </Modal.Body>
+          </Modal>
           {/* <div className="mb-3">
             <div className="d-flex justify-content-between mb-2">
               <div className="d-flex">
@@ -125,7 +191,7 @@ export const Flow = () => {
             </p>
           </div> */}
           <hr />
-         {/*  <div className="post-block__comments">
+          {/*  <div className="post-block__comments">
             <div className="input-group mb-3">
               <input
                 type="text"
