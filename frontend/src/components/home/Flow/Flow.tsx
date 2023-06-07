@@ -7,6 +7,7 @@ export const Flow = () => {
   const isSign = useIsAuthenticated();
   const auth: any = useAuthUser()
   const [show, setShow] = useState(false)
+  const [showComplain, setShowComplain] = useState(false)
   const [category, setCategory] = useState<any>()
   const [categories, setCategories] = useState<any>()
   const [postTitle, setPostTitle] = useState<any>()
@@ -15,8 +16,32 @@ export const Flow = () => {
   const [postImage, setPostImage] = useState<any>()
   const [posts, setPost] = useState<any>()
 
+
+  const [complainTitle, setComplainTitle] = useState<any>()
+  const [complainDesc, setComplainDesc] = useState<any>()
+
+
+  const complainHandle = async (e: any) => {
+    e.preventDefault()
+    const complain = await axios.post('http://localhost:3000/user/postComplain', {
+      title: complainTitle,
+      description: complainDesc
+    }, {
+      headers: {
+        'x-access-token': auth().token
+      }
+    })
+    if(complain.data.getComplain == 'Success complain') {
+      alert("gönderildi")
+      setShowComplain(false)
+    }
+  }
+
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
+
+  const handleComplainShow = () => setShowComplain(true)
+  const handleComplainClose = () => setShowComplain(false)
   const categoryCreate = (e: any) => {
     e.preventDefault()
     axios.post('http://localhost:3000/category/postCategory', {
@@ -95,7 +120,7 @@ export const Flow = () => {
       e.preventDefault()
       const postId = e.target.id
       const isBlue = e.target.style.color
-      if(isBlue == 'blue') {
+      if (isBlue == 'blue') {
         alert("zaten kayıtlı")
       }
       else {
@@ -107,7 +132,7 @@ export const Flow = () => {
           }
         })
         e.target.style.color = 'blue'
-        if(post.data.message='Success saved') {
+        if (post.data.message = 'Success saved') {
           alert("kaydedildi")
         }
       }
@@ -249,27 +274,47 @@ export const Flow = () => {
                 >
                   <i className="fa-solid fa-share"></i>
                 </p>
-                <p
-                  className="mb-0 mx-0 text-muted"
-                  style={{ display: "inline-block", paddingLeft: 300 }}
-                >
+                {isSign() ? (
+                  <p
+                    className="mb-0 mx-0 text-muted"
+                    style={{ display: "inline-block", paddingLeft: 300 }}
+                  >
 
-                  <div className="dropdown">
-                    <a className="text-muted" style={{ display: 'inline-block', margin: '2px' }} href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                      <i className="fa-solid fa-ellipsis"></i>
-                    </a>
-                    <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                      <li><a className="dropdown-item" href="#">Şikayet Et</a></li>
-                    </ul>
-                  </div>
+                    <div className="dropdown">
+                      <a className="text-muted" style={{ display: 'inline-block', margin: '2px' }} href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i className="fa-solid fa-ellipsis"></i>
+                      </a>
+                      <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li><a className="dropdown-item" onClick={handleComplainShow} href="#">Şikayet Et</a></li>
+                      </ul>
+                    </div>
 
-                </p>
+                  </p>
+                ) : (<></>)}
+
               </div>
             </div>
             <Modal show={show} className="text-center" onHide={handleClose}>
               <Modal.Header closeButton></Modal.Header>
               <Modal.Body>
                 <img width={300} height={300} src={'http://localhost:3000/public/posts/' + post[1].title} />
+              </Modal.Body>
+            </Modal>
+
+            <Modal show={showComplain} className="text-center" onHide={handleComplainClose}>
+              <Modal.Header closeButton></Modal.Header>
+              <Modal.Body>
+                <form>
+                  <div className="mb-3">
+                    <label className="form-label">Başlık</label>
+                    <input type="text" value={complainTitle} onChange={(e: any) => setComplainTitle(e.target.value)} className="form-control" aria-describedby="emailHelp" />
+                  </div>
+                  <div className="mb-3">
+                    <label className="form-label">Açıklama</label>
+                    <input type="text" value={complainDesc} onChange={(e: any) => setComplainDesc(e.target.value)} className="form-control" id="exampleInputPassword1" />
+                  </div>
+                  <button type="submit" onClick={complainHandle} className="btn btn-primary">Gönder</button>
+                </form>
               </Modal.Body>
             </Modal>
             {/* <div className="mb-3">
