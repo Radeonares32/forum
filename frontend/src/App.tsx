@@ -6,6 +6,7 @@ import { SignIn } from "./components/sign/signin";
 import { Profile } from "./components/profile/profile";
 import { AuthProvider, RequireAuth } from "react-auth-kit";
 import { Posts } from "./components/home/Posts/Posts";
+import { Admin } from "./components/admin/Admin";
 
 function App() {
   return (
@@ -28,7 +29,9 @@ function App() {
             }
           ></Route>
           <Route path="posts/:categoryId" element={<Posts />} ></Route>
+          <Route path='admin' element={<Admin />} ></Route>
         </Routes>
+        
       </BrowserRouter>
     </AuthProvider>
   );
