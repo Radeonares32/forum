@@ -84,7 +84,8 @@ export class PostService {
     title: string,
     description: string,
     token: string,
-    image: string
+    image: string,
+    categoryId:string
   ) {
     try {
       const email = security.jwt.token.verifyToken(token);
@@ -97,7 +98,8 @@ export class PostService {
               id,
               title,
               description,
-              image
+              image,
+              categoryId
             ),
           };
         } else {
@@ -120,7 +122,8 @@ export class PostService {
     title: string,
     description: string,
     token: string,
-    image: string
+    image: string,
+    categoryId:string
   ) {
     try {
       const email = security.jwt.token.verifyToken(token);
@@ -134,7 +137,8 @@ export class PostService {
             title,
             description,
             image,
-            userId
+            userId,
+            categoryId
           ),
         };
       } else {

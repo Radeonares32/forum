@@ -29,7 +29,7 @@ export const Flow = () => {
         'x-access-token': auth().token
       }
     }).then((cat: any) => {
-    
+      
       setCategories(cat.data.category)
     })
   }
@@ -57,7 +57,7 @@ export const Flow = () => {
               {categories && categories.map((cat: any,key:number) => (
                 <>
                 
-                  <option value={cat[0].title} key={key}>{cat[0].title}</option>
+                  <option value={cat[0].id} key={key}>{cat[0].title}</option>
                 </>
               ))}
 

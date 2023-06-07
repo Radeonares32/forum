@@ -16,14 +16,15 @@ export class PostController {
     const token: any = req.headers["x-access-token"] as string;
 
     const postService = new PostService();
-    const { title, description } = req.body;
+    const { title, description, categoryId } = req.body;
     const { image } = req.files as any;
     if (image) {
       const post = await postService.postCreate(
         title,
         description,
         token,
-        image[0].path
+        image[0].path,
+        categoryId
       );
       if (post?.create?.message) {
         res.json({
@@ -39,7 +40,8 @@ export class PostController {
         title,
         description,
         token,
-        "null"
+        "null",
+        categoryId
       );
       if (post?.create?.message) {
         res.json({
@@ -62,7 +64,8 @@ export class PostController {
       title,
       description,
       token,
-      image
+      image,
+      "null"
     );
     if (post?.message) {
       res.json({

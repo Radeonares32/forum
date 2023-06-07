@@ -4,7 +4,8 @@ export interface PostRepository {
     title: string,
     description: string,
     image:string,
-    userId: string
+    userId: string,
+    categoryId:string
   ): Promise<{ message: string }>;
   find(id: string): Promise<IPost>;
   findAll(): Promise<IPost[]>;
@@ -13,7 +14,8 @@ export interface PostRepository {
     title: string,
     description: string,
     image:string,
-    userId: string
+    userId: string,
+    categoryId:string
   ): Promise<{ message: string }>;
   delete(id: string, userId: string): Promise<{ message: string }>;
   comment(
