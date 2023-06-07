@@ -1,4 +1,17 @@
+import './admin.css'
+
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+
+
 export const Admin = () => {
+    const [complain, setComplain] = useState<any>()
+
+    useEffect(() => {
+        axios.get('http://localhost:3000/user/getComplain').then((complain: any) => {
+            setComplain(complain.data.user.complain)
+        })
+    })
     return (
 
         <div id="wrapper">
@@ -36,18 +49,14 @@ export const Admin = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
+                                    {complain && complain.map((com: any, key: any) => (
+                                        <tr>
+                                            <td>{com[0].nickname}</td>
+                                            <td>{com[0].email}</td>
+                                            <td>{com[1].title}</td>
+                                            <td>{com[1].description}</td>
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                         </div>
