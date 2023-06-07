@@ -76,9 +76,11 @@ export const Flow = () => {
       }
     })
     if (post.data.message == 'Success Like') {
+      e.target.style.color = 'red'
       alert("Beğenildi")
     }
     if (post.data.message == 'Success unLike') {
+      e.target.style.color = 'gray'
       alert("Beğeni kaldırıldı")
     }
   }
@@ -200,7 +202,7 @@ export const Flow = () => {
                   style={{ display: "inline-block" }}
 
                 >
-                  <i id={post[1].id} onClick={likePostHandle} className="fa-solid fa-heart"></i>
+                  <i id={post[1].id} onClick={likePostHandle} className="fa-solid fa-heart" ></i>
                 </p>
                 <p
                   className="mb-0 mx-4 text-muted"
