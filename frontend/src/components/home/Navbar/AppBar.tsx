@@ -75,13 +75,30 @@ export const AppBar = () => {
           <div className="collapse navbar-collapse d-flex justify-content-evenly" id="navbarSupportedContent">
             <ul className="navbar-nav mb-2 mb-lg-0 d-flex justify-content-evenly">
               {categories && categories.map((cat: any, key: any) => (
-                <Link to={'/posts/' + cat[0].id} key={key} className="nav-link  d-flex me-5 " style={{listStyleType:'none'}}>
+                <Link to={'/posts/' + cat[0].id} key={key} className="nav-link  d-flex me-5 " style={{ listStyleType: 'none' }}>
                   <a className="nav-link active links" aria-current="page" href="#">#{cat[0].title}</a>
                 </Link>
               ))}
-              <li className="nav-item  me-5">
-                <a className="nav-link active links" aria-current="page" href="#">...</a>
-              </li>
+              {isAuthenticated() ? (
+
+                <li className="nav-item  me-5 mt-3 links">
+
+                  <div className="dropdown">
+                    <a className="text-muted" style={{ display: 'inline-block', margin: '2px' }} href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i className="fa-solid fa-ellipsis"></i>
+                    </a>
+                    <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                      {categories && categories.map((cat: any, key: any) => (
+                        <Link to={'/posts/' + cat[0].id} key={key}><a className="dropdown-item" href="#">{cat[0].title}</a></Link>
+                      ))}
+                    </ul>
+                  </div>
+                </li>
+              ) : (
+                <></>
+
+              )}
+
             </ul>
           </div>
         </div>

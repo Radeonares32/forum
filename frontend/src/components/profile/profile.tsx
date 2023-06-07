@@ -54,15 +54,15 @@ export const Profile = () => {
         <div className="row">
           <SideBar />
           <div className="col-md-8 mt-5">
-          <h3>Bugra</h3>
+            <h3>{auth().nickname}</h3>
             <div className="d-flex justify-content-between">
               <h6>834 gonderi- 32 takipçi - 3 takip</h6>
               <img src="img/logo/logo.png" className="img-responsive" width={100} height={100} />
             </div>
             <span>biyografi:</span>
             <div className="d-flex justify-content-between">
-              <textarea name="" cols={20} rows={5}></textarea>
-              <button className="btn btn-primary w-25 h-25" style={{backgroundColor:'#1D9BF0',border:'0'}}>takip et</button>
+              <textarea name="" cols={20} rows={5} value={"bilgin olsun burası biyografi kısmı"}></textarea>
+              <button className="btn btn-primary w-25 h-25" style={{ backgroundColor: '#1D9BF0', border: '0' }}>takip et</button>
             </div>
             <div className="d-flex-justify-content-between mt-5 border-bottom border-top border-2 border-dark ">
               <ul className="d-flex justify-content-around lists">
@@ -73,68 +73,68 @@ export const Profile = () => {
               </ul>
             </div>
             <section className="main-content">
-        <div className="post-block">
-          <div className="d-flex justify-content-between">
-            <div className="d-flex mb-3">
-              <div className="className-2">
-                <a href="#!" className="text-dark"></a>
-              </div>
-              <div style={{ marginLeft: 400 }}>
-                <h5 className="mb-0">
-                  <img
-                    width={50}
-                    height={50}
-                    src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
-                  />
-                  <a href="#!" className="text-dark" style={{ fontSize: 10 }}>
-                    Ahmet yılmaz
-                  </a>
-                </h5>
-                <p className="mb-0 text-muted" style={{ fontSize: 10 }}>
-                  5m
-                </p>
-              </div>
-            </div>
-          </div>
+              <div className="post-block">
+                <div className="d-flex justify-content-between">
+                  <div className="d-flex mb-3">
+                    <div className="className-2">
+                      <a href="#!" className="text-dark"></a>
+                    </div>
+                    <div style={{ marginLeft: 400 }}>
+                      <h5 className="mb-0">
+                        <img
+                          width={50}
+                          height={50}
+                          src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                        />
+                        <a href="#!" className="text-dark" style={{ fontSize: 10 }}>
+                          {auth().nickname}
+                        </a>
+                      </h5>
+                      <p className="mb-0 text-muted" style={{ fontSize: 10 }}>
+                        5m
+                      </p>
+                    </div>
+                  </div>
+                </div>
 
-          <div className="post-block__content mb-2">
-          <img width={300} height={300}  src="logo512.png" />
-            
-            <p>Bugun havalar iyi gibi ne diyorsunuz</p>
-            <div className="post-block__content mb-2">
-              <p
-                className="mt-4 text-muted"
-                style={{ display: "inline-block" }}
-              >
-                <i className="fa-solid fa-heart"></i>
-              </p>
-              <p
-                className="mb-0 mx-4 text-muted"
-                style={{ display: "inline-block" }}
-              >
-                <i className="fa-solid fa-bookmark"></i>
-              </p>
-              <p
-                className="mb-0 mx-0 text-muted"
-                style={{ display: "inline-block" }}
-              >
-                <i className="fa-solid fa-share"></i>
-              </p>
-              <p
-                className="mb-0 mx-0 text-muted"
-                style={{ display: "inline-block", paddingLeft: 350 }}
-              >
-                <i className="fa-solid fa-ellipsis"></i>
-              </p>
-            </div>
-          </div>
-         {/*  <Modal show={show} onHide={handleClose}>
+                <div className="post-block__content mb-2">
+                  <img width={300} height={300} src="logo512.png" />
+
+                  <p>Bugun havalar iyi gibi ne diyorsunuz</p>
+                  <div className="post-block__content mb-2">
+                    <p
+                      className="mt-4 text-muted"
+                      style={{ display: "inline-block" }}
+                    >
+                      <i className="fa-solid fa-heart"></i>
+                    </p>
+                    <p
+                      className="mb-0 mx-4 text-muted"
+                      style={{ display: "inline-block" }}
+                    >
+                      <i className="fa-solid fa-bookmark"></i>
+                    </p>
+                    <p
+                      className="mb-0 mx-0 text-muted"
+                      style={{ display: "inline-block" }}
+                    >
+                      <i className="fa-solid fa-share"></i>
+                    </p>
+                    <p
+                      className="mb-0 mx-0 text-muted"
+                      style={{ display: "inline-block", paddingLeft: 350 }}
+                    >
+                      <i className="fa-solid fa-ellipsis"></i>
+                    </p>
+                  </div>
+                </div>
+                {/*  <Modal show={show} onHide={handleClose}>
               <Modal.Header closeButton></Modal.Header>
               <Modal.Body>
                 <img width={300} height={300} src="logo512.png"  />
               </Modal.Body>
             </Modal> */}
-          {/* <div className="mb-3">
+                {/* <div className="mb-3">
             <div className="d-flex justify-content-between mb-2">
               <div className="d-flex">
                 <a href="#!" className="text-danger mr-2">
@@ -161,8 +161,8 @@ export const Profile = () => {
               </a>
             </p>
           </div> */}
-          <hr />
-         {/*  <div className="post-block__comments">
+                <hr />
+                {/*  <div className="post-block__comments">
             <div className="input-group mb-3">
               <input
                 type="text"
@@ -209,8 +209,8 @@ export const Profile = () => {
               Diğer Yorumlar <span className="font-weight-bold">(12)</span>
             </a>
           </div> */}
-        </div>
-      </section>
+              </div>
+            </section>
           </div>
         </div>
       </div>

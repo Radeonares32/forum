@@ -35,4 +35,5 @@ export interface PostRepository {
   getUserRelPost(userId:string):Promise<IPost[]>
   getPostRelComment(postId:string):Promise<IPost[]>
   getSubCommentRelComment(commentId:string):Promise<IPost[]>
+  savePost(userId:string,postId:string):Promise<{message:string}>
 }
