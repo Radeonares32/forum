@@ -261,6 +261,27 @@ export class PostService {
       };
     }
   }
+  async getSavedPost(token: string) {
+    try {
+      const email = security.jwt.token.verifyToken(token);
+      if (email.message === "Authorized") {
+        const userId = (await this.userService.userFind(token)).userId
+          .properties.id;
+        return {
+          savedPost: await this.postDataAcess.getSavedPost(userId),
+        };
+      } else {
+        return {
+          message: email.message,
+        };
+      }
+    } catch (err) {
+      return {
+        message: "invalid token",
+      };
+    }
+  }
+
   async postCategoryRel(token: string, postId: string, categoryId: string) {
     try {
       const email = security.jwt.token.verifyToken(token);
