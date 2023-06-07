@@ -85,7 +85,7 @@ export class PostService {
     description: string,
     token: string,
     image: string,
-    categoryId:string
+    categoryId: string
   ) {
     try {
       const email = security.jwt.token.verifyToken(token);
@@ -123,7 +123,7 @@ export class PostService {
     description: string,
     token: string,
     image: string,
-    categoryId:string
+    categoryId: string
   ) {
     try {
       const email = security.jwt.token.verifyToken(token);
@@ -221,6 +221,26 @@ export class PostService {
       };
     }
   }
+  async savePost(token: string, postId: string) {
+    try {
+      const email = security.jwt.token.verifyToken(token);
+      if (email.message === "Authorized") {
+        const userId = (await this.userService.userFind(token)).userId
+          .properties.id;
+        return {
+          postSaved: await this.postDataAcess.savePost(userId, postId),
+        };
+      } else {
+        return {
+          message: email.message,
+        };
+      }
+    } catch (err) {
+      return {
+        message: "invalid token",
+      };
+    }
+  }
   async getLike(token: string, postId: string) {
     try {
       const email = security.jwt.token.verifyToken(token);
@@ -241,6 +261,27 @@ export class PostService {
       };
     }
   }
+  async getSavedPost(token: string) {
+    try {
+      const email = security.jwt.token.verifyToken(token);
+      if (email.message === "Authorized") {
+        const userId = (await this.userService.userFind(token)).userId
+          .properties.id;
+        return {
+          savedPost: await this.postDataAcess.getSavedPost(userId),
+        };
+      } else {
+        return {
+          message: email.message,
+        };
+      }
+    } catch (err) {
+      return {
+        message: "invalid token",
+      };
+    }
+  }
+
   async postCategoryRel(token: string, postId: string, categoryId: string) {
     try {
       const email = security.jwt.token.verifyToken(token);

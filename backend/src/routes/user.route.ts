@@ -21,11 +21,17 @@ export const getFollowerUser = app.get(
   Middlewares.userAuth,
   user.UserController.getFollowersUser
 );
+export const getComplain = app.get(
+  "/getComplain",
+  user.UserController.getComplain
+);
 
 //Post
-export const postUser = app.post(
-  "/postUser",
-  user.UserController.createUser
+export const postUser = app.post("/postUser", user.UserController.createUser);
+export const postComplain = app.post(
+  "/postComplain",
+  Middlewares.userAuth,
+  user.UserController.postComplain
 );
 export const signUser = app.post("/sign", user.UserController.signUser);
 export const logoutUser = app.post("/logout", user.UserController.logoutUser);

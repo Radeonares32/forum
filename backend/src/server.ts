@@ -3,6 +3,7 @@ import http from "http";
 import bodyParser from "body-parser";
 import session from "express-session";
 import cors from "cors";
+import path from 'path'
 
 const app = express();
 export const server = http.createServer(app);
@@ -24,6 +25,9 @@ app.use(
     allowedHeaders: "*",
   })
 );
+
+app.use("/public", express.static(path.join(__dirname, "../public")));
+
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));

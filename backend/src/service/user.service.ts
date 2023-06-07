@@ -15,16 +15,17 @@ export class UserService {
   userFindAll() {
     return this.userDataAcess.findAll();
   }
-  async userFind(token:string) {
+  async userFind(token: string) {
     try {
-      
-      const email:any = security.jwt.token.verifyToken(token)
- 
-      if (email.message === 'Authorized') {
-        const user:any = await this.userDataAcess.find(email.token?.payload?.email).catch(err=>console.log(err))        
+      const email: any = security.jwt.token.verifyToken(token);
+
+      if (email.message === "Authorized") {
+        const user: any = await this.userDataAcess
+          .find(email.token?.payload?.email)
+          .catch((err) => console.log(err));
         return {
-          user, 
-          userId:user[0][0],
+          user,
+          userId: user[0][0],
           message: email.message,
         };
       } else {
@@ -32,13 +33,43 @@ export class UserService {
           message: email.message,
         };
       }
-    }
-    catch(err) {
+    } catch (err) {
       return {
-        message:"invalid token"
-      }
+        message: "invalid token",
+      };
     }
-   
+  }
+  async postComplain(token: string, title: string, description: string) {
+    try {
+      const email = security.jwt.token.verifyToken(token);
+      if (email.message === "Authorized") {
+        const userId = (await this.userFind(token)).userId.properties.id;
+        return {
+          complain: (
+            await this.userDataAcess.postComplain(userId, title, description)
+          ).message,
+        };
+      } else {
+        return {
+          message: email.message,
+        };
+      }
+    } catch (err) {
+      return {
+        message: "invalid token",
+      };
+    }
+  }
+  async getComplain() {
+    try {
+      return {
+        complain: await this.userDataAcess.getComplain(),
+      };
+    } catch (err) {
+      return {
+        complain: err,
+      };
+    }
   }
   userDelete(id: string) {
     const isValidId = validation.isIdValidation(id);
@@ -60,9 +91,9 @@ export class UserService {
     newPassword: string,
     hash: string,
     password: string,
-    bio:string,
-    image:string,
-    note:string
+    bio: string,
+    image: string,
+    note: string
   ) {
     const isValidId = validation.isIdValidation(id);
     const isEmail = validation.isEmailValidation(email);
@@ -72,7 +103,15 @@ export class UserService {
         if (decrypt.isDencrypt) {
           const encrypt = security.bcrypt.encrypt(newPassword);
           return {
-            update: this.userDataAcess.update(id,nickname,email,encrypt,bio,image,note),
+            update: this.userDataAcess.update(
+              id,
+              nickname,
+              email,
+              encrypt,
+              bio,
+              image,
+              note
+            ),
           };
         } else {
           return {
@@ -94,15 +133,22 @@ export class UserService {
     nickname: string,
     email: string,
     password: string,
-    bio:string,
-    image:string,
-    note:string
+    bio: string,
+    image: string,
+    note: string
   ) {
     const hash = security.bcrypt.encrypt(password);
     const isEmail = validation.isEmailValidation(email);
     if (isEmail.isEmail) {
       return {
-        create: this.userDataAcess.create(nickname,email,hash,bio,image,note),
+        create: this.userDataAcess.create(
+          nickname,
+          email,
+          hash,
+          bio,
+          image,
+          note
+        ),
       };
     } else {
       return {
@@ -165,7 +211,6 @@ export class UserService {
             email: isUser[0][0],
           };
           try {
-           
             return {
               token: (await cache.redis.Token.addToken(payload)).token,
             };
@@ -210,14 +255,13 @@ export class UserService {
   }
   async userGetFollowers(id: string) {
     if (id) {
-        return {
-            followers: await this.userDataAcess.getFollowers(id),
-        }
+      return {
+        followers: await this.userDataAcess.getFollowers(id),
+      };
+    } else {
+      return {
+        message: "id prop empty",
+      };
     }
-    else {
-        return {
-            message: "id prop empty"
-        }
-    }
-}
+  }
 }

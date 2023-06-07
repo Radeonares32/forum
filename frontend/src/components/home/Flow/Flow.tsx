@@ -13,6 +13,7 @@ export const Flow = () => {
   const [postDesc, setPostDesc] = useState<any>()
   const [postCat, setPostCat] = useState<any>()
   const [postImage, setPostImage] = useState<any>()
+  const [posts, setPost] = useState<any>()
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
@@ -54,11 +55,68 @@ export const Flow = () => {
         'x-access-token': auth().token
       }
     })
-    if(post.data.message == 'Success created') {
+    if (post.data.message == 'Success created') {
       alert('Post oluşturuldu')
     }
   }
+  useEffect(() => {
+    axios.get('http://localhost:3000/post/getPost').then((post: any) => {
+      setPost(post.data.post)
+    })
+  })
+  const likePostHandle = async (e: any) => {
+    if (isSign()) {
+      e.preventDefault()
+      const postId = e.target.id
 
+      const post = await axios.post('http://localhost:3000/post/postLike', {
+        postId
+      }, {
+        headers: {
+          'x-access-token': auth().token
+        }
+      })
+      if (post.data.message == 'Success Like') {
+        e.target.style.color = 'red'
+        alert("Beğenildi")
+      }
+      if (post.data.message == 'Success unLike') {
+        e.target.style.color = 'gray'
+        alert("Beğeni kaldırıldı")
+      }
+    }
+    else {
+      alert("giriş yapınız")
+    }
+
+  }
+  const savedPostHandle = async (e: any) => {
+    if (isSign()) {
+      e.preventDefault()
+      const postId = e.target.id
+      const isBlue = e.target.style.color
+      if(isBlue == 'blue') {
+        alert("zaten kayıtlı")
+      }
+      else {
+        const post = await axios.post('http://localhost:3000/post/postSaved', {
+          postId
+        }, {
+          headers: {
+            'x-access-token': auth().token
+          }
+        })
+        e.target.style.color = 'blue'
+        if(post.data.message='Success saved') {
+          alert("kaydedildi")
+        }
+      }
+    }
+    else {
+      alert("giriş yapınız")
+    }
+
+  }
   return (
     <div className="col-md-5">
       {isSign() ? (
@@ -92,7 +150,7 @@ export const Flow = () => {
               ))}
 
             </select>
-            <input type="file" className="mt-2"  onChange={(e: any) => setPostImage(e.target.files[0])} />
+            <input type="file" className="mt-2" onChange={(e: any) => setPostImage(e.target.files[0])} />
             <button
               onClick={postClickHandle}
               className="btn btn-primary mt-2"
@@ -124,78 +182,97 @@ export const Flow = () => {
       ) : (
         <></>
       )}
-      <section className="main-content">
-        <div className="post-block">
-          <div className="d-flex justify-content-between">
-            <div className="d-flex mb-3">
-              <div className="className-2">
-                <a href="#!" className="text-dark"></a>
+      {posts && posts.map((post: any, key: any) => (
+
+
+        <section className="main-content">
+          <div className="post-block">
+            <div className="d-flex justify-content-between">
+              <div className="d-flex mb-3">
+                <div className="className-2">
+                  <a href="#!" className="text-dark"></a>
+                </div>
+                <div style={{ marginLeft: 400 }}>
+                  <h5 className="mb-0">
+                    {post[0].image !== null ? (
+                      <img
+                        width={50}
+                        height={50}
+                        src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                      />
+                    ) : (
+                      <img
+                        width={50}
+                        height={50}
+                        src={window.location.hostname + ':3000' + post[0].image}
+                      />
+                    )}
+
+                    <a href="#!" className="text-dark" style={{ fontSize: 10 }}>
+                      {post[0].nickname}
+                    </a>
+                  </h5>
+                  <p className="mb-0 text-muted" style={{ fontSize: 10 }}>
+                    5m
+                  </p>
+                </div>
               </div>
-              <div style={{ marginLeft: 400 }}>
-                <h5 className="mb-0">
-                  <img
-                    width={50}
-                    height={50}
-                    src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
-                  />
-                  <a href="#!" className="text-dark" style={{ fontSize: 10 }}>
-                    Ahmet yılmaz
-                  </a>
-                </h5>
-                <p className="mb-0 text-muted" style={{ fontSize: 10 }}>
-                  5m
+            </div>
+
+            <div className="post-block__content mb-2">
+              {post[1].image !== null ? (
+                <img width={300} height={300} onClick={handleShow} src={'http://localhost:3000/public/posts/' + post[1].image} />
+              ) : (
+                <img width={300} height={300} onClick={handleShow} src="" style={{ display: 'none' }} />
+              )}
+
+              <h3>{post[1].title}</h3>
+              <p>{post[1].description}</p>
+              <div className="post-block__content mb-2">
+                <p
+                  className="mt-4 text-muted"
+
+                  style={{ display: "inline-block" }}
+
+                >
+                  <i id={post[1].id} onClick={likePostHandle} className="fa-solid fa-heart" ></i>
+                </p>
+                <p
+                  className="mb-0 mx-4 text-muted"
+                  style={{ display: "inline-block" }}
+                >
+                  <i className="fa-solid fa-bookmark" id={post[1].id} onClick={savedPostHandle}></i>
+                </p>
+                <p
+                  className="mb-0 mx-0 text-muted"
+                  style={{ display: "inline-block" }}
+                >
+                  <i className="fa-solid fa-share"></i>
+                </p>
+                <p
+                  className="mb-0 mx-0 text-muted"
+                  style={{ display: "inline-block", paddingLeft: 300 }}
+                >
+
+                  <div className="dropdown">
+                    <a className="text-muted" style={{ display: 'inline-block', margin: '2px' }} href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i className="fa-solid fa-ellipsis"></i>
+                    </a>
+                    <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                      <li><a className="dropdown-item" href="#">Şikayet Et</a></li>
+                    </ul>
+                  </div>
+
                 </p>
               </div>
             </div>
-          </div>
-
-          <div className="post-block__content mb-2">
-            <img width={300} height={300} onClick={handleShow} src="logo512.png" />
-
-            <p>Bugun havalar iyi gibi ne diyorsunuz</p>
-            <div className="post-block__content mb-2">
-              <p
-                className="mt-4 text-muted"
-                style={{ display: "inline-block" }}
-              >
-                <i className="fa-solid fa-heart"></i>
-              </p>
-              <p
-                className="mb-0 mx-4 text-muted"
-                style={{ display: "inline-block" }}
-              >
-                <i className="fa-solid fa-bookmark"></i>
-              </p>
-              <p
-                className="mb-0 mx-0 text-muted"
-                style={{ display: "inline-block" }}
-              >
-                <i className="fa-solid fa-share"></i>
-              </p>
-              <p
-                className="mb-0 mx-0 text-muted"
-                style={{ display: "inline-block", paddingLeft: 300 }}
-              >
-
-                <div className="dropdown">
-                  <a className="text-muted" style={{ display: 'inline-block', margin: '2px' }} href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i className="fa-solid fa-ellipsis"></i>
-                  </a>
-                  <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <li><a className="dropdown-item" href="#">Şikayet Et</a></li>
-                  </ul>
-                </div>
-
-              </p>
-            </div>
-          </div>
-          <Modal show={show} className="text-center" onHide={handleClose}>
-            <Modal.Header closeButton></Modal.Header>
-            <Modal.Body>
-              <img width={300} height={300} src="logo512.png" />
-            </Modal.Body>
-          </Modal>
-          {/* <div className="mb-3">
+            <Modal show={show} className="text-center" onHide={handleClose}>
+              <Modal.Header closeButton></Modal.Header>
+              <Modal.Body>
+                <img width={300} height={300} src={'http://localhost:3000/public/posts/' + post[1].title} />
+              </Modal.Body>
+            </Modal>
+            {/* <div className="mb-3">
             <div className="d-flex justify-content-between mb-2">
               <div className="d-flex">
                 <a href="#!" className="text-danger mr-2">
@@ -222,8 +299,8 @@ export const Flow = () => {
               </a>
             </p>
           </div> */}
-          <hr />
-          {/*  <div className="post-block__comments">
+            <hr />
+            {/*  <div className="post-block__comments">
             <div className="input-group mb-3">
               <input
                 type="text"
@@ -270,8 +347,10 @@ export const Flow = () => {
               Diğer Yorumlar <span className="font-weight-bold">(12)</span>
             </a>
           </div> */}
-        </div>
-      </section>
+          </div>
+        </section>
+      ))}
+
     </div>
   );
 };

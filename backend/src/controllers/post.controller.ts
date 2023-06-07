@@ -23,7 +23,7 @@ export class PostController {
         title,
         description,
         token,
-        image[0].path,
+        image[0].originalname,
         categoryId
       );
       if (post?.create?.message) {
@@ -58,13 +58,13 @@ export class PostController {
     const token: any = req.headers["x-access-token"];
     const postService = new PostService();
     const { id, title, description, userId } = req.body;
-    const { image } = req.file as any;
+    const { image } = req.files as any;
     const post = await postService.postUpdate(
       id,
       title,
       description,
       token,
-      image,
+      image[0].originalname,
       "null"
     );
     if (post?.message) {
@@ -141,6 +141,36 @@ export class PostController {
       });
     }
   };
+  static savedPost: Handler = async (req, res) => {
+    const token: any = req.headers["x-access-token"];
+    const postService = new PostService();
+    const { postId } = req.body;
+    const post = await postService.savePost(token, postId);
+    if (post.postSaved?.message) {
+      res.json({
+        message: post.postSaved.message,
+      });
+    } else {
+      res.json({
+        message: post.message,
+      });
+    }
+  };
+  static getSavedPost: Handler = async (req, res) => {
+    const token: any = req.headers["x-access-token"];
+    const postService = new PostService();
+    const { postId } = req.body;
+    const post = await postService.getSavedPost(token);
+    if (post.message) {
+      res.json({
+        message: post?.message,
+      });
+    } else {
+      res.json({
+        savedPost: post.savedPost,
+      });
+    }
+  };
   static getLike: Handler = async (req, res) => {
     const token: any = req.headers["x-access-token"];
     const postService = new PostService();
@@ -178,7 +208,7 @@ export class PostController {
   static getCategoryRel: Handler = async (req, res) => {
     const token: any = req.headers["x-access-token"];
     const postService = new PostService();
-    const { categoryId } = req.body;
+    const { categoryId } = req.params;
     const post = await postService.getCategoryRel(token, categoryId);
     if (post.message) {
       res.json({

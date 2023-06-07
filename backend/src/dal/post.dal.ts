@@ -33,7 +33,7 @@ export class PostDal implements PostRepository {
     description: string,
     image: string,
     userId: string,
-    categoryId:string
+    categoryId: string
   ): Promise<{ message: string }> {
     return new Promise(async (resolve, reject) => {
       try {
@@ -141,7 +141,7 @@ export class PostDal implements PostRepository {
     title: string,
     description: string,
     image: string,
-    categoryId:string
+    categoryId: string
   ): Promise<{ message: string }> {
     return new Promise(async (resolve, reject) => {
       try {
@@ -182,6 +182,26 @@ export class PostDal implements PostRepository {
           .catch((err) => console.log(err));
 
         resolve({ message: "Success Comment" });
+      } catch (err) {
+        reject({ message: "Error " + err });
+      }
+    });
+  }
+  async savePost(userId: string, postId: string): Promise<{ message: string }> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        await neo4j()
+          ?.writeCypher(
+            "match(u:user {id:$userId}) match(p:post {id:$postId}) create(u)-[savedPostRel:savedPostRel]->(p) create(p)-[postSavedRel:postSavedRel]->(u)",
+            {
+              userId,
+              postId,
+              id: uuid(),
+            }
+          )
+          .catch((err) => console.log(err));
+
+        resolve({ message: "Success saved" });
       } catch (err) {
         reject({ message: "Error " + err });
       }
@@ -236,13 +256,34 @@ export class PostDal implements PostRepository {
         } else {
           await neo4j()
             ?.writeCypher(
-              "match(u:user {id:$userId}) match(p:post {id:$postId}) create(l:like {id:$id}) create(u)-[likeRel:likeRel]->(l) create(l)-[likePostRel:likePostRel]->(p)",
+              "match(u:user {id:$userId}) match(p:post {id:$postId}) create(l:like {id:$id}) create(u)-[likeRel:likeRel]->(l) create(l)-[likePostRel:likePostRel]->(p) create(p)-[postLikeRel:postLikeRel]->(l)",
               { id: uuid(), userId, postId }
             )
             .catch((err) => console.log(err));
 
           resolve({ message: "Success Like" });
         }
+      } catch (err) {
+        reject({ message: "Error " + err });
+      }
+    });
+  }
+
+  async getSavedPost(userId: string): Promise<IPost[]> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const isLike = await neo4j()
+          ?.cypher(
+            "match(u:user {id:$userId})-[savedPostRel:savedPostRel]->(p:post) return p",
+            { userId }
+          )
+          .catch((err) => console.log(err));
+        const rLike = isLike?.records.map((uss: any) => {
+          return uss.map((res: any) => {
+            return res.properties;
+          });
+        });
+        resolve(rLike as IPost[]);
       } catch (err) {
         reject({ message: "Error " + err });
       }
@@ -297,7 +338,7 @@ export class PostDal implements PostRepository {
       try {
         const category = await neo4j()
           ?.cypher(
-            "match(c:category {id:$categoryId}) match(p:post) match(c)-[categoryPostRel:categoryPostRel]->(p) return p",
+            "match(c:category {id:$categoryId}) match(p:post) match(p)-[categoryPostRel:categoryPostRel]->(c) return p",
             { categoryId }
           )
           .catch((err) => console.log(err));
