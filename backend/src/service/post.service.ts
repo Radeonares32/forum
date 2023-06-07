@@ -124,8 +124,11 @@ export class PostService {
   ) {
     try {
       const email = security.jwt.token.verifyToken(token);
+
       if (email.message === "Authorized") {
-        const userId = (await this.userService.userFind(token)).userId;
+        const userId = (await this.userService.userFind(token)).userId
+          .properties.id;
+
         return {
           create: await this.postDataAcess.create(
             title,
@@ -150,7 +153,8 @@ export class PostService {
     try {
       const email = security.jwt.token.verifyToken(token);
       if (email.message === "Authorized") {
-        const userId = (await this.userService.userFind(token)).userId;
+        const userId = (await this.userService.userFind(token)).userId
+          .properties.id;
         return {
           comment: await this.postDataAcess.comment(
             userId,
@@ -173,7 +177,8 @@ export class PostService {
     try {
       const email = security.jwt.token.verifyToken(token);
       if (email.message === "Authorized") {
-        const userId = (await this.userService.userFind(token)).userId;
+        const userId = (await this.userService.userFind(token)).userId
+          .properties.id;
         return {
           subComment: await this.postDataAcess.subComment(
             userId,
@@ -196,7 +201,8 @@ export class PostService {
     try {
       const email = security.jwt.token.verifyToken(token);
       if (email.message === "Authorized") {
-        const userId = (await this.userService.userFind(token)).userId;
+        const userId = (await this.userService.userFind(token)).userId
+          .properties.id;
         return {
           postLike: await this.postDataAcess.postLike(userId, postId),
         };
@@ -215,7 +221,8 @@ export class PostService {
     try {
       const email = security.jwt.token.verifyToken(token);
       if (email.message === "Authorized") {
-        const userId = (await this.userService.userFind(token)).userId;
+        const userId = (await this.userService.userFind(token)).userId
+          .properties.id;
         return {
           getLike: await this.postDataAcess.getLike(userId, postId),
         };
@@ -234,7 +241,8 @@ export class PostService {
     try {
       const email = security.jwt.token.verifyToken(token);
       if (email.message === "Authorized") {
-        const userId = (await this.userService.userFind(token)).userId;
+        const userId = (await this.userService.userFind(token)).userId
+          .properties.id;
         return {
           postCategoryRel: await this.postDataAcess.createCategoryRel(
             userId,
@@ -275,7 +283,8 @@ export class PostService {
     try {
       const email = security.jwt.token.verifyToken(token);
       if (email.message === "Authorized") {
-        const userId = (await this.userService.userFind(token)).userId;
+        const userId = (await this.userService.userFind(token)).userId
+          .properties.id;
         return {
           getPost: await this.postDataAcess.getUserRelPost(userId),
         };

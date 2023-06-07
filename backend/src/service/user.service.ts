@@ -17,7 +17,9 @@ export class UserService {
   }
   async userFind(token:string) {
     try {
+      
       const email:any = security.jwt.token.verifyToken(token)
+ 
       if (email.message === 'Authorized') {
         const user:any = await this.userDataAcess.find(email.token?.payload?.email).catch(err=>console.log(err))        
         return {
