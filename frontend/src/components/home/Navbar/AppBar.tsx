@@ -40,6 +40,9 @@ export const AppBar = () => {
             </ul>
             {isAuthenticated() ? (
               <>
+              <Link to='/profile' className="nav-item text-decoration-none mx-3">
+                  <BellFill color="#1D9BF0" size={25} />
+                </Link>
                 <Link to='/profile' className="nav-item text-decoration-none mx-3">
                   <a className="nav-link active" aria-current="page" href="#" style={{ color: '#1D9BF0' }}>Profil</a>
                 </Link>
