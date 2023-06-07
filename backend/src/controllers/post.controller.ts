@@ -141,6 +141,21 @@ export class PostController {
       });
     }
   };
+  static savedPost: Handler = async (req, res) => {
+    const token: any = req.headers["x-access-token"];
+    const postService = new PostService();
+    const { postId } = req.body;
+    const post = await postService.savePost(token, postId);
+    if (post.postSaved?.message) {
+      res.json({
+        message: post.postSaved.message,
+      });
+    } else {
+      res.json({
+        message: post.message,
+      });
+    }
+  };
   static getLike: Handler = async (req, res) => {
     const token: any = req.headers["x-access-token"];
     const postService = new PostService();
