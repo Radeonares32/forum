@@ -65,24 +65,57 @@ export const Flow = () => {
     })
   })
   const likePostHandle = async (e: any) => {
-    e.preventDefault()
-    const postId = e.target.id
+    if (isSign()) {
+      e.preventDefault()
+      const postId = e.target.id
 
-    const post = await axios.post('http://localhost:3000/post/postLike', {
-      postId
-    }, {
-      headers: {
-        'x-access-token': auth().token
+      const post = await axios.post('http://localhost:3000/post/postLike', {
+        postId
+      }, {
+        headers: {
+          'x-access-token': auth().token
+        }
+      })
+      if (post.data.message == 'Success Like') {
+        e.target.style.color = 'red'
+        alert("Beğenildi")
       }
-    })
-    if (post.data.message == 'Success Like') {
-      e.target.style.color = 'red'
-      alert("Beğenildi")
+      if (post.data.message == 'Success unLike') {
+        e.target.style.color = 'gray'
+        alert("Beğeni kaldırıldı")
+      }
     }
-    if (post.data.message == 'Success unLike') {
-      e.target.style.color = 'gray'
-      alert("Beğeni kaldırıldı")
+    else {
+      alert("giriş yapınız")
     }
+
+  }
+  const savedPostHandle = async (e: any) => {
+    if (isSign()) {
+      e.preventDefault()
+      const postId = e.target.id
+      const isBlue = e.target.style.color
+      if(isBlue == 'blue') {
+        alert("zaten kayıtlı")
+      }
+      else {
+        const post = await axios.post('http://localhost:3000/post/postSaved', {
+          postId
+        }, {
+          headers: {
+            'x-access-token': auth().token
+          }
+        })
+        e.target.style.color = 'blue'
+        if(post.data.message='Success saved') {
+          alert("kaydedildi")
+        }
+      }
+    }
+    else {
+      alert("giriş yapınız")
+    }
+
   }
   return (
     <div className="col-md-5">
@@ -208,7 +241,7 @@ export const Flow = () => {
                   className="mb-0 mx-4 text-muted"
                   style={{ display: "inline-block" }}
                 >
-                  <i className="fa-solid fa-bookmark"></i>
+                  <i className="fa-solid fa-bookmark" id={post[1].id} onClick={savedPostHandle}></i>
                 </p>
                 <p
                   className="mb-0 mx-0 text-muted"
