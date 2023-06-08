@@ -62,7 +62,7 @@ export const Profile = () => {
             <span>biyografi:</span>
             <div className="d-flex justify-content-between">
               <textarea name="" cols={20} rows={5} value={"bilgin olsun burası biyografi kısmı"}></textarea>
-              <button className="btn btn-primary w-25 h-25" style={{ backgroundColor: '#1D9BF0', border: '0' }}>takip et</button>
+              <button className="btn btn-primary w-25 h-25" style={{ backgroundColor: '#0d6df3', border: '0' }}>takip et</button>
             </div>
             <div className="d-flex-justify-content-between mt-5 border-bottom border-top border-2 border-dark ">
               <ul className="d-flex justify-content-around lists">
@@ -174,7 +174,7 @@ export const Profile = () => {
                   className="btn btn-primary"
                   type="button"
                   id="button-addon2"
-                  style={{ backgroundColor: "#1D9BF0" }}
+                  style={{ backgroundColor: "#0d6df3" }}
                 >
                   <i className="">Yorum Yap</i>
                 </button>
