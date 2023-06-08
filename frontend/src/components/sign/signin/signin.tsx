@@ -72,12 +72,12 @@ export const Signin = () => {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>Şifre</Form.Label>
           <Form.Control ref={password} type="password" placeholder="Password" />
         </Form.Group>
 
-        <Button onClick={submit} variant="primary" type="button">
-          Sign In
+        <Button onClick={submit} variant="primary" type="button" style={{backgroundColor:'#1D9BF0',border:'0'}}>
+          Giriş Yap
         </Button>
       </Form>
     </div>

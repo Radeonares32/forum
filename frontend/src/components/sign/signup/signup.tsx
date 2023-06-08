@@ -39,8 +39,8 @@ export const Signup = () => {
     <div className="col-md-5 mt-5">
       <Form>
         <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Nickname</Form.Label>
-          <Form.Control ref={nickname} type="text" placeholder="Nickname" />
+          <Form.Label>Kullanıcı Adı</Form.Label>
+          <Form.Control ref={nickname} type="text" placeholder="Kullanıcı adı" />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email</Form.Label>
@@ -49,26 +49,26 @@ export const Signup = () => {
       
         
         <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Password</Form.Label>
-          <Form.Control ref={password} type="password" placeholder="Password" />
+          <Form.Label>Şifre</Form.Label>
+          <Form.Control ref={password} type="password" placeholder="Şifre" />
           <Form.Text className="text-muted">
-            password is at least 8 characters at least one capital letter a
-            lowercase letter must contain numbers.
+          şifre en az 8 karakter en az bir büyük harf a
+            küçük harf sayı içermelidir.
           </Form.Text>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Password Repeat</Form.Label>
+          <Form.Label>Şifre Tekrar</Form.Label>
           <Form.Control
             ref={passwordRepeat}
             type="password"
-            placeholder="Password repeat"
+            placeholder="Şifre Tekrar"
           />
           <Form.Text className="text-muted">
-            password is at least 8 characters at least one capital letter a
-            lowercase letter must contain numbers.
+          şifre en az 8 karakter en az bir büyük harf a
+            küçük harf sayı içermelidir.
           </Form.Text>
         </Form.Group>
-        <Button onClick={submit} variant="primary" type="button">
+        <Button onClick={submit} variant="primary" type="button" style={{backgroundColor:'#1D9BF0',border:'0'}} >
           Sign Up
         </Button>
       </Form>
