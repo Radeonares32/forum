@@ -71,11 +71,12 @@ export const Flow = () => {
   const postClickHandle = async (e: any) => {
     e.preventDefault()
     const formData = new FormData()
-    formData.append('title', postTitle)
-    formData.append('description', postDesc)
-    formData.append('image', postImage)
-    formData.append('categoryId', postCat)
-    const post = await axios.post('http://localhost:3000/post/postPost', formData, {
+    if(postImage) {
+      formData.append('title', postTitle)
+      formData.append('description', postDesc)
+      formData.append('image', postImage)
+      formData.append('categoryId', postCat)
+      const post = await axios.post('http://localhost:3000/post/postPost', formData, {
       headers: {
         'x-access-token': auth().token
       }
@@ -83,6 +84,22 @@ export const Flow = () => {
     if (post.data.message == 'Success created') {
       alert('Post oluşturuldu')
     }
+    }
+    else {
+      formData.append('title', postTitle)
+      formData.append('description', postDesc)
+      formData.append('categoryId', postCat)
+      const post = await axios.post('http://localhost:3000/post/postPost', formData, {
+      headers: {
+        'x-access-token': auth().token
+      }
+    })
+    if (post.data.message == 'Success created') {
+      alert('Post oluşturuldu')
+    }
+    }
+
+    
   }
   useEffect(() => {
     axios.get('http://localhost:3000/post/getPost').then((post: any) => {
@@ -179,7 +196,7 @@ export const Flow = () => {
             <button
               onClick={postClickHandle}
               className="btn btn-primary mt-2"
-              style={{ backgroundColor: "#1D9BF0" }}
+              style={{ backgroundColor: "#0d6df3" }}
             >
               Post oluştur
             </button>
@@ -198,7 +215,7 @@ export const Flow = () => {
             <button
               onClick={categoryCreate}
               className="btn btn-primary mt-1"
-              style={{ backgroundColor: "#1D9BF0" }}
+              style={{ backgroundColor: "#0d6df3" }}
             >
               kategori oluştur
             </button>
@@ -229,7 +246,7 @@ export const Flow = () => {
                       <img
                         width={50}
                         height={50}
-                        src={window.location.hostname + ':3000' + post[0].image}
+                        src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" style={{display:'none'}}
                       />
                     )}
 
@@ -244,16 +261,17 @@ export const Flow = () => {
               </div>
             </div>
 
-            <div className="post-block__content mb-2">
-              {post[1].image !== null ? (
-                <img width={300} height={300} onClick={handleShow} src={'http://localhost:3000/public/posts/' + post[1].image} />
+            <div className="post-block__content mb-2 text-start">
+              {post[1].image == 'null' ? (
+                  <img width={300} height={300} onClick={handleShow} src="" style={{ display: 'none' }} />
               ) : (
-                <img width={300} height={300} onClick={handleShow} src="" style={{ display: 'none' }} />
+                <img width={400} height={400} onClick={handleShow} src={'http://localhost:3000/public/posts/' + post[1].image} />
+
               )}
 
-              <h3>{post[1].title}</h3>
+              <h3 className="mt-2">{post[1].title}</h3>
               <p>{post[1].description}</p>
-              <div className="post-block__content mb-2">
+              <div className="post-block__content mb-2 ms-3">
                 <p
                   className="mt-4 text-muted"
 
@@ -306,7 +324,7 @@ export const Flow = () => {
               <Modal.Body>
                 <form>
                   <div className="mb-3">
-                    <label className="form-label">Başlık</label>
+                    <label className="form-label">Şikayet nedeni</label>
                     <input type="text" value={complainTitle} onChange={(e: any) => setComplainTitle(e.target.value)} className="form-control" aria-describedby="emailHelp" />
                   </div>
                   <div className="mb-3">
@@ -357,7 +375,7 @@ export const Flow = () => {
                   className="btn btn-primary"
                   type="button"
                   id="button-addon2"
-                  style={{ backgroundColor: "#1D9BF0" }}
+                  style={{ backgroundColor: "#0d6df3" }}
                 >
                   <i className="">Yorum Yap</i>
                 </button>

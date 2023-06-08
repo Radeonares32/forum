@@ -2,12 +2,12 @@ export const SideBar = () => {
   return (
     <div className="col-md-4">
       <div className="col-lg-9">
-        <p className="" style={{ fontSize: "40px",color:'#1D9BF0' }}>
+        <p className="" style={{ fontSize: "30px",color:'#0d6df3', }}>
           Gündem
         </p>
       </div>
-      <div className="border border-3 p-4" >
-      <div className="d-flex justify-content-between">
+      <div className="border border-3 p-1" style={{width:'70%'}}>
+      <div className="d-flex justify-content-between" style={{}}>
         <p>spor</p>
         <p>siyaset</p>
         <p>anket</p>
