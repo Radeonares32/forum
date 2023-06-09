@@ -18,7 +18,7 @@ export const SideBar = () => {
         <p>iliski</p>
       </div>
       </div>
-      <hr />
+      <hr style={{width:'70%'}}/>
       <div className="col-lg-12  my-4">
         <p className="mx-3" style={{ fontSize: "14px" }}>
         28 mayıs 2023 kılıçdaroğlu'nun alacağı oy oranı 

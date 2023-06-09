@@ -229,12 +229,16 @@ export const Flow = () => {
 
         <section className="main-content">
           <div className="post-block">
+            
             <div className="d-flex justify-content-between">
               <div className="d-flex mb-3">
-                <div className="className-2">
-                  <a href="#!" className="text-dark"></a>
-                </div>
-                <div style={{ marginLeft: 400 }}>
+                
+                <div  className="d-flex" style={{ marginLeft: 400 }}>
+               
+                  <a href="#!" className="text-dark" style={{ fontSize: 11 }}>
+                      {post[0].nickname}
+                      <pre>5m</pre>
+                    </a>
                   <h5 className="mb-0">
                     {post[0].image !== null ? (
                       <img
@@ -250,13 +254,9 @@ export const Flow = () => {
                       />
                     )}
 
-                    <a href="#!" className="text-dark" style={{ fontSize: 10 }}>
-                      {post[0].nickname}
-                    </a>
+                   
                   </h5>
-                  <p className="mb-0 text-muted" style={{ fontSize: 10 }}>
-                    5m
-                  </p>
+                 
                 </div>
               </div>
             </div>
@@ -269,7 +269,7 @@ export const Flow = () => {
 
               )}
 
-              <h3 className="mt-2">{post[1].title}</h3>
+              <h4 className="mt-2">{post[1].title}</h4>
               <p>{post[1].description}</p>
               <div className="post-block__content mb-2 ms-3">
                 <p

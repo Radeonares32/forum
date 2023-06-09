@@ -7,6 +7,7 @@ import { Profile } from "./components/profile/profile";
 import { AuthProvider, RequireAuth } from "react-auth-kit";
 import { Posts } from "./components/home/Posts/Posts";
 import { Admin } from "./components/admin/Admin";
+import { Chat } from './components/Chat/Chat'
 
 function App() {
   return (
@@ -30,8 +31,9 @@ function App() {
           ></Route>
           <Route path="posts/:categoryId" element={<Posts />} ></Route>
           <Route path='admin' element={<Admin />} ></Route>
+          <Route path="/chat" element={<Chat />}></Route>
         </Routes>
-        
+
       </BrowserRouter>
     </AuthProvider>
   );
