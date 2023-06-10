@@ -3,7 +3,7 @@ import { useAuthUser, useIsAuthenticated, useSignOut } from "react-auth-kit";
 import axios from 'axios'
 import './appbar.css'
 import {
-  BellFill,
+  ChatFill,
   Search,
   PersonFill
 } from "react-bootstrap-icons";
@@ -56,8 +56,8 @@ export const AppBar = () => {
             </ul>
             {isAuthenticated() ? (
               <>
-                <Link to='/profile' className="nav-item text-decoration-none mx-3">
-                  <BellFill color="#0d6df3" size={25} />
+                <Link to='/chat' className="nav-item text-decoration-none mx-3">
+                  <ChatFill color="#0d6df3" size={25} />
                 </Link>
                 <Link to='/profile' className="nav-item text-decoration-none mx-3">
                   <PersonFill color="#0d6df3" size={25} />
