@@ -38,9 +38,9 @@ const io = new Server(server, {
 
 io.on("connection", (socket) => {
   socket.on("message", (data: any) => {
-    io.emit('messageResponse',data)
+    io.emit('messageResponse',{message:data.message,username:data.username})
   });
-  console.log("connection");
+  console.log("connection " + socket.id);
 });
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));

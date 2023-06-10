@@ -3,35 +3,49 @@ import './chat.css'
 import { io } from 'socket.io-client'
 import axios from 'axios'
 import { AppBar } from '../home/Navbar/AppBar'
+import { useAuthUser } from 'react-auth-kit'
 
 
 export const Chat = () => {
+    const Auth: any = useAuthUser()
     const [message, setMessage] = useState<any>()
     const [messages, setMessages] = useState<any>([])
     const [user, setUser] = useState<any>()
+    const [socketId, setSocketId] = useState<any>()
     const socket = io('ws://localhost:3000', {
         autoConnect: true
     })
+
     const messageRef = useRef<any>()
     socket.on('connection', (io) => {
-        window.alert('bağlandı')
+
     })
     const messageHandle = () => {
-        
-        socket.emit('message', { message: message })
+        localStorage.setItem('username', Auth().nickname)
+        localStorage.setItem('socketId', socket.id)
+        setSocketId(socket.id)
+        socket.emit('message', { message: message, username: Auth().nickname })
+
+
         setMessage('')
     }
     useEffect(() => {
-        socket.on('messageResponse', (data) => setMessages([...messages, data]));
-       
-
+        socket.on('messageResponse', (data) => {
+            setMessages([...messages, data])
+            
+        
+        });
+        console.log(messages)
     }, [socket, message])
+
     useEffect(() => {
+
+
         axios.get('http://localhost:3000/user/getUser').then((users: any) => {
             setUser(users.data.user)
         })
     }, [])
-
+   
     return (
         <>
             <AppBar />
@@ -53,14 +67,16 @@ export const Chat = () => {
 
                                 </ul>
                             </div>
-                            <div className="chat" style={{overflowY:'scroll'}}>
+                            <div className="chat" style={{ overflowY: 'scroll' }}>
 
-                                <div className="chat-history" style={{overflowY:'scroll'}}>
-                                    <ul className="m-b-0 overflow-auto" style={{overflowY:'scroll'}}>
-                                        {messages && messages.map((mess: any, key: any) => (
-                                            <li className="clearfix " id='messages' key={key}>
+                                <div className="chat-history" style={{ overflowY: 'scroll' }}>
+                                    <ul className="m-b-0 overflow-auto" style={{ overflowY: 'scroll' }}>
+                                        {messages && messages.map((mess: any) => (
+                                            (mess.username == localStorage.getItem('username')) ? (<li className="clearfix " id='messages'>
                                                 <div className="message my-message"> {mess.message} </div>
-                                            </li>
+                                            </li>) : (<li className="clearfix " id='messages' >
+                                                <div className="message other-message float-right"> {mess.message} </div>
+                                            </li>)
                                         ))}
                                     </ul>
                                 </div>
