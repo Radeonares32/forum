@@ -15,7 +15,7 @@ export const Posts = () => {
     const auth: any = useAuthUser()
     const { categoryId } = useParams()
     useEffect(() => {
-        axios.get(`http://localhost:3000/post/getCategoryRel/${categoryId}`,{
+        axios.get(`http://80.253.246.129:3000/post/getCategoryRel/${categoryId}`,{
             headers: {
                 'x-access-token': auth().token
               }
@@ -69,7 +69,7 @@ export const Posts = () => {
 
                         <div className="post-block__content mb-2">
                             {post[0].image !== null ? (
-                                <img width={300} height={300} src={'http://localhost:3000/public/posts/' + post[0].image} />
+                                <img width={300} height={300} src={'http://80.253.246.129:3000/public/posts/' + post[0].image} />
                             ) : (
                                 <img width={300} height={300} src="" style={{ display: 'none' }} />
                             )}
@@ -115,7 +115,7 @@ export const Posts = () => {
                         {/* <Modal show={show} className="text-center" onHide={handleClose}>
               <Modal.Header closeButton></Modal.Header>
               <Modal.Body>
-                  <img width={300} height={300} src={'http://localhost:3000/public/posts/' + post[1].title} />
+                  <img width={300} height={300} src={'http://80.253.246.129:3000/public/posts/' + post[1].title} />
               </Modal.Body>
           </Modal> */}
                         {/* <div className="mb-3">
