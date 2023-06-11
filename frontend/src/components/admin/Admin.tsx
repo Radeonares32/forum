@@ -8,7 +8,7 @@ export const Admin = () => {
     const [complain, setComplain] = useState<any>()
 
     useEffect(() => {
-        axios.get('http://localhost:3000/user/getComplain').then((complain: any) => {
+        axios.get('http://80.253.246.129:3000/user/getComplain').then((complain: any) => {
             setComplain(complain.data.user.complain)
         })
     })

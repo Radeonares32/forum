@@ -24,7 +24,7 @@ export const Signup = () => {
     if (passwordRepeat.current.value === "") {
       alert("password repeat empty");
     }
-    const user = await axios.post("http://localhost:3000/user/postUser", {
+    const user = await axios.post("http://80.253.246.129:3000/user/postUser", {
       nickname: nickname.current.value,
       email: email.current.value,
      
