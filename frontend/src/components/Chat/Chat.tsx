@@ -73,9 +73,9 @@ export const Chat = () => {
                                     <ul className="m-b-0 overflow-auto" style={{ overflowY: 'scroll' }}>
                                         {messages && messages.map((mess: any) => (
                                             (mess.username == localStorage.getItem('username')) ? (<li className="clearfix " id='messages'>
-                                                <div className="message my-message"> {mess.message} </div>
+                                                <div className="message  other-message float-right"> {mess.message} </div>
                                             </li>) : (<li className="clearfix " id='messages' >
-                                                <div className="message other-message float-right"> {mess.message} </div>
+                                                <div className="message my-message "> {mess.message} </div>
                                             </li>)
                                         ))}
                                     </ul>

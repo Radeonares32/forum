@@ -1,10 +1,14 @@
 import './profile.css'
 import { useState } from "react";
 import { useAuthUser, useSignOut } from "react-auth-kit";
+import { Link } from 'react-router-dom'
 
 import axios from "axios";
 import { AppBar } from "../home/Navbar/AppBar";
 import { SideBar } from '../home/Sidebar/Sidebar'
+import {
+  ChatFill
+} from "react-bootstrap-icons";
 
 export const Profile = () => {
   let auth: any = useAuthUser();
@@ -60,10 +64,15 @@ export const Profile = () => {
               <img src="img/logo/logo.png" className="img-responsive" width={100} height={100} />
             </div>
             <span>biyografi:</span>
+            
             <div className="d-flex justify-content-between">
               <textarea name="" cols={20} rows={5} value={"bilgin olsun burası biyografi kısmı"}></textarea>
-           {/*    <button className="btn btn-primary w-25 h-25" style={{ backgroundColor: '#0d6df3', border: '0' }}>takip et</button> */}
+              <Link to='/chat' className="nav-item text-decoration-none " style={{marginLeft:'15rem'}}>
+                <ChatFill color="#0d6df3" size={25} />
+              </Link>
+              <button className="btn btn-primary w-25 h-25" style={{ backgroundColor: '#0d6df3', border: '0' }}>takip et</button>
             </div>
+            
             <div className="d-flex-justify-content-between mt-5 border-bottom border-top border-2 border-dark ">
               <ul className="d-flex justify-content-around lists">
                 <li className='lists-item' >gönderiler</li>
