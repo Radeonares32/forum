@@ -153,7 +153,7 @@ export class UserDal implements UserRepository {
     id: string,
     nickname: string,
     email: string,
-    password: string,
+  
     bio: string,
     image: string,
     note: string
@@ -162,12 +162,11 @@ export class UserDal implements UserRepository {
       try {
         const user = await neo4j()
           ?.writeCypher(
-            "match (u:user {id:$id}) set u.nickname=$nickname,u.email=$email,u.password=$password,u.bio=$bio,u.image=$image,u.note=$notr return u",
+            "match (u:user {id:$id}) set u.nickname=$nickname,u.email=$email,u.bio=$bio,u.image=$image,u.note=$note return u",
             {
               id,
               nickname,
               email,
-              password,
               bio,
               image,
               note,

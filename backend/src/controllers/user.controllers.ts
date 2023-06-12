@@ -71,26 +71,14 @@ export class UserController {
       nickname,
       email,
       bio,
-      note,
-      password,
-      hash,
-      oldPassword,
-      newPassword,
+      note
     } = req.body;
     const { image } = req.file as any;
-    if (!newPassword) {
-      res.json({
-        message: "newPassword empty !!",
-      });
-    } else {
+     
       const user = userService.userUpdate(
         id,
         nickname,
         email,
-        oldPassword,
-        newPassword,
-        hash,
-        password,
         bio,
         image,
         note
@@ -104,7 +92,7 @@ export class UserController {
           message: await user.update,
         });
       }
-    }
+    
   };
   static deleteUser: Handler = async (req, res) => {
     const userService = new UserService();
