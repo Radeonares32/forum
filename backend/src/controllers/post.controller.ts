@@ -185,6 +185,13 @@ export class PostController {
       });
     }
   };
+  static getMainPostAll: Handler = async (req, res) => {
+    const { id } = req.params
+    const postService = new PostService();
+    res.json({
+      main: (await postService.getMainPostAll(id)).main
+    })
+  }
   static postCategoryRel: Handler = async (req, res) => {
     const token: any = req.headers["x-access-token"];
     const postService = new PostService();
