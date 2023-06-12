@@ -5,7 +5,7 @@ import axios from 'axios'
 
 
 
-export const SideBar = () => {
+export const SideBarPost = (props: any) => {
   const isAuthenticated = useIsAuthenticated();
   const auth: any = useAuthUser();
   const [categories, setCategories] = useState<any>()
@@ -30,13 +30,12 @@ export const SideBar = () => {
     })
     setNewCat('')
   }
-  const getSubCatHandle = async (e: any) => {
-    e.preventDefault()
-    const catId = e.target.id
-    const subCat = await axios.get(`http://80.253.246.129:3000/category/getMainRelCategory/${catId}`)
-    setSubCat(subCat.data.category.post)
-    setCatId(catId)
-  }
+  useEffect(() => {
+    axios.get(`http://80.253.246.129:3000/category/getMainRelCategory/${props.categoryId}`).then((subCat: any) => {
+      setSubCat(subCat.data.category.post)
+      setCatId(catId)
+    })
+  }, [props.categoryId])
   return (
     <div className="col-md-4">
       <div className="col-lg-9">
@@ -48,14 +47,14 @@ export const SideBar = () => {
 
         <div className="d-flex justify-content-between" style={{}}>
           {categories && categories.slice(0, 3).map((cat: any, key: any) => (
-            <p onClick={getSubCatHandle} id={cat[0].id} style={{ cursor: 'grab' }} key={key}>{cat[0].title}</p>
+            <p id={cat[0].id} style={{ cursor: 'grab' }} key={key}>{cat[0].title}</p>
 
 
           ))}
         </div>
         <div className="d-flex justify-content-between" style={{}}>
           {categories && categories.slice(3, 6).map((cat: any, key: any) => (
-            <p onClick={getSubCatHandle} id={cat[0].id} style={{ cursor: 'grab' }} key={key}>{cat[0].title}</p>
+            <p id={cat[0].id} style={{ cursor: 'grab' }} key={key}>{cat[0].title}</p>
           ))}
         </div>
 
@@ -69,7 +68,7 @@ export const SideBar = () => {
         {subCat && subCat.map((cat: any, key: any) => (
 
           <div key={key} className="col-lg-12  my-4">
-            <a  href={'/subposts/'+cat[0].id}  className="mx-3" id={cat[0].id} style={{ fontSize: "14px", cursor: 'grab' }}>
+            <a href={'/subposts/' + cat[0].id} className="mx-3" id={cat[0].id} style={{ fontSize: "14px", cursor: 'grab' }}>
               {cat[0].title}
             </a>
           </div>

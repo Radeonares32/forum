@@ -74,13 +74,12 @@ export class UserController {
       note
     } = req.body;
     const { image } = req.files as any;
-
     const user = userService.userUpdate(
       id,
       nickname,
       email,
       bio,
-      image,
+      image[0].originalname,
       note
     );
     if (user.message) {
@@ -89,7 +88,7 @@ export class UserController {
       });
     } else {
       res.json({
-        message: await userService.userUpdate(id, nickname, email, bio, image[0].originalname, note).update,
+        message: await user.update,
       });
     }
 

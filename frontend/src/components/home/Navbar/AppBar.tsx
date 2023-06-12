@@ -18,7 +18,7 @@ export const AppBar = () => {
     signOut();
   };
   useEffect(() => {
-    axios.get(`http://localhost:3000/category/getMainCategory`, {
+    axios.get(`http://80.253.246.129:3000/category/getMainCategory`, {
 
     }).then((cat: any) => {
 
@@ -57,13 +57,10 @@ export const AppBar = () => {
             {isAuthenticated() ? (
               <>
                 <Link to='/chat' className="nav-item text-decoration-none mx-3">
-                  <ChatFill color="#0d6df3" size={25} />
+                  <ChatFill color="#0d6df3" size={23} />
                 </Link>
                 <Link to='/profile' className="nav-item text-decoration-none mx-3">
                   <PersonFill color="#0d6df3" size={25} />
-                </Link>
-                <Link to='/profile' className="nav-item text-decoration-none mx-3">
-                  <a className="nav-link active" aria-current="page" href="#" style={{ color: '#0d6df3' }}>Profil</a>
                 </Link>
                 <a onClick={() => logout()} className="nav-item text-decoration-none mx-3">
                   <a className="nav-link active" aria-current="page" href="#" style={{ color: '#0d6df3' }}>Çıkış Yap</a>

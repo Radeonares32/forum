@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { AppBar } from '../Navbar/AppBar'
-import { SideBar } from '../Sidebar/Sidebar'
 import axios from 'axios'
 import { useParams } from 'react-router-dom';
 import { useIsAuthenticated, useAuthUser } from "react-auth-kit";
 import { Modal } from "react-bootstrap";
+import { SideBarPost } from '../SidebarPost/SidebarPost';
 
 export const Subposts = () => {
   const [postTitle, setPostTitle] = useState<any>()
@@ -26,7 +26,7 @@ export const Subposts = () => {
 
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/post/getCategoryRel/${categoryId}`, {
+    axios.get(`http://80.253.246.129:3000/post/getCategoryRel/${categoryId}`, {
 
     }).then((post: any) => {
       setPost(post.data.getLike)
@@ -35,7 +35,7 @@ export const Subposts = () => {
 
   const complainHandle = async (e: any) => {
     e.preventDefault()
-    const complain = await axios.post('http://localhost:3000/user/postComplain', {
+    const complain = await axios.post('http://80.253.246.129:3000/user/postComplain', {
       title: complainTitle,
       description: complainDesc
     }, {
@@ -56,7 +56,7 @@ export const Subposts = () => {
       formData.append('description', postDesc)
       formData.append('image', postImage)
       formData.append('categoryId', categoryId as any)
-      const post = await axios.post('http://localhost:3000/post/postPost', formData, {
+      const post = await axios.post('http://80.253.246.129:3000/post/postPost', formData, {
         headers: {
           'x-access-token': auth().token
         }
@@ -69,7 +69,7 @@ export const Subposts = () => {
       formData.append('title', postTitle)
       formData.append('description', postDesc)
       formData.append('categoryId', categoryId as any)
-      const post = await axios.post('http://localhost:3000/post/postPost', formData, {
+      const post = await axios.post('http://80.253.246.129:3000/post/postPost', formData, {
         headers: {
           'x-access-token': auth().token
         }
@@ -84,7 +84,7 @@ export const Subposts = () => {
       e.preventDefault()
       const postId = e.target.id
 
-      const post = await axios.post('http://localhost:3000/post/postLike', {
+      const post = await axios.post('http://80.253.246.129:3000/post/postLike', {
         postId
       }, {
         headers: {
@@ -114,7 +114,7 @@ export const Subposts = () => {
         alert("zaten kayıtlı")
       }
       else {
-        const post = await axios.post('http://localhost:3000/post/postSaved', {
+        const post = await axios.post('http://80.253.246.129:3000/post/postSaved', {
           postId
         }, {
           headers: {
@@ -138,7 +138,7 @@ export const Subposts = () => {
       <div className="container-fluid align-self-stretch">
         <div className="row">
 
-          <SideBar />
+          <SideBarPost categoryId={categoryId} />
           <div className="col-md-6">
             {isSign() ? (
               <>
@@ -182,25 +182,21 @@ export const Subposts = () => {
                 <div className="d-flex justify-content-between">
               <div className="d-flex mb-3">
 
-                <div className="d-flex" style={{ marginLeft: 400 }}>
+                <div className="d-flex" style={{ marginLeft: 390 }}>
 
                   <a href="#!" className="text-dark" style={{ fontSize: 11 }}>
                     {post[1].nickname}
                     <pre>5m</pre>
                   </a>
-                  <h5 className="mb-0">
-                    {post[1].image !== null ? (
+                  <h5 className="mb-0 mx-1">
+                    {post[1].image == 'null' ? (
                       <img
                         width={50}
                         height={50}
                         src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
                       />
                     ) : (
-                      <img
-                        width={50}
-                        height={50}
-                        src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" style={{ display: 'none' }}
-                      />
+                      <img width={50} height={50} src={'http://80.253.246.129:3000/public/users/' + post[1].image} />
                     )}
 
 
@@ -210,12 +206,12 @@ export const Subposts = () => {
               </div>
             </div>
                   <div className="post-block__content mb-2 text-start">
-                    <h4 className="mt-2">{post[0].title}</h4>
-                    <p>{post[0].description}</p>
+                    <h4 className="mt-2" style={{fontSize:'18px',width:'80%'}}>{post[0].title}</h4>
+                    <p style={{fontSize:'12px',width:'80%'}}>{post[0].description}</p>
                     {post[0].image == 'null' ? (
                       <img width={300} height={300} src="" style={{ display: 'none' }} />
                     ) : (
-                      <img width={400} height={400} src={'http://localhost:3000/public/posts/' + post[0].image} />
+                      <img width={400} height={400} src={'http://80.253.246.129:3000/public/posts/' + post[0].image} />
 
                     )}
 
