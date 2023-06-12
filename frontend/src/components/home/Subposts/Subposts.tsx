@@ -26,7 +26,7 @@ export const Subposts = () => {
 
 
   useEffect(() => {
-    axios.get(`http://80.253.246.129:3000/post/getCategoryRel/${categoryId}`, {
+    axios.get(`http://localhost:3000/post/getCategoryRel/${categoryId}`, {
 
     }).then((post: any) => {
       setPost(post.data.getLike)
@@ -35,7 +35,7 @@ export const Subposts = () => {
 
   const complainHandle = async (e: any) => {
     e.preventDefault()
-    const complain = await axios.post('http://80.253.246.129:3000/user/postComplain', {
+    const complain = await axios.post('http://localhost:3000/user/postComplain', {
       title: complainTitle,
       description: complainDesc
     }, {
@@ -56,7 +56,7 @@ export const Subposts = () => {
       formData.append('description', postDesc)
       formData.append('image', postImage)
       formData.append('categoryId', categoryId as any)
-      const post = await axios.post('http://80.253.246.129:3000/post/postPost', formData, {
+      const post = await axios.post('http://localhost:3000/post/postPost', formData, {
         headers: {
           'x-access-token': auth().token
         }
@@ -69,7 +69,7 @@ export const Subposts = () => {
       formData.append('title', postTitle)
       formData.append('description', postDesc)
       formData.append('categoryId', categoryId as any)
-      const post = await axios.post('http://80.253.246.129:3000/post/postPost', formData, {
+      const post = await axios.post('http://localhost:3000/post/postPost', formData, {
         headers: {
           'x-access-token': auth().token
         }
@@ -84,7 +84,7 @@ export const Subposts = () => {
       e.preventDefault()
       const postId = e.target.id
 
-      const post = await axios.post('http://80.253.246.129:3000/post/postLike', {
+      const post = await axios.post('http://localhost:3000/post/postLike', {
         postId
       }, {
         headers: {
@@ -114,7 +114,7 @@ export const Subposts = () => {
         alert("zaten kayıtlı")
       }
       else {
-        const post = await axios.post('http://80.253.246.129:3000/post/postSaved', {
+        const post = await axios.post('http://localhost:3000/post/postSaved', {
           postId
         }, {
           headers: {
@@ -215,7 +215,7 @@ export const Subposts = () => {
                     {post[0].image == 'null' ? (
                       <img width={300} height={300} src="" style={{ display: 'none' }} />
                     ) : (
-                      <img width={400} height={400} src={'http://80.253.246.129:3000/public/posts/' + post[0].image} />
+                      <img width={400} height={400} src={'http://localhost:3000/public/posts/' + post[0].image} />
 
                     )}
 

@@ -26,7 +26,7 @@ export const Signin = () => {
     if (password.current.value === "password empty") {
       alert("password empty");
     }
-    const user = await axios.post("http://80.253.246.129:3000/user/sign", {
+    const user = await axios.post("http://localhost:3000/user/sign", {
       email: email.current.value,
       password: password.current.value,
     });
@@ -35,7 +35,7 @@ export const Signin = () => {
     } else if (user.data === "password not match hash") {
       setMessage("password or email wrong");
     } else {
-      const userInfo = await axios.get("http://80.253.246.129:3000/user/getUserId", {
+      const userInfo = await axios.get("http://localhost:3000/user/getUserId", {
         headers: {
           "x-access-token": user.data as any,
         },

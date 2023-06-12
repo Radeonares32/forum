@@ -18,7 +18,7 @@ export const AppBar = () => {
     signOut();
   };
   useEffect(() => {
-    axios.get(`http://80.253.246.129:3000/category/getMainCategory`, {
+    axios.get(`http://localhost:3000/category/getMainCategory`, {
 
     }).then((cat: any) => {
 

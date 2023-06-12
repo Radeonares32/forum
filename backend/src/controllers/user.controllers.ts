@@ -73,26 +73,26 @@ export class UserController {
       bio,
       note
     } = req.body;
-    const { image } = req.file as any;
-     
-      const user = userService.userUpdate(
-        id,
-        nickname,
-        email,
-        bio,
-        image,
-        note
-      );
-      if (user.message) {
-        res.json({
-          message: user.message,
-        });
-      } else {
-        res.json({
-          message: await user.update,
-        });
-      }
-    
+    const { image } = req.files as any;
+
+    const user = userService.userUpdate(
+      id,
+      nickname,
+      email,
+      bio,
+      image,
+      note
+    );
+    if (user.message) {
+      res.json({
+        message: user.message,
+      });
+    } else {
+      res.json({
+        message: await userService.userUpdate(id, nickname, email, bio, image[0].originalname, note).update,
+      });
+    }
+
   };
   static deleteUser: Handler = async (req, res) => {
     const userService = new UserService();

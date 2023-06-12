@@ -13,14 +13,14 @@ export const SideBar = () => {
   const [subCat, setSubCat] = useState<any>()
   const [catId, setCatId] = useState<any>()
   useEffect(() => {
-    axios.get(`http://80.253.246.129:3000/category/getMainCategory`, {
+    axios.get(`http://localhost:3000/category/getMainCategory`, {
 
     }).then((cat: any) => {
       setCategories(cat.data.category)
     })
   }, [])
   const subCategoryHandle = async (e: any) => {
-    await axios.post('http://80.253.246.129:3000/category/postCategory', {
+    await axios.post('http://localhost:3000/category/postCategory', {
       title: newCat,
       mainRel: catId
     }, {
@@ -33,7 +33,7 @@ export const SideBar = () => {
   const getSubCatHandle = async (e: any) => {
     e.preventDefault()
     const catId = e.target.id
-    const subCat = await axios.get(`http://80.253.246.129:3000/category/getMainRelCategory/${catId}`)
+    const subCat = await axios.get(`http://localhost:3000/category/getMainRelCategory/${catId}`)
     setSubCat(subCat.data.category.post)
     setCatId(catId)
   }

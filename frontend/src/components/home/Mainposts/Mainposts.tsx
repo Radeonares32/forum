@@ -18,7 +18,7 @@ export const Mainposts = () => {
 
 
   useEffect(() => {
-    axios.get(`http://80.253.246.129:3000/category/getMainRelCategory/${categoryId}`, {
+    axios.get(`http://localhost:3000/category/getMainRelCategory/${categoryId}`, {
 
     }).then((post: any) => {
       setCategories(post.data.category.post)
