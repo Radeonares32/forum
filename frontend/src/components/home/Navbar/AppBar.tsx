@@ -57,13 +57,10 @@ export const AppBar = () => {
             {isAuthenticated() ? (
               <>
                 <Link to='/chat' className="nav-item text-decoration-none mx-3">
-                  <ChatFill color="#0d6df3" size={25} />
+                  <ChatFill color="#0d6df3" size={23} />
                 </Link>
                 <Link to='/profile' className="nav-item text-decoration-none mx-3">
                   <PersonFill color="#0d6df3" size={25} />
-                </Link>
-                <Link to='/profile' className="nav-item text-decoration-none mx-3">
-                  <a className="nav-link active" aria-current="page" href="#" style={{ color: '#0d6df3' }}>Profil</a>
                 </Link>
                 <a onClick={() => logout()} className="nav-item text-decoration-none mx-3">
                   <a className="nav-link active" aria-current="page" href="#" style={{ color: '#0d6df3' }}>Çıkış Yap</a>

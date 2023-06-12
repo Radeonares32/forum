@@ -261,6 +261,17 @@ export class PostService {
       };
     }
   }
+  async getMainPostAll(mainId: string) {
+    try {
+      return {
+        main: (await this.postDataAcess.getMainPostAll(mainId))
+      }
+    } catch (err) {
+      return {
+        message: err,
+      };
+    }
+  }
   async getSavedPost(token: string) {
     try {
       const email = security.jwt.token.verifyToken(token);

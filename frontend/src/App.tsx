@@ -9,6 +9,7 @@ import { Subposts } from "./components/home/Subposts/Subposts";
 import { Mainposts } from './components/home/Mainposts/Mainposts'
 import { Admin } from "./components/admin/Admin";
 import { Chat } from './components/Chat/Chat'
+import { Profileupdate } from "./components/home/ProfileUpdate/Profileupdate";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route path="main/:categoryId" element={<Mainposts />} ></Route>
           <Route path='admin' element={<Admin />} ></Route>
           <Route path="/chat" element={<Chat />}></Route>
+          <Route path="/settings" element={<Profileupdate />}></Route>
         </Routes>
 
       </BrowserRouter>

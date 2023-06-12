@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { AppBar } from '../Navbar/AppBar'
-import { SideBar } from '../Sidebar/Sidebar'
 import axios from 'axios'
 import { useParams } from 'react-router-dom';
 import { useIsAuthenticated, useAuthUser } from "react-auth-kit";
 import { Modal } from "react-bootstrap";
+import { SideBarPost } from '../SidebarPost/SidebarPost';
 
 export const Subposts = () => {
   const [postTitle, setPostTitle] = useState<any>()
@@ -138,7 +138,7 @@ export const Subposts = () => {
       <div className="container-fluid align-self-stretch">
         <div className="row">
 
-          <SideBar />
+          <SideBarPost categoryId={categoryId} />
           <div className="col-md-6">
             {isSign() ? (
               <>
@@ -182,25 +182,21 @@ export const Subposts = () => {
                 <div className="d-flex justify-content-between">
               <div className="d-flex mb-3">
 
-                <div className="d-flex" style={{ marginLeft: 400 }}>
+                <div className="d-flex" style={{ marginLeft: 390 }}>
 
                   <a href="#!" className="text-dark" style={{ fontSize: 11 }}>
                     {post[1].nickname}
                     <pre>5m</pre>
                   </a>
-                  <h5 className="mb-0">
-                    {post[1].image !== null ? (
+                  <h5 className="mb-0 mx-1">
+                    {post[1].image == 'null' ? (
                       <img
                         width={50}
                         height={50}
                         src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
                       />
                     ) : (
-                      <img
-                        width={50}
-                        height={50}
-                        src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" style={{ display: 'none' }}
-                      />
+                      <img width={50} height={50} src={'http://80.253.246.129:3000/public/users/' + post[1].image} />
                     )}
 
 
@@ -210,8 +206,8 @@ export const Subposts = () => {
               </div>
             </div>
                   <div className="post-block__content mb-2 text-start">
-                    <h4 className="mt-2">{post[0].title}</h4>
-                    <p>{post[0].description}</p>
+                    <h4 className="mt-2" style={{fontSize:'18px',width:'80%'}}>{post[0].title}</h4>
+                    <p style={{fontSize:'12px',width:'80%'}}>{post[0].description}</p>
                     {post[0].image == 'null' ? (
                       <img width={300} height={300} src="" style={{ display: 'none' }} />
                     ) : (

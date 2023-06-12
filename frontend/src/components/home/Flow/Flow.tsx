@@ -107,25 +107,21 @@ export const Flow = () => {
             <div className="d-flex justify-content-between">
               <div className="d-flex mb-3">
 
-                <div className="d-flex" style={{ marginLeft: 400 }}>
+                <div className="d-flex" style={{ marginLeft: 390 }}>
 
                   <a href="#!" className="text-dark" style={{ fontSize: 11 }}>
                     {post[0].nickname}
                     <pre>5m</pre>
                   </a>
-                  <h5 className="mb-0">
-                    {post[0].image !== null ? (
+                  <h5 className="mb-0 mx-2">
+                    {post[0].image == 'null' ? (
                       <img
                         width={50}
                         height={50}
                         src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
                       />
                     ) : (
-                      <img
-                        width={50}
-                        height={50}
-                        src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" style={{ display: 'none' }}
-                      />
+                      <img width={50} height={50} onClick={handleShow} src={'http://80.253.246.129:3000/public/users/' + post[0].image} />
                     )}
 
 

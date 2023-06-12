@@ -12,6 +12,7 @@ import { Middlewares } from "../middleware/middleware";
 export const getPost = app.get("/getPost", post.PostController.getPost);
 export const getPostId = app.get("/getPostId", post.PostController.getPostId);
 export const getLike = app.get("/getLike", post.PostController.getLike);
+export const getMainPostAll = app.get("/getMainPostAll/:id", post.PostController.getMainPostAll);
 export const getCategoryRel = app.get(
   "/getCategoryRel/:categoryId",
   post.PostController.getCategoryRel

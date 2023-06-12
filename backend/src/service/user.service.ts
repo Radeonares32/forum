@@ -87,38 +87,31 @@ export class UserService {
     id: string,
     nickname: string,
     email: string,
-    oldPassword: string,
-    newPassword: string,
-    hash: string,
-    password: string,
     bio: string,
     image: string,
     note: string
   ) {
     const isValidId = validation.isIdValidation(id);
     const isEmail = validation.isEmailValidation(email);
-    const decrypt = security.bcrypt.dencrypt(oldPassword, hash);
+
     if (isValidId.isValid) {
       if (isEmail.isEmail) {
-        if (decrypt.isDencrypt) {
-          const encrypt = security.bcrypt.encrypt(newPassword);
-          return {
-            update: this.userDataAcess.update(
-              id,
-              nickname,
-              email,
-              encrypt,
-              bio,
-              image,
-              note
-            ),
-          };
-        } else {
-          return {
-            message: decrypt.message,
-          };
-        }
-      } else {
+
+
+        return {
+          update: this.userDataAcess.update(
+            id,
+            nickname,
+            email,
+
+            bio,
+            image,
+            note
+          ),
+        };
+
+      }
+      else {
         return {
           message: isEmail.message,
         };
