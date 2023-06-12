@@ -3,6 +3,8 @@ import { useAuthUser, useIsAuthenticated } from "react-auth-kit";
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
+
+
 export const SideBar = () => {
   const isAuthenticated = useIsAuthenticated();
   const auth: any = useAuthUser();
@@ -11,14 +13,14 @@ export const SideBar = () => {
   const [subCat, setSubCat] = useState<any>()
   const [catId, setCatId] = useState<any>()
   useEffect(() => {
-    axios.get(`http://localhost:3000/category/getMainCategory`, {
+    axios.get(`http://80.253.246.129:3000/category/getMainCategory`, {
 
     }).then((cat: any) => {
       setCategories(cat.data.category)
     })
   }, [])
   const subCategoryHandle = async (e: any) => {
-    await axios.post('http://localhost:3000/category/postCategory', {
+    await axios.post('http://80.253.246.129:3000/category/postCategory', {
       title: newCat,
       mainRel: catId
     }, {
@@ -31,7 +33,7 @@ export const SideBar = () => {
   const getSubCatHandle = async (e: any) => {
     e.preventDefault()
     const catId = e.target.id
-    const subCat = await axios.get(`http://localhost:3000/category/getMainRelCategory/${catId}`)
+    const subCat = await axios.get(`http://80.253.246.129:3000/category/getMainRelCategory/${catId}`)
     setSubCat(subCat.data.category.post)
     setCatId(catId)
   }
@@ -67,9 +69,9 @@ export const SideBar = () => {
         {subCat && subCat.map((cat: any, key: any) => (
 
           <div key={key} className="col-lg-12  my-4">
-            <Link  to={'/subposts/'+cat[0].id} className="mx-3" id={cat[0].id} style={{ fontSize: "14px", cursor: 'grab' }}>
+            <a  href={'/subposts/'+cat[0].id}  className="mx-3" id={cat[0].id} style={{ fontSize: "14px", cursor: 'grab' }}>
               {cat[0].title}
-            </Link>
+            </a>
           </div>
 
         ))}

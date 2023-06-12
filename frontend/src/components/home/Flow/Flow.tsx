@@ -17,7 +17,7 @@ export const Flow = () => {
 
   const complainHandle = async (e: any) => {
     e.preventDefault()
-    const complain = await axios.post('http://localhost:3000/user/postComplain', {
+    const complain = await axios.post('http://80.253.246.129:3000/user/postComplain', {
       title: complainTitle,
       description: complainDesc
     }, {
@@ -38,7 +38,7 @@ export const Flow = () => {
   const handleComplainClose = () => setShowComplain(false)
 
   useEffect(() => {
-    axios.get('http://localhost:3000/post/getPost').then((post: any) => {
+    axios.get('http://80.253.246.129:3000/post/getPost').then((post: any) => {
       setPost(post.data.post)
     })
   }, [])
@@ -47,7 +47,7 @@ export const Flow = () => {
       e.preventDefault()
       const postId = e.target.id
 
-      const post = await axios.post('http://localhost:3000/post/postLike', {
+      const post = await axios.post('http://80.253.246.129:3000/post/postLike', {
         postId
       }, {
         headers: {
@@ -77,7 +77,7 @@ export const Flow = () => {
         alert("zaten kayıtlı")
       }
       else {
-        const post = await axios.post('http://localhost:3000/post/postSaved', {
+        const post = await axios.post('http://80.253.246.129:3000/post/postSaved', {
           postId
         }, {
           headers: {
@@ -141,7 +141,7 @@ export const Flow = () => {
               {post[1].image == 'null' ? (
                 <img width={300} height={300} onClick={handleShow} src="" style={{ display: 'none' }} />
               ) : (
-                <img width={400} height={400} onClick={handleShow} src={'http://localhost:3000/public/posts/' + post[1].image} />
+                <img width={400} height={400} onClick={handleShow} src={'http://80.253.246.129:3000/public/posts/' + post[1].image} />
 
               )}
 
@@ -191,7 +191,7 @@ export const Flow = () => {
             <Modal show={show} className="text-center" onHide={handleClose}>
               <Modal.Header closeButton></Modal.Header>
               <Modal.Body>
-                <img width={300} height={300} src={'http://localhost:3000/public/posts/' + post[1].title} />
+                <img width={300} height={300} src={'http://80.253.246.129:3000/public/posts/' + post[1].title} />
               </Modal.Body>
             </Modal>
 

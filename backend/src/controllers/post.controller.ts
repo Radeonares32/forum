@@ -174,8 +174,7 @@ export class PostController {
   static getLike: Handler = async (req, res) => {
     const token: any = req.headers["x-access-token"];
     const postService = new PostService();
-    const { postId } = req.body;
-    const post = await postService.getLike(token, postId);
+    const post = await postService.getLike(token);
     if (post.message) {
       res.json({
         message: post?.message,

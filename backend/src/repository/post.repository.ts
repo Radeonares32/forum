@@ -29,7 +29,7 @@ export interface PostRepository {
     description: string
   ): Promise<{ message: string }>;
   postLike(userId: string, postId: string): Promise<{ message: string }>;
-  getLike(userId: string, postId: string): Promise<IPost[]>;
+  getLike(userId: string): Promise<IPost[]>;
   createCategoryRel(
     categoryId: string,
     userId: string,

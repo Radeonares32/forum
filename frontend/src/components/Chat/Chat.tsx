@@ -12,7 +12,7 @@ export const Chat = () => {
     const [messages, setMessages] = useState<any>([])
     const [user, setUser] = useState<any>()
     const [socketId, setSocketId] = useState<any>()
-    const socket = io('ws://localhost:3000', {
+    const socket = io('ws://80.253.246.129:3000', {
         autoConnect: true
     })
 
@@ -41,7 +41,7 @@ export const Chat = () => {
     useEffect(() => {
 
 
-        axios.get('http://localhost:3000/user/getUser').then((users: any) => {
+        axios.get('http://80.253.246.129:3000/user/getUser').then((users: any) => {
             setUser(users.data.user)
         })
     }, [])

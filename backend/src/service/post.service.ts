@@ -241,14 +241,14 @@ export class PostService {
       };
     }
   }
-  async getLike(token: string, postId: string) {
+  async getLike(token: string) {
     try {
       const email = security.jwt.token.verifyToken(token);
       if (email.message === "Authorized") {
         const userId = (await this.userService.userFind(token)).userId
           .properties.id;
         return {
-          getLike: await this.postDataAcess.getLike(userId, postId),
+          getLike: await this.postDataAcess.getLike(userId),
         };
       } else {
         return {

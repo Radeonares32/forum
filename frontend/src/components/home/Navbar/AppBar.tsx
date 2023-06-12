@@ -18,7 +18,7 @@ export const AppBar = () => {
     signOut();
   };
   useEffect(() => {
-    axios.get(`http://localhost:3000/category/getMainCategory`, {
+    axios.get(`http://80.253.246.129:3000/category/getMainCategory`, {
 
     }).then((cat: any) => {
 
@@ -29,7 +29,7 @@ export const AppBar = () => {
     <>
       <nav className="navbar navbar-expand-lg navbar-light ">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
+          <a className="navbar-brand" href="/">
             <img src="../../img/logo/logo.jpeg" alt="" width="80" height="80" />
           </a>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
