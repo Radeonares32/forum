@@ -374,4 +374,19 @@ export class PostDal implements PostRepository {
       }
     });
   }
+  async getMainPostAll(mainId: string): Promise<IPost[]> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const main = await neo4j()?.cypher('match (m:main {id:$mainId})  match(c:category) match(p:post) match(u:user) match(m)-[:categoryRel]->(c)<-[:categoryPostRel]-(p) match(u)-[:postRel]->(p) return p,u', { mainId })
+        const rCategory = main?.records.map((uss: any) => {
+          return uss.map((res: any) => {
+            return res.properties;
+          });
+        });
+        resolve(rCategory as IPost[]);
+      } catch (err) {
+        reject({ message: "Error " + err });
+      }
+    })
+  }
 }
