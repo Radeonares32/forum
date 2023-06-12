@@ -21,6 +21,7 @@ export const Profile = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [passwordRepeat, setPasswordRepeat] = useState("");
   const [message, setMessage] = useState("");
+  const [posts, setPosts] = useState<any>()
 
   const submit = async () => {
     if (newPassword === "") {
@@ -32,7 +33,7 @@ export const Profile = () => {
     if (passwordRepeat === "") {
       alert("password repeat empty");
     }
-    const user = await axios.put("http://localhost:3000/user/putUser", {
+    const user = await axios.put("http://80.253.246.129:3000/user/putUser", {
       id: auth().id,
       nickname: nickname,
       email: email,
@@ -49,7 +50,20 @@ export const Profile = () => {
       signOut();
     }
   };
-
+  const likedHandle = async (e: any) => {
+    e.preventDefault()
+    const liked = await axios.get(`http://80.253.246.129:3000/post/getLike/`, {
+      headers: {
+        'x-access-token': auth().token
+      }
+    })
+    setPosts(liked.data.getLike)
+    console.log(liked)
+  }
+  const followUserHandle = (e:any) => {
+    e.target.className = 'btn btn-primary w-25 h-25 disable'
+    e.target.innerHTML = 'takip ediliyor'
+  }
   return (
     <>
       <AppBar />
@@ -64,162 +78,95 @@ export const Profile = () => {
               <img src="img/logo/logo.png" className="img-responsive" width={100} height={100} />
             </div>
             <span>biyografi:</span>
-            
+
             <div className="d-flex justify-content-between">
               <textarea name="" cols={20} rows={5} value={"bilgin olsun burası biyografi kısmı"}></textarea>
-              <Link to='/chat' className="nav-item text-decoration-none " style={{marginLeft:'15rem'}}>
+              <Link to='/chat' className="nav-item text-decoration-none " style={{ marginLeft: '15rem' }}>
                 <ChatFill color="#0d6df3" size={25} />
               </Link>
-              <button className="btn btn-primary w-25 h-25" style={{ backgroundColor: '#0d6df3', border: '0' }}>takip et</button>
+              <button  onClick={followUserHandle} className="btn btn-primary w-25 h-25" style={{ backgroundColor: '#0d6df3', border: '0' }}>takip et</button>
             </div>
-            
+
             <div className="d-flex-justify-content-between mt-5 border-bottom border-top border-2 border-dark ">
               <ul className="d-flex justify-content-around lists">
                 <li className='lists-item' >gönderiler</li>
-                <li className='lists-item'>begeniler</li>
+                <li  className='lists-item'><span onClick={likedHandle}>begeniler</span></li>
                 <li className='lists-item'>fotoğraflar</li>
                 <li className='lists-item'>kaydedilenler</li>
               </ul>
             </div>
-            <section className="main-content">
-              <div className="post-block">
-                <div className="d-flex justify-content-between">
-                  <div className="d-flex mb-3">
-                    <div className="className-2">
-                      <a href="#!" className="text-dark"></a>
-                    </div>
-                    <div style={{ marginLeft: 400 }}>
-                      <h5 className="mb-0">
-                        <img
-                          width={50}
-                          height={50}
-                          src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
-                        />
-                        <a href="#!" className="text-dark" style={{ fontSize: 10 }}>
-                          {auth().nickname}
+            {posts && posts.map((post: any, key: any) => (
+              <section className="main-content" key={key}>
+                <div className="post-block">
+                  <div className="d-flex justify-content-between">
+                    <div className="d-flex mb-3">
+
+                      <div className="d-flex" style={{ marginLeft: 400 }}>
+
+                        <a href="#!" className="text-dark" style={{ fontSize: 11 }}>
+                          {post[1].nickname}
+                          <pre>5m</pre>
                         </a>
-                      </h5>
-                      <p className="mb-0 text-muted" style={{ fontSize: 10 }}>
-                        5m
-                      </p>
+                        <h5 className="mb-0">
+                          {post[1].image !== null ? (
+                            <img
+                              width={50}
+                              height={50}
+                              src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                            />
+                          ) : (
+                            <img
+                              width={50}
+                              height={50}
+                              src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" style={{ display: 'none' }}
+                            />
+                          )}
+
+
+                        </h5>
+
+                      </div>
                     </div>
                   </div>
-                </div>
+                  <div className="post-block__content mb-2 text-start">
+                    <h4 className="mt-2">{post[0].title}</h4>
+                    <p>{post[0].description}</p>
+                    {post[0].image == 'null' ? (
+                      <img width={300} height={300} src="" style={{ display: 'none' }} />
+                    ) : (
+                      <img width={400} height={400} src={'http://80.253.246.129:3000/public/posts/' + post[0].image} />
 
-                <div className="post-block__content mb-2">
-                  <img width={300} height={300} src="logo512.png" />
+                    )}
 
-                  <p>Bugun havalar iyi gibi ne diyorsunuz</p>
-                  <div className="post-block__content mb-2">
-                    <p
-                      className="mt-4 text-muted"
-                      style={{ display: "inline-block" }}
-                    >
-                      <i className="fa-solid fa-heart"></i>
-                    </p>
-                    <p
-                      className="mb-0 mx-4 text-muted"
-                      style={{ display: "inline-block" }}
-                    >
-                      <i className="fa-solid fa-bookmark"></i>
-                    </p>
-                    <p
-                      className="mb-0 mx-0 text-muted"
-                      style={{ display: "inline-block" }}
-                    >
-                      <i className="fa-solid fa-share"></i>
-                    </p>
-                    <p
-                      className="mb-0 mx-0 text-muted"
-                      style={{ display: "inline-block", paddingLeft: 350 }}
-                    >
-                      <i className="fa-solid fa-ellipsis"></i>
-                    </p>
+                    <div className="post-block__content mb-2 ms-3">
+                      <p
+                        className="mt-4 text-muted"
+
+                        style={{ display: "inline-block" }}
+
+                      >
+                        <i id={post[0].id} className="fa-solid fa-heart" style={{ color: 'red' }}></i>
+                      </p>
+                      <p
+                        className="mb-0 mx-4 text-muted"
+                        style={{ display: "inline-block" }}
+                      >
+                        <i className="fa-solid fa-bookmark" id={post[0].id}></i>
+                      </p>
+                      <p
+                        className="mb-0 mx-0 text-muted"
+                        style={{ display: "inline-block" }}
+                      >
+                        <i className="fa-solid fa-share"></i>
+                      </p>
+
+
+                    </div>
                   </div>
+                  <hr />
                 </div>
-                {/*  <Modal show={show} onHide={handleClose}>
-              <Modal.Header closeButton></Modal.Header>
-              <Modal.Body>
-                <img width={300} height={300} src="logo512.png"  />
-              </Modal.Body>
-            </Modal> */}
-                {/* <div className="mb-3">
-            <div className="d-flex justify-content-between mb-2">
-              <div className="d-flex">
-                <a href="#!" className="text-danger mr-2">
-                  <span>
-                    <i className="fa fa-heart"></i>
-                  </span>
-                </a>
-                <a href="#!" className="text-dark mr-2">
-                  <span>Comment</span>
-                </a>
-              </div>
-              <a href="#!" className="text-dark">
-                <span>Share</span>
-              </a>
-            </div> 
-            <p className="mb-0">
-              Liked by{" "}
-              <a href="#!" className="text-muted font-weight-bold">
-                John doe
-              </a>{" "}
-              &{" "}
-              <a href="#!" className="text-muted font-weight-bold">
-                25 others
-              </a>
-            </p>
-          </div> */}
-                <hr />
-                {/*  <div className="post-block__comments">
-            <div className="input-group mb-3">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Add your comment"
-              />
-              <div className="input-group-append">
-                <button
-                  className="btn btn-primary"
-                  type="button"
-                  id="button-addon2"
-                  style={{ backgroundColor: "#0d6df3" }}
-                >
-                  <i className="">Yorum Yap</i>
-                </button>
-              </div>
-            </div>
-
-            <div className="comment-view-box mb-3">
-              <div className="d-flex mb-2">
-                <div>
-                  <h6 className="mb-1">
-                    <img width={50} height={50} src="/logo192.png" />
-                    <a href="#!" className="text-dark">
-                      Bugra Atik
-                    </a>{" "}
-                    <small className="text-muted">1m</small>
-                  </h6>
-                  <p className="mb-1">Güzel, bence havalar</p>
-                  <div className="d-flex">
-                    <a href="#!" className="text-dark mr-2">
-                      <span></span>
-                    </a>
-                    <a href="#!" className="text-dark mr-2">
-                      <span>Cevapla</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <hr />
-            <a href="#!" className="text-dark">
-              Diğer Yorumlar <span className="font-weight-bold">(12)</span>
-            </a>
-          </div> */}
-              </div>
-            </section>
+              </section>
+            ))}
           </div>
         </div>
       </div>

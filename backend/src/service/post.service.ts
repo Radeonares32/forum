@@ -241,14 +241,14 @@ export class PostService {
       };
     }
   }
-  async getLike(token: string, postId: string) {
+  async getLike(token: string) {
     try {
       const email = security.jwt.token.verifyToken(token);
       if (email.message === "Authorized") {
         const userId = (await this.userService.userFind(token)).userId
           .properties.id;
         return {
-          getLike: await this.postDataAcess.getLike(userId, postId),
+          getLike: await this.postDataAcess.getLike(userId),
         };
       } else {
         return {
@@ -306,21 +306,15 @@ export class PostService {
       };
     }
   }
-  async getCategoryRel(token: string, categoryId: string) {
+  async getCategoryRel(categoryId: string) {
     try {
-      const email = security.jwt.token.verifyToken(token);
-      if (email.message === "Authorized") {
-        return {
-          getCategoryRel: await this.postDataAcess.getCategoryRel(categoryId),
-        };
-      } else {
-        return {
-          message: email.message,
-        };
-      }
+      return {
+        getCategoryRel: await this.postDataAcess.getCategoryRel(categoryId),
+      };
+
     } catch (err) {
       return {
-        message: "invalid token",
+        message: err,
       };
     }
   }

@@ -5,7 +5,8 @@ import { SignUp } from "./components/sign/signup";
 import { SignIn } from "./components/sign/signin";
 import { Profile } from "./components/profile/profile";
 import { AuthProvider, RequireAuth } from "react-auth-kit";
-import { Posts } from "./components/home/Posts/Posts";
+import { Subposts } from "./components/home/Subposts/Subposts";
+import { Mainposts } from './components/home/Mainposts/Mainposts'
 import { Admin } from "./components/admin/Admin";
 import { Chat } from './components/Chat/Chat'
 
@@ -29,7 +30,8 @@ function App() {
               </RequireAuth>
             }
           ></Route>
-          <Route path="posts/:categoryId" element={<Posts />} ></Route>
+          <Route path="subposts/:categoryId" element={<Subposts />} ></Route>
+          <Route path="main/:categoryId" element={<Mainposts />} ></Route>
           <Route path='admin' element={<Admin />} ></Route>
           <Route path="/chat" element={<Chat />}></Route>
         </Routes>

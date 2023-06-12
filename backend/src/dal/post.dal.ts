@@ -289,13 +289,13 @@ export class PostDal implements PostRepository {
       }
     });
   }
-  async getLike(userId: string, postId: string): Promise<IPost[]> {
+  async getLike(userId: string): Promise<IPost[]> {
     return new Promise(async (resolve, reject) => {
       try {
         const isLike = await neo4j()
           ?.cypher(
-            "match(u:user {id:$userId})-[likeRel:likeRel]->(l:like) match(p:post {id:$postId})<-[likePostRel:likePostRel]-(l) return u",
-            { userId, postId }
+            "match(u:user {id:$userId}) match(l:like) match(p:post) match(u)-[:likeRel]->(l) match(p)<-[:likePostRel]-(l) return p,u",
+            { userId }
           )
           .catch((err) => console.log(err));
         const rLike = isLike?.records.map((uss: any) => {
@@ -303,6 +303,7 @@ export class PostDal implements PostRepository {
             return res.properties;
           });
         });
+
         resolve(rLike as IPost[]);
       } catch (err) {
         reject({ message: "Error " + err });
@@ -338,7 +339,7 @@ export class PostDal implements PostRepository {
       try {
         const category = await neo4j()
           ?.cypher(
-            "match(c:category {id:$categoryId}) match(p:post) match(p)-[categoryPostRel:categoryPostRel]->(c) return p",
+            "match(c:category {id:$categoryId}) match(p:post) match(p)-[categoryPostRel:categoryPostRel]->(c) match(u:user)-[postRel:postRel]->(p) return p,u",
             { categoryId }
           )
           .catch((err) => console.log(err));

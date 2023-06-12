@@ -8,12 +8,6 @@ export const Flow = () => {
   const auth: any = useAuthUser()
   const [show, setShow] = useState(false)
   const [showComplain, setShowComplain] = useState(false)
-  const [category, setCategory] = useState<any>()
-  const [categories, setCategories] = useState<any>()
-  const [postTitle, setPostTitle] = useState<any>()
-  const [postDesc, setPostDesc] = useState<any>()
-  const [postCat, setPostCat] = useState<any>()
-  const [postImage, setPostImage] = useState<any>()
   const [posts, setPost] = useState<any>()
 
 
@@ -31,7 +25,7 @@ export const Flow = () => {
         'x-access-token': auth().token
       }
     })
-    if(complain.data.getComplain == 'Success complain') {
+    if (complain.data.getComplain == 'Success complain') {
       alert("gönderildi")
       setShowComplain(false)
     }
@@ -42,70 +36,12 @@ export const Flow = () => {
 
   const handleComplainShow = () => setShowComplain(true)
   const handleComplainClose = () => setShowComplain(false)
-  const categoryCreate = (e: any) => {
-    e.preventDefault()
-    axios.post('http://80.253.246.129:3000/category/postCategory', {
-      title: category
-    }, {
-      headers: {
-        'x-access-token': auth().token
-      }
-    })
-    setCategory(null)
-  }
-  /*  */
-  const catSelectChange = () => {
-    axios.get('http://80.253.246.129:3000/category/getCategory', {
-      headers: {
-        'x-access-token': auth().token
-      }
-    }).then((cat: any) => {
 
-      setCategories(cat.data.category)
-    })
-  }
-
-  const catSelectHandle = (e: any) => {
-    setPostCat(e.target.value)
-  }
-  const postClickHandle = async (e: any) => {
-    e.preventDefault()
-    const formData = new FormData()
-    if(postImage) {
-      formData.append('title', postTitle)
-      formData.append('description', postDesc)
-      formData.append('image', postImage)
-      formData.append('categoryId', postCat)
-      const post = await axios.post('http://80.253.246.129:3000/post/postPost', formData, {
-      headers: {
-        'x-access-token': auth().token
-      }
-    })
-    if (post.data.message == 'Success created') {
-      alert('Post oluşturuldu')
-    }
-    }
-    else {
-      formData.append('title', postTitle)
-      formData.append('description', postDesc)
-      formData.append('categoryId', postCat)
-      const post = await axios.post('http://80.253.246.129:3000/post/postPost', formData, {
-      headers: {
-        'x-access-token': auth().token
-      }
-    })
-    if (post.data.message == 'Success created') {
-      alert('Post oluşturuldu')
-    }
-    }
-
-    
-  }
   useEffect(() => {
     axios.get('http://80.253.246.129:3000/post/getPost').then((post: any) => {
       setPost(post.data.post)
     })
-  })
+  }, [])
   const likePostHandle = async (e: any) => {
     if (isSign()) {
       e.preventDefault()
@@ -161,84 +97,22 @@ export const Flow = () => {
   }
   return (
     <div className="col-md-5">
-      {isSign() ? (
-        <>
-          <div className="col-lg-8" style={{ margin: "5rem" }}>
-            <div className="">
-              <label className="form-label">Post</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="post başlıgı"
-                value={postTitle}
-                onChange={(e: any) => setPostTitle(e.target.value)}
-              />
-            </div>
-            <div className="mt-3">
-              <textarea
-                className="form-control"
-                placeholder="post açıklaması"
-                value={postDesc}
-                onChange={(e: any) => setPostDesc(e.target.value)}
-              ></textarea>
-            </div>
 
-            <select onClick={catSelectChange} className="form-select mt-3" aria-label="Default select example">
-              {categories && categories.map((cat: any, key: number) => (
-                <>
-
-                  <option onClick={catSelectHandle} value={cat[0].id} key={key}>{cat[0].title}</option>
-                </>
-              ))}
-
-            </select>
-            <input type="file" className="mt-2" onChange={(e: any) => setPostImage(e.target.files[0])} />
-            <button
-              onClick={postClickHandle}
-              className="btn btn-primary mt-2"
-              style={{ backgroundColor: "#0d6df3" }}
-            >
-              Post oluştur
-            </button>
-          </div>
-          <div className="col-lg-8" style={{ margin: "5rem" }}>
-            <div className="">
-              <label className="form-label">Entry kategorisi</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="entry kategori ismi"
-                onChange={(e: any) => setCategory(e.target.value)}
-                value={category}
-              />
-            </div>
-            <button
-              onClick={categoryCreate}
-              className="btn btn-primary mt-1"
-              style={{ backgroundColor: "#0d6df3" }}
-            >
-              kategori oluştur
-            </button>
-          </div>
-        </>
-      ) : (
-        <></>
-      )}
       {posts && posts.map((post: any, key: any) => (
 
 
-        <section className="main-content">
+        <section className="main-content" key={key}>
           <div className="post-block">
-            
+
             <div className="d-flex justify-content-between">
               <div className="d-flex mb-3">
-                
-                <div  className="d-flex" style={{ marginLeft: 400 }}>
-               
+
+                <div className="d-flex" style={{ marginLeft: 400 }}>
+
                   <a href="#!" className="text-dark" style={{ fontSize: 11 }}>
-                      {post[0].nickname}
-                      <pre>5m</pre>
-                    </a>
+                    {post[0].nickname}
+                    <pre>5m</pre>
+                  </a>
                   <h5 className="mb-0">
                     {post[0].image !== null ? (
                       <img
@@ -250,27 +124,29 @@ export const Flow = () => {
                       <img
                         width={50}
                         height={50}
-                        src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" style={{display:'none'}}
+                        src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" style={{ display: 'none' }}
                       />
                     )}
 
-                   
+
                   </h5>
-                 
+
                 </div>
               </div>
             </div>
 
             <div className="post-block__content mb-2 text-start">
+              <h4 className="mt-2">{post[1].title}</h4>
+              <p>{post[1].description}</p>
               {post[1].image == 'null' ? (
-                  <img width={300} height={300} onClick={handleShow} src="" style={{ display: 'none' }} />
+                <img width={300} height={300} onClick={handleShow} src="" style={{ display: 'none' }} />
               ) : (
                 <img width={400} height={400} onClick={handleShow} src={'http://80.253.246.129:3000/public/posts/' + post[1].image} />
 
               )}
 
-              <h4 className="mt-2">{post[1].title}</h4>
-              <p>{post[1].description}</p>
+
+
               <div className="post-block__content mb-2 ms-3">
                 <p
                   className="mt-4 text-muted"

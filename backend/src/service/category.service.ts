@@ -16,11 +16,40 @@ export class CategoryService {
   categoryFindAll() {
     return this.categoryDataAcess.findAll();
   }
+  categoryFindAllMain() {
+    return this.categoryDataAcess.findAllMain();
+  }
   async categoryFind(id: string) {
     const isValidId = validation.isIdValidation(id);
     if (isValidId.isValid === true) {
       return {
         post: await this.categoryDataAcess.find(id),
+        message: isValidId.message,
+      };
+    } else {
+      return {
+        message: isValidId.message,
+      };
+    }
+  }
+  async categoryFindMain(id: string) {
+    const isValidId = validation.isIdValidation(id);
+    if (isValidId.isValid === true) {
+      return {
+        post: await this.categoryDataAcess.findMain(id),
+        message: isValidId.message,
+      };
+    } else {
+      return {
+        message: isValidId.message,
+      };
+    }
+  }
+  async categoryRelMain(mainRel: string) {
+    const isValidId = validation.isIdValidation(mainRel);
+    if (isValidId.isValid === true) {
+      return {
+        post: await this.categoryDataAcess.getCategoryRel(mainRel),
         message: isValidId.message,
       };
     } else {
@@ -81,25 +110,29 @@ export class CategoryService {
       };
     }
   }
-  async categoryCreate(title: string, token: string) {
+  async categoryCreate(title: string, mainRel: string) {
     try {
-      const email = security.jwt.token.verifyToken(token);
-      if (email.message === "Authorized") {
-        const userId = (await this.userService.userFind(token)).userId.properties.id;
-        return {
-          create: await this.categoryDataAcess.create(
-            title,
-            userId
-          ),
-        };
-      } else {
-        return {
-          message: email.message,
-        };
-      }
+      return {
+        create: await this.categoryDataAcess.create(
+          title,
+          mainRel
+        ),
+      };
     } catch (err) {
       return {
-        message: "invalid token",
+        err,
+      };
+    }
+  }
+  async mainCreate(title: string) {
+    try {
+      return {
+        create: await this.categoryDataAcess.mainCreate(
+          title
+        ),
+      };
+    } catch (err) {
+      return {
         err,
       };
     }
