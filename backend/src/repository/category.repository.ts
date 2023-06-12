@@ -1,6 +1,10 @@
 import { ICategory } from "../entity/ICategory";
 export interface CategoryRepository {
-  create(title: string, userId: string): Promise<{ message: string }>;
+  create(title: string, mainRel: string): Promise<{ message: string }>;
+  mainCreate(title: string): Promise<{ message: string }>
+  findMain(id: string): Promise<ICategory>
+  findAllMain(): Promise<ICategory[]>
+  getCategoryRel(mainRel: string): Promise<ICategory[]>
   find(id: string): Promise<ICategory>;
   findAll(): Promise<ICategory[]>;
   update(

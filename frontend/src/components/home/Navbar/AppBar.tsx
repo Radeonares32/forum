@@ -18,7 +18,7 @@ export const AppBar = () => {
     signOut();
   };
   useEffect(() => {
-    axios.get(`http://80.253.246.129:3000/category/getCategory`, {
+    axios.get(`http://localhost:3000/category/getMainCategory`, {
 
     }).then((cat: any) => {
 
@@ -91,8 +91,8 @@ export const AppBar = () => {
           <div className="collapse navbar-collapse d-flex justify-content-evenly" id="navbarSupportedContent">
             <ul className="navbar-nav mb-2 mb-lg-0 d-flex justify-content-evenly border-bottom border-2 border-dark ">
               {categories && categories.map((cat: any, key: any) => (
-                <Link to={'/posts/' + cat[0].id} key={key} className="nav-link  d-flex me-5 links " style={{ listStyleType: 'none' }}>
-                  <a className="nav-link active " aria-current="page" href="#">{cat[0].title}</a>
+                <Link to={'/main/' + cat[0].id} key={key} className="nav-link  d-flex me-5 links " style={{ listStyleType: 'none' }}>
+                  <p className="nav-link active " aria-current="page">{cat[0].title}</p>
                 </Link>
               ))}
               {isAuthenticated() ? (

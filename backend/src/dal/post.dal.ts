@@ -338,7 +338,7 @@ export class PostDal implements PostRepository {
       try {
         const category = await neo4j()
           ?.cypher(
-            "match(c:category {id:$categoryId}) match(p:post) match(p)-[categoryPostRel:categoryPostRel]->(c) return p",
+            "match(c:category {id:$categoryId}) match(p:post) match(p)-[categoryPostRel:categoryPostRel]->(c) match(u:user)-[postRel:postRel]->(p) return p,u",
             { categoryId }
           )
           .catch((err) => console.log(err));
