@@ -6,7 +6,7 @@
 }
 .links:hover   {
     display: inline-block;
-    border-bottom: 2px solid #0d6df3;
+    border-bottom: 5px solid #0d6df3;
     color:blue !important;
    
 }
