@@ -5,7 +5,8 @@ import './appbar.css'
 import {
   ChatFill,
   Search,
-  PersonFill
+  PersonFill,
+  BellFill
 } from "react-bootstrap-icons";
 import { useEffect, useState } from "react";
 
@@ -61,6 +62,9 @@ export const AppBar = () => {
                 </Link>
                 <Link to='/profile' className="nav-item text-decoration-none mx-3">
                   <PersonFill color="#0d6df3" size={25} />
+                </Link>
+                <Link to='/profile' className="nav-item text-decoration-none mx-3">
+                  <BellFill color="#0d6df3" size={25} />
                 </Link>
                 <a onClick={() => logout()} className="nav-item text-decoration-none mx-3">
                   <a className="nav-link active" aria-current="page" href="#" style={{ color: '#0d6df3' }}>Çıkış Yap</a>
