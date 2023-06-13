@@ -46,6 +46,7 @@ export const AppBar = () => {
                       type="search"
                       className="form-control hide-focus  border-0"
                       placeholder="Ara"
+                      style={{width:'250px'}}
                     />
                     <span
                       className="input-group-text bg-white border-0 ps-1"
@@ -58,13 +59,13 @@ export const AppBar = () => {
             {isAuthenticated() ? (
               <>
                 <Link to='/chat' className="nav-item text-decoration-none mx-3">
-                  <ChatFill color="#0d6df3" size={23} />
+                  <ChatFill color="#0082f8" size={23} />
                 </Link>
                 <Link to='/profile' className="nav-item text-decoration-none mx-3">
-                  <PersonFill color="#0d6df3" size={25} />
+                  <PersonFill color="#0082f8" size={25} />
                 </Link>
                 <Link to='/profile' className="nav-item text-decoration-none mx-3">
-                  <BellFill color="#0d6df3" size={25} />
+                  <BellFill color="#0082f8" size={25} />
                 </Link>
                 <a onClick={() => logout()} className="nav-item text-decoration-none mx-3">
                   <a className="nav-link active" aria-current="page" href="#" style={{ color: '#0d6df3' }}>Çıkış Yap</a>
