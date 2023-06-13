@@ -68,7 +68,7 @@ export const SideBarPost = (props: any) => {
         {subCat && subCat.map((cat: any, key: any) => (
 
           <div key={key} className="col-lg-12  my-4">
-            <a href={'/subposts/' + cat[0].id} className="mx-3" id={cat[0].id} style={{ fontSize: "14px", cursor: 'grab' }}>
+            <a href={'/subposts/' + cat[0].id} className="mx-3" id={cat[0].id} style={{ fontSize: "14px", cursor: 'grab',color:'black',textDecoration:'none' }}>
               {cat[0].title}
             </a>
           </div>
