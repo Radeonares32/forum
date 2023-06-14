@@ -55,10 +55,10 @@ export const Profile = () => {
           <SideBar />
           <div className="col-md-8 mt-5">
             <h3>{auth().nickname}</h3>
-            <div className="d-flex justify-content-between">
+            <div className="d-flex justify-content-between rounded-circle">
               <h6>834 gonderi- 32 takipçi - 3 takip</h6>
               {user && (
-                <img src={'http://80.253.246.129:3000/public/users/'+user.image } className="img-responsive" width={100} height={100} />
+                <img src={'http://80.253.246.129:3000/public/users/'+user.image } className="img-responsive rounded-circle" width={100} height={100} />
               )}
               
             </div>
