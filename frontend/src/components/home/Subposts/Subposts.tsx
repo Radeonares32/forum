@@ -5,8 +5,8 @@ import { useParams } from "react-router-dom";
 import { useIsAuthenticated, useAuthUser } from "react-auth-kit";
 import { Modal } from "react-bootstrap";
 import { SideBarPost } from "../SidebarPost/SidebarPost";
-import { Plus} from "react-bootstrap-icons";
-import './subposts.css'
+import { Plus } from "react-bootstrap-icons";
+import "./subposts.css";
 
 export const Subposts = () => {
   const [postTitle, setPostTitle] = useState<any>();
@@ -16,6 +16,7 @@ export const Subposts = () => {
   const [complainTitle, setComplainTitle] = useState<any>();
   const [complainDesc, setComplainDesc] = useState<any>();
   const [showComplain, setShowComplain] = useState(false);
+  const [showPost, setShowPost] = useState(false);
   const isSign = useIsAuthenticated();
   const auth: any = useAuthUser();
 
@@ -26,6 +27,8 @@ export const Subposts = () => {
   const handleComplainShow = () => setShowComplain(true);
   const handleComplainClose = () => setShowComplain(false);
 
+  const handlePostShow = () => setShowPost(true);
+  const handlePostClose = () => setShowPost(false);
   useEffect(() => {
     axios
       .get(`http://80.253.246.129:3000/post/getCategoryRel/${categoryId}`, {})
@@ -72,6 +75,7 @@ export const Subposts = () => {
       );
       if (post.data.message == "Success created") {
         alert("Post oluşturuldu");
+        handlePostClose()
       }
     } else {
       formData.append("title", postTitle);
@@ -88,6 +92,7 @@ export const Subposts = () => {
       );
       if (post.data.message == "Success created") {
         alert("Post oluşturuldu");
+        handlePostClose()
       }
     }
   };
@@ -154,45 +159,6 @@ export const Subposts = () => {
         <div className="row">
           <SideBarPost categoryId={categoryId} />
           <div className="col-md-6">
-            {isSign() ? (
-              <>
-                <div className="col-lg-8" style={{ margin: "5rem" }}>
-                  <div className="">
-                    <label className="form-label">Post</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="post başlıgı"
-                      value={postTitle}
-                      onChange={(e: any) => setPostTitle(e.target.value)}
-                    />
-                  </div>
-                  <div className="mt-3">
-                    <textarea
-                      className="form-control"
-                      placeholder="post açıklaması"
-                      value={postDesc}
-                      onChange={(e: any) => setPostDesc(e.target.value)}
-                    ></textarea>
-                  </div>
-
-                  <input
-                    type="file"
-                    className="mt-2"
-                    onChange={(e: any) => setPostImage(e.target.files[0])}
-                  />
-                  <button
-                    onClick={postClickHandle}
-                    className="btn btn-primary mt-2"
-                    style={{ backgroundColor: "#0d6df3" }}
-                  >
-                    Post oluştur
-                  </button>
-                </div>
-              </>
-            ) : (
-              <></>
-            )}
             {posts &&
               posts.map((post: any, key: any) => (
                 <section className="main-content">
@@ -374,11 +340,52 @@ export const Subposts = () => {
         </Modal.Body>
       </Modal>
 
-      <div id="mybutton">
-        <button  className="feedback rounded-circle">
-          <Plus color="#0082f8" size={30}/>
-        </button>
-      </div>
+      <Modal show={showPost} className="text-center" onHide={handlePostClose}>
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <div className="col-lg-8" style={{ marginLeft: "5rem" }}>
+            <div className="">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="post başlıgı"
+                value={postTitle}
+                onChange={(e: any) => setPostTitle(e.target.value)}
+              />
+            </div>
+            <div className="mt-3">
+              <textarea
+                className="form-control"
+                placeholder="post açıklaması"
+                value={postDesc}
+                onChange={(e: any) => setPostDesc(e.target.value)}
+              ></textarea>
+            </div>
+
+            <input
+              type="file"
+              className="mt-2"
+              onChange={(e: any) => setPostImage(e.target.files[0])}
+            />
+            <button
+              onClick={postClickHandle}
+              className="btn btn-primary mt-2"
+              style={{ backgroundColor: "#0d6df3" }}
+            >
+              Post oluştur
+            </button>
+          </div>
+        </Modal.Body>
+      </Modal>
+      {isSign() ? (
+        <div id="mybutton">
+          <button onClick={handlePostShow} className="feedback rounded-circle">
+            <Plus color="#0082f8" size={35} />
+          </button>
+        </div>
+      ) : (
+        <></>
+      )}
     </>
   );
 };
