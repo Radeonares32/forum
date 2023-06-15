@@ -53,7 +53,7 @@ export const Profile = () => {
       <div className="container ">
         <div className="row">
           <SideBar />
-          <div className="col-md-8 mt-5">
+          <div className="col-md-8 mt-5" style={{marginLeft:'-50px'}}>
             <h3>{auth().nickname}</h3>
             <div className="d-flex justify-content-between rounded-circle">
               <h6>834 gonderi- 32 takipçi - 3 takip</h6>

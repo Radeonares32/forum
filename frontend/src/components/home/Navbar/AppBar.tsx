@@ -64,6 +64,9 @@ export const AppBar = () => {
                 <Link to="/profile" className="nav-item text-decoration-none mx-3">
                   <PersonFill color="#0082f8" size={23} />
                 </Link>
+                <Link to="/chat" className="nav-item text-decoration-none mx-3">
+                  <ChatFill color="#0082f8" size={22} />
+                </Link>
                 <Link
                   to="/settings"
                   className="nav-item text-decoration-none mx-3"
