@@ -22,6 +22,17 @@ export class UserController {
       });
     }
   };
+  static getUserIds: Handler = async (req, res) => {
+    const { id } = req.params;
+    if (id) {
+      const user = await new UserService().userFindId(id);
+      res.json({ user: user });
+    } else {
+      res.status(401).json({
+        message: "not found id",
+      });
+    }
+  };
   static postComplain: Handler = async (req, res) => {
     const token: any = req.headers["x-access-token"];
     const userService = new UserService();
@@ -66,13 +77,7 @@ export class UserController {
   };
   static updateUser: Handler = async (req, res) => {
     const userService = new UserService();
-    const {
-      id,
-      nickname,
-      email,
-      bio,
-      note
-    } = req.body;
+    const { id, nickname, email, bio, note } = req.body;
     const { image } = req.files as any;
     const user = userService.userUpdate(
       id,
@@ -91,7 +96,6 @@ export class UserController {
         message: await user.update,
       });
     }
-
   };
   static deleteUser: Handler = async (req, res) => {
     const userService = new UserService();
