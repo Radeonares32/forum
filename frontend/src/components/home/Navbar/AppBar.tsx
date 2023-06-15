@@ -172,14 +172,15 @@ export const AppBar = () => {
                     className="nav-link  d-flex me-5 links "
                     style={{ listStyleType: "none", padding: 0 }}
                   >
-                    <p className="nav-link active p-0" style={{margin:'1px'}} aria-current="page">
+                    <p className="nav-link active p-0" style={{margin:'0px'}} aria-current="page">
                       {cat[0].title}
                     </p>
                   </Link>
                   
                 ))}
+                
               {isAuthenticated() ? (
-                <li>
+                <li className=" ">
                   <div className="dropdown ">
                     <i
                       role="button"
@@ -187,7 +188,7 @@ export const AppBar = () => {
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                       className="fa-solid fa-ellipsis"
-                      style={{margin:'8px'}}
+                      style={{marginBottom:'12px'}}
                     ></i>
     
                     <ul
@@ -208,6 +209,32 @@ export const AppBar = () => {
               ) : (
                 <></>
               )}
+              <li className=" " style={{visibility:'hidden'}}>
+                  <div className="dropdown ">
+                    <i
+                      role="button"
+                      id="dropdownMenuLink"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      className="fa-solid fa-ellipsis"
+                      style={{marginBottom:'12px'}}
+                    ></i>
+    
+                    <ul
+                      className="dropdown-menu"
+                      aria-labelledby="dropdownMenuLink"
+                    >
+                      {categories &&
+                        categories.map((cat: any, key: any) => (
+                          <Link to={"/posts/" + cat[0].id} key={key}>
+                            <a className="dropdown-item" href="#">
+                              #{cat[0].title}
+                            </a>
+                          </Link>
+                        ))}
+                    </ul>
+                  </div>
+                </li>
             </ul>
           </div>
         </div>
