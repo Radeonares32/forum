@@ -15,6 +15,9 @@ export class UserService {
   userFindAll() {
     return this.userDataAcess.findAll();
   }
+  userFindId(id:string) {
+    return this.userDataAcess.findUser(id);
+  }
   async userFind(token: string) {
     try {
       const email: any = security.jwt.token.verifyToken(token);

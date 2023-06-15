@@ -131,6 +131,23 @@ export class UserDal implements UserRepository {
       }
     });
   }
+  async findUser(id: string): Promise<IUser> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const user: any = await neo4j()
+          ?.cypher("match(u:user {id:$id}) return u", { id })
+          .catch((err) => console.log(err));
+        const rUser = user.records.map((uss: any) => {
+          return uss.map((res: any) => {
+            return res.properties;
+          });
+        });
+        resolve(rUser as any);
+      } catch (err) {
+        reject({ message: "Error " + err });
+      }
+    });
+  }
   async findAll(): Promise<IUser[]> {
     return new Promise(async (resolve, reject) => {
       try {
@@ -153,7 +170,7 @@ export class UserDal implements UserRepository {
     id: string,
     nickname: string,
     email: string,
-  
+
     bio: string,
     image: string,
     note: string
