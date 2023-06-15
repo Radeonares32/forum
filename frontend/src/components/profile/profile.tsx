@@ -68,9 +68,6 @@ export const Profile = () => {
               {user && (
                 <textarea name="" style={{ resize: 'none', height: '100px', width: '350px' }} value={user.bio}></textarea>
               )}
-              <Link to='/chat' className="nav-item text-decoration-none " style={{ marginLeft: '7rem' }}>
-                <ChatFill color="#0d6df3" size={25} />
-              </Link>
               <button onClick={followUserHandle} className="btn btn-primary w-25 h-25" style={{ backgroundColor: '#0d6df3', border: '0' }}>takip et</button>
             </div>
 

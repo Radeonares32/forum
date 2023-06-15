@@ -110,7 +110,7 @@ export const Flow = () => {
     <div className="col-md-5 ">
       {posts &&
         posts.map((post: any, key: any) => (
-          <section className="main-content" style={{width:'50rem',marginLeft:'-80px'}} key={key}>
+          <section className="main-content" style={{width:'35rem',marginLeft:'-95px'}} key={key}>
             <div className="post-block">
               <div className="d-flex justify-content-between">
                 <div className="d-flex mb-3">
