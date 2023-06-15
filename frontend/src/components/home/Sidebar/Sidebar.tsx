@@ -62,7 +62,7 @@ export const SideBar = () => {
       </div>
       <hr style={{ width: '70%' }} />
       {isAuthenticated() ? (<>
-        <input type="text" placeholder="kategori ekle" onChange={(e: any) => setNewCat(e.target.value)} style={{width:'60%'}} value={newCat} />
+        <input type="text" placeholder="kategori ekle" onChange={(e: any) => setNewCat(e.target.value)} style={{width:'63%'}} value={newCat} />
         <button style={{ backgroundColor: '#0d6df3', border: '0', height: '30px', color: 'white' }} onClick={subCategoryHandle}>ekle</button>
       </>) : (<></>)}
       <div className="border mt-2 " style={{ width: '70%' }}>
