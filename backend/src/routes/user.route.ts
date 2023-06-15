@@ -11,6 +11,7 @@ import { Middlewares } from "../middleware/middleware";
 //Get
 export const getUser = app.get("/getUser", user.UserController.getUser);
 export const getUserId = app.get("/getUserId", user.UserController.getUserId);
+export const getUserIds = app.get("/:id", user.UserController.getUserIds);
 export const getFollowUser = app.get(
   "/getFollow",
   Middlewares.userAuth,
