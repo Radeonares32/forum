@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useAuthUser, useIsAuthenticated, useSignOut } from "react-auth-kit";
 import axios from "axios";
 import "./appbar.css";
-import { ChatFill, Search, PersonFill, BellFill } from "react-bootstrap-icons";
+import { ChatFill, Search, PersonFill, BellFill,GearFill } from "react-bootstrap-icons";
 import { useEffect, useState } from "react";
 
 export const AppBar = () => {
@@ -61,14 +61,14 @@ export const AppBar = () => {
             </ul>
             {isAuthenticated() ? (
               <>
-                <Link to="/chat" className="nav-item text-decoration-none mx-3">
-                  <ChatFill color="#0082f8" size={23} />
+                <Link to="/profile" className="nav-item text-decoration-none mx-3">
+                  <PersonFill color="#0082f8" size={23} />
                 </Link>
                 <Link
-                  to="/profile"
+                  to="/settings"
                   className="nav-item text-decoration-none mx-3"
                 >
-                  <PersonFill color="#0082f8" size={25} />
+                  <GearFill  color="#0082f8" size={23} />
                 </Link>
                 <li
                   className="nav-item dropdown mx-3"

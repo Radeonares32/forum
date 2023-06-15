@@ -8,7 +8,7 @@ import { Modal } from "react-bootstrap";
 import { Banner } from '../Banner/Banner';
 
 export const Mainposts = () => {
-
+  const maxLength = 400
   const isSign = useIsAuthenticated();
   const auth: any = useAuthUser()
   const { categoryId } = useParams()
@@ -42,6 +42,11 @@ export const Mainposts = () => {
 
   const handleComplainShow = () => setShowComplain(true)
   const handleComplainClose = () => setShowComplain(false)
+
+  const [expanded, setExpanded] = useState(false);
+  const toggleExpanded = () => {
+    setExpanded(!expanded);
+  };
 
   useEffect(() => {
     axios.get(`http://80.253.246.129:3000/post/getMainPostAll/${categoryId}`).then((post: any) => {
@@ -132,10 +137,11 @@ export const Mainposts = () => {
                             <img
                               width={40}
                               height={40}
+                              className='rounded-circle'
                               src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
                             />
                           ) : (
-                            <img width={50} height={50} onClick={handleShow} src={'http://80.253.246.129:3000/public/users/' + post[1].image} />
+                            <img width={50} height={50} onClick={handleShow} src={'http://80.253.246.129:3000/public/users/' + post[1].image} className='rounded-circle' />
                           )}
 
 
@@ -147,7 +153,20 @@ export const Mainposts = () => {
 
                   <div className="post-block__content mb-2 text-start">
                     <h4 className="mt-2" style={{fontSize:'18px',width:'80%'}}>{post[0].title}</h4>
-                    <p style={{width:'80%',fontSize:'12px'}}>{post[0].description}</p>
+                    <p
+                        style={{ fontSize: "15px", width: "80%" }}
+                        onClick={toggleExpanded}
+                      >
+                        {expanded ? (
+                          <>{post[0].description}</>
+                        ) : (
+                          <>
+                            {post[0].description.length > maxLength
+                              ? post[0].description.slice(0, maxLength) + "..."
+                              : post[0].description}
+                          </>
+                        )}
+                      </p>
                     {post[0].image == 'null' ? (
                       <img width={300} height={300} onClick={handleShow} src="" style={{ display: 'none' }} />
                     ) : (

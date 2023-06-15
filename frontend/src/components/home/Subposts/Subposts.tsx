@@ -9,6 +9,7 @@ import { Plus } from "react-bootstrap-icons";
 import "./subposts.css";
 
 export const Subposts = () => {
+  const maxLength = 400;
   const [postTitle, setPostTitle] = useState<any>();
   const [postDesc, setPostDesc] = useState<any>();
   const [postImage, setPostImage] = useState<any>();
@@ -29,6 +30,12 @@ export const Subposts = () => {
 
   const handlePostShow = () => setShowPost(true);
   const handlePostClose = () => setShowPost(false);
+
+  const [expanded, setExpanded] = useState(false);
+  const toggleExpanded = () => {
+    setExpanded(!expanded);
+  };
+
   useEffect(() => {
     axios
       .get(`http://80.253.246.129:3000/post/getCategoryRel/${categoryId}`, {})
@@ -75,7 +82,7 @@ export const Subposts = () => {
       );
       if (post.data.message == "Success created") {
         alert("Post oluşturuldu");
-        handlePostClose()
+        handlePostClose();
       }
     } else {
       formData.append("title", postTitle);
@@ -92,7 +99,7 @@ export const Subposts = () => {
       );
       if (post.data.message == "Success created") {
         alert("Post oluşturuldu");
-        handlePostClose()
+        handlePostClose();
       }
     }
   };
@@ -167,7 +174,7 @@ export const Subposts = () => {
                       <div className="d-flex mb-3">
                         <div className="d-flex" style={{ marginLeft: 390 }}>
                           <a
-                           href={"/profile/"+post[1].id}
+                            href={"/profile/" + post[1].id}
                             className="text-dark"
                             style={{ fontSize: 11 }}
                           >
@@ -179,10 +186,12 @@ export const Subposts = () => {
                               <img
                                 width={50}
                                 height={50}
+                                className="rounded-circle"
                                 src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
                               />
                             ) : (
                               <img
+                                className="rounded-circle"
                                 width={50}
                                 height={50}
                                 src={
@@ -202,9 +211,21 @@ export const Subposts = () => {
                       >
                         {post[0].title}
                       </h4>
-                      <p style={{ fontSize: "12px", width: "80%" }}>
-                        {post[0].description}
+                      <p
+                        style={{ fontSize: "15px", width: "80%" }}
+                        onClick={toggleExpanded}
+                      >
+                        {expanded ? (
+                          <>{post[0].description}</>
+                        ) : (
+                          <>
+                            {post[0].description.length > maxLength
+                              ? post[0].description.slice(0, maxLength) + "..."
+                              : post[0].description}
+                          </>
+                        )}
                       </p>
+
                       {post[0].image == "null" ? (
                         <img
                           width={300}

@@ -71,9 +71,6 @@ export const Profile = () => {
               <Link to='/chat' className="nav-item text-decoration-none " style={{ marginLeft: '7rem' }}>
                 <ChatFill color="#0d6df3" size={25} />
               </Link>
-              <Link to='/settings' className="nav-item text-decoration-none " style={{ marginLeft: '1rem' }}>
-                <GearFill color="#0d6df3" size={25} />
-              </Link>
               <button onClick={followUserHandle} className="btn btn-primary w-25 h-25" style={{ backgroundColor: '#0d6df3', border: '0' }}>takip et</button>
             </div>
 
