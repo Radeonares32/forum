@@ -207,34 +207,34 @@ export const AppBar = () => {
                   </div>
                 </li>
               ) : (
-                <></>
+                <li className=" ">
+                <div className="dropdown ">
+                  <i
+                    role="button"
+                    id="dropdownMenuLink"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    className="fa-solid fa-ellipsis"
+                    style={{marginBottom:'12px'}}
+                  ></i>
+  
+                  <ul
+                    className="dropdown-menu"
+                    aria-labelledby="dropdownMenuLink"
+                  >
+                    {categories &&
+                      categories.map((cat: any, key: any) => (
+                        <Link to={"/posts/" + cat[0].id} key={key}>
+                          <a className="dropdown-item" href="#">
+                            #{cat[0].title}
+                          </a>
+                        </Link>
+                      ))}
+                  </ul>
+                </div>
+              </li>
               )}
-              <li className=" " style={{visibility:'hidden'}}>
-                  <div className="dropdown ">
-                    <i
-                      role="button"
-                      id="dropdownMenuLink"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                      className="fa-solid fa-ellipsis"
-                      style={{marginBottom:'12px'}}
-                    ></i>
-    
-                    <ul
-                      className="dropdown-menu"
-                      aria-labelledby="dropdownMenuLink"
-                    >
-                      {categories &&
-                        categories.map((cat: any, key: any) => (
-                          <Link to={"/posts/" + cat[0].id} key={key}>
-                            <a className="dropdown-item" href="#">
-                              #{cat[0].title}
-                            </a>
-                          </Link>
-                        ))}
-                    </ul>
-                  </div>
-                </li>
+              
             </ul>
           </div>
         </div>
