@@ -123,7 +123,7 @@ export const Mainposts = () => {
 
                       <div className="d-flex" style={{ marginLeft: 390 }}>
 
-                        <a href="#!" className="text-dark" style={{ fontSize: 11}}>
+                        <a href={"/profile/"+post[1].id} className="text-dark" style={{ fontSize: 11}}>
                           {post[1].nickname}
                           <pre>5m</pre>
                         </a>
