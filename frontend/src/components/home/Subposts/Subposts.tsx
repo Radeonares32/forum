@@ -167,7 +167,7 @@ export const Subposts = () => {
                       <div className="d-flex mb-3">
                         <div className="d-flex" style={{ marginLeft: 390 }}>
                           <a
-                            href="#!"
+                           href={"/profile/"+post[1].id}
                             className="text-dark"
                             style={{ fontSize: 11 }}
                           >
