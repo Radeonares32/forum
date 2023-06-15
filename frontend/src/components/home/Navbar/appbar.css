@@ -1,12 +1,14 @@
 .xlink:hover {
     text-decoration: underline;
 }
+
 #search {
     margin-left: 30rem;
 }
-.links:hover   {
+
+.links:hover {
     display: inline-block;
-    border-bottom: 5px solid #0d6df3;
-    color:blue !important;
-   
+    border-bottom: 3px solid #0d6df3;
+    color: blue !important;
 }
+
