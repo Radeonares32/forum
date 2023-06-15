@@ -120,7 +120,7 @@ export const Mainposts = () => {
             {posts && posts.map((post: any, key: any) => (
 
 
-              <section className="main-content" key={key}>
+              <section className="main-content" key={key} style={{width:'35rem',marginLeft:'-95px'}}>
                 <div className="post-block">
 
                   <div className="d-flex justify-content-between">
@@ -162,17 +162,28 @@ export const Mainposts = () => {
                         ) : (
                           <>
                             {post[0].description.length > maxLength
-                              ? post[0].description.slice(0, maxLength) + "..."
+                              ? post[0].description.slice(0, maxLength) + " Devamı"
                               : post[0].description}
                           </>
                         )}
                       </p>
-                    {post[0].image == 'null' ? (
-                      <img width={300} height={300} onClick={handleShow} src="" style={{ display: 'none' }} />
-                    ) : (
-                      <img width={400} height={400} onClick={handleShow} src={'http://80.253.246.129:3000/public/posts/' + post[1].image} />
-
-                    )}
+                      {post[0].image == "null" ? (
+                        <img
+                          width={300}
+                          height={300}
+                          src=""
+                          style={{ display: "none" }}
+                        />
+                      ) : (
+                        <img
+                          width={400}
+                          height={400}
+                          src={
+                            "http://80.253.246.129:3000/public/posts/" +
+                            post[0].image
+                          }
+                        />
+                      )}
 
 
 

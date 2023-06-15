@@ -156,7 +156,7 @@ export const Flow = () => {
                   ) : (
                     <>
                       {post[1].description.length > maxLength
-                        ? post[1].description.slice(0, maxLength) + "..."
+                        ? post[1].description.slice(0, maxLength)+" Devamı"
                         : post[1].description}
                     </>
                   )}

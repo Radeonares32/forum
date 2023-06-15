@@ -168,7 +168,7 @@ export const Subposts = () => {
           <div className="col-md-6">
             {posts &&
               posts.map((post: any, key: any) => (
-                <section className="main-content">
+                <section className="main-content" style={{width:'35rem',marginLeft:'-95px'}}>
                   <div className="post-block">
                     <div className="d-flex justify-content-between">
                       <div className="d-flex mb-3">
@@ -220,7 +220,7 @@ export const Subposts = () => {
                         ) : (
                           <>
                             {post[0].description.length > maxLength
-                              ? post[0].description.slice(0, maxLength) + "..."
+                              ? post[0].description.slice(0, maxLength) + " Devamı"
                               : post[0].description}
                           </>
                         )}
