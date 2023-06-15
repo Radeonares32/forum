@@ -1,0 +1,7 @@
+.lists {
+    list-style-type: none;
+}
+.lists-item:hover {
+    color: #1D9BF0;
+    cursor: grab;
+}
