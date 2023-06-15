@@ -96,7 +96,7 @@ export const Flow = () => {
 
   }
   return (
-    <div className="col-md-5">
+    <div className="col-md-5 ">
 
       {posts && posts.map((post: any, key: any) => (
 

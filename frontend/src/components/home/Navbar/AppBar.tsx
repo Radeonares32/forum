@@ -70,9 +70,11 @@ export const AppBar = () => {
                 >
                   <PersonFill color="#0082f8" size={25} />
                 </Link>
-                <li className="nav-item dropdown mx-3" style={{listStyleType:'none'}}>
+                <li
+                  className="nav-item dropdown mx-3"
+                  style={{ listStyleType: "none" }}
+                >
                   <a
-                  
                     className="nav-link  dropdown-toggle"
                     href="#"
                     id="navbarDropdown"
@@ -85,18 +87,14 @@ export const AppBar = () => {
                   <ul
                     className="dropdown-menu"
                     aria-labelledby="navbarDropdown"
-                    style={{marginLeft:'-60px'}}
+                    style={{ marginLeft: "-60px" }}
                   >
                     <li>
-                      <a className="dropdown-item" href="#">
-                       
-                      </a>
+                      <a className="dropdown-item" href="#"></a>
                     </li>
-                    
+
                     <li>
-                      <a className="dropdown-item" href="#">
-                       
-                      </a>
+                      <a className="dropdown-item" href="#"></a>
                     </li>
                   </ul>
                 </li>
@@ -145,7 +143,7 @@ export const AppBar = () => {
           </div>
         </div>
       </nav>
-      <nav className="navbar navbar-expand-lg navbar-light d-flex ">
+      <nav className="navbar navbar-expand-lg navbar-light d-flex mt-3">
         <div className="container-fluid">
           <button
             className="navbar-toggler"
@@ -162,34 +160,36 @@ export const AppBar = () => {
             className="collapse navbar-collapse d-flex justify-content-evenly"
             id="navbarSupportedContent"
           >
-            <ul className="navbar-nav mb-2 mb-lg-0 d-flex justify-content-evenly border-bottom border-2 border-dark ">
+            <ul
+              className="navbar-nav d-flex justify-content-evenly border-bottom border-2 border-dark mb-3 "
+              style={{ width: "70%", position: "absolute" }}
+            >
               {categories &&
                 categories.map((cat: any, key: any) => (
                   <Link
                     to={"/main/" + cat[0].id}
                     key={key}
                     className="nav-link  d-flex me-5 links "
-                    style={{ listStyleType: "none" }}
+                    style={{ listStyleType: "none", padding: 0 }}
                   >
-                    <p className="nav-link active " aria-current="page">
+                    <p className="nav-link active p-0" style={{margin:'1px'}} aria-current="page">
                       {cat[0].title}
                     </p>
                   </Link>
+                  
                 ))}
               {isAuthenticated() ? (
-                <li className="nav-item  me-5 mt-3 links">
-                  <div className="dropdown">
-                    <a
-                      className="text-muted"
-                      style={{ display: "inline-block", margin: "2px" }}
-                      href="#"
+                <li>
+                  <div className="dropdown ">
+                    <i
                       role="button"
                       id="dropdownMenuLink"
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
-                    >
-                      <i className="fa-solid fa-ellipsis ms-3"></i>
-                    </a>
+                      className="fa-solid fa-ellipsis"
+                      style={{margin:'8px'}}
+                    ></i>
+    
                     <ul
                       className="dropdown-menu"
                       aria-labelledby="dropdownMenuLink"
