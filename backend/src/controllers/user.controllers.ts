@@ -117,7 +117,7 @@ export class UserController {
     const user = await userService.userSign(email, password);
 
     if (user.token) {
-      res.json(user.token);
+      res.json({ token: user.token, exp: user.exp });
     } else {
       res.json(user.sign);
     }
