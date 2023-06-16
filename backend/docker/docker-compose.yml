@@ -19,16 +19,17 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: admin
       ME_CONFIG_MONGODB_URL: mongodb://admin:admin@mongo:27017/
   redis:
-    image: redis
-    container_name: redis_db
-    command: redis-server --appendonly yes
-    ports:
-      - 6379:6379
+    image: "redis:alpine"
+    command: redis-server
+    expose:
+     - "6379"
     volumes:
       - ./data:/data
-    restart: always
+      - ./redis-conf:/usr/local/etc/redis/redis.conf
     networks:
       - redis_net
+    ports:
+      - "6379:6379"
   storage:
     hostname: storage
     image: neo4j:4.4.8-enterprise
