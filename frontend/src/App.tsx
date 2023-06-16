@@ -11,6 +11,7 @@ import { Admin } from "./components/admin/Admin";
 import { Chat } from "./components/Chat/Chat";
 import { Profileupdate } from "./components/home/ProfileUpdate/Profileupdate";
 import { Profileglobal } from "./components/profileGlobal/profile";
+import { UserContract } from "./components/home/Usercontract/Usercontract";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path="admin" element={<Admin />}></Route>
           <Route path="/chat" element={<Chat />}></Route>
           <Route path="/settings" element={<Profileupdate />}></Route>
+          <Route path="/contract" element={<UserContract />}></Route>
           <Route path="/profile/:id" element={<Profileglobal />}></Route>
         </Routes>
       </BrowserRouter>
