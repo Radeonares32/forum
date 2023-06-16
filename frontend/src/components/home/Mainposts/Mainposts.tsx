@@ -138,7 +138,7 @@ export const Mainposts = () => {
                               width={40}
                               height={40}
                               className='rounded-circle'
-                              src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                              src="/1.jpeg"
                             />
                           ) : (
                             <img width={50} height={50} onClick={handleShow} src={'http://80.253.246.129:3000/public/users/' + post[1].image} className='rounded-circle' />
