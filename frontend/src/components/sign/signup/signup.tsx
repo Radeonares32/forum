@@ -68,8 +68,9 @@ export const Signup = () => {
             küçük harf sayı içermelidir.
           </Form.Text>
         </Form.Group>
+        <p><a href="/contract">kullanıcı sözleşmesini</a> okudum onaylıyorum</p>
         <Button onClick={submit} variant="primary" type="button" style={{backgroundColor:'#1D9BF0',border:'0'}} >
-          Sign Up
+          Kayıt Ol
         </Button>
       </Form>
     </div>

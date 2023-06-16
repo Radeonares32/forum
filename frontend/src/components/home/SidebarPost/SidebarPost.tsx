@@ -74,7 +74,7 @@ export const SideBarPost = (props: any) => {
             type="text"
             placeholder="kategori ekle"
             onChange={(e: any) => setNewCat(e.target.value)}
-            style={{ width: "62%" }}
+            style={{width:'61.5%'}}
             value={newCat}
           />
           <button

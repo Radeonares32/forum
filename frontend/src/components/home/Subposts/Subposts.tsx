@@ -220,7 +220,7 @@ export const Subposts = () => {
                         ) : (
                           <>
                             {post[0].description.length > maxLength
-                              ? post[0].description.slice(0, maxLength) + " Devamı"
+                              ? post[0].description.slice(0, maxLength) + " Devamını oku..."
                               : post[0].description}
                           </>
                         )}
