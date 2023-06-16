@@ -187,7 +187,7 @@ export const Subposts = () => {
                                 width={50}
                                 height={50}
                                 className="rounded-circle"
-                                src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                                src="/1.jpeg"
                               />
                             ) : (
                               <img
