@@ -209,6 +209,7 @@ export class UserService {
           try {
             return {
               token: (await cache.redis.Token.addToken(payload)).token,
+              exp:(await cache.redis.Token.addToken(payload)).exp
             };
           } catch {
             return {
