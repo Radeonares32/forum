@@ -170,7 +170,7 @@ export const AppBar = () => {
           >
             <ul
               className="navbar-nav d-flex justify-content-evenly border-bottom border-2 border-dark mb-3 "
-              style={{ width: "70%", position: "absolute" }}
+              style={{ width: "67%", position: "absolute" }}
             >
               {categories &&
                 categories.map((cat: any, key: any) => (
@@ -180,7 +180,7 @@ export const AppBar = () => {
                     className="nav-link  d-flex me-5 links "
                     style={{ listStyleType: "none", padding: 0 }}
                   >
-                    <p className="nav-link active p-0" style={{margin:'0px'}} aria-current="page">
+                    <p className="nav-link active p-0" style={{margin:'0px',fontWeight:"bold"}} aria-current="page">
                       {cat[0].title}
                     </p>
                   </Link>

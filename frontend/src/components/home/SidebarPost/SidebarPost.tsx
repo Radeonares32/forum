@@ -45,11 +45,11 @@ export const SideBarPost = (props: any) => {
   return (
     <div className="col-md-4">
       <div className="col-lg-9">
-        <p className="" style={{ fontSize: "30px", color: "#0d6df3" }}>
+        <p className="" style={{ fontSize: "25px", color: "#0d6df3" }}>
           Gündem
         </p>
       </div>
-      <div className="border border-3 p-1" style={{ width: "70%" }}>
+      <div className="border border-2 border-dark p-1" style={{ width: "50%" }}>
         <div className="d-flex justify-content-between" style={{}}>
           {categories &&
             categories.slice(0, 3).map((cat: any, key: any) => (
@@ -67,14 +67,14 @@ export const SideBarPost = (props: any) => {
             ))}
         </div>
       </div>
-      <hr style={{ width: "70%" }} />
+      <hr style={{ width: "50%" }} />
       {isAuthenticated() ? (
         <>
           <input
             type="text"
-            placeholder="kategori ekle"
+            placeholder="başlık oluştur"
             onChange={(e: any) => setNewCat(e.target.value)}
-            style={{width:'61.5%'}}
+            style={{width:'36.8%'}}
             value={newCat}
           />
           <button
@@ -92,7 +92,7 @@ export const SideBarPost = (props: any) => {
       ) : (
         <></>
       )}
-      <div className="border mt-2 " style={{ width: "70%" }}>
+      <div className="border border-2 border-dark mt-2 " style={{ width: "50%" }}>
         {subCat &&
           subCat.map((cat: any, key: any) => (
             <div key={key} className="col-lg-12  my-4">

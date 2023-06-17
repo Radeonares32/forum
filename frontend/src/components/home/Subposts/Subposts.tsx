@@ -168,7 +168,7 @@ export const Subposts = () => {
           <div className="col-md-6">
             {posts &&
               posts.map((post: any, key: any) => (
-                <section className="main-content" style={{width:'35rem',marginLeft:'-95px'}}>
+                <section className="main-content" style={{width:'35rem',marginLeft:'-215px'}}>
                   <div className="post-block">
                     <div className="d-flex justify-content-between">
                       <div className="d-flex mb-3">
