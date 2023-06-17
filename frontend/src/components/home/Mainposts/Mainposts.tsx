@@ -120,7 +120,7 @@ export const Mainposts = () => {
             {posts && posts.map((post: any, key: any) => (
 
 
-              <section className="main-content" key={key} style={{width:'35rem',marginLeft:'-95px'}}>
+              <section className="main-content" key={key} style={{width:'35rem',marginLeft:'-215px'}}>
                 <div className="post-block">
 
                   <div className="d-flex justify-content-between">
