@@ -10,7 +10,12 @@ export const AppBar = () => {
   const isAuthenticated = useIsAuthenticated();
   const signOut = useSignOut();
   const [categories, setCategories] = useState<any>();
-  const logout = () => {
+  const logout = async () => {
+    await axios.post(`http://80.253.246.129:3000/user/logout`, {},{
+      headers: {
+        "x-access-token": auth().token
+      },
+    })
     signOut();
   };
   useEffect(() => {
