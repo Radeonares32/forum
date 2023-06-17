@@ -30,7 +30,7 @@ export const Signin = () => {
       email: email.current.value,
       password: password.current.value,
     });
-
+    console.log(user.data)
     if (user.data === "users not fount") {
       setMessage("user not found");
     } else if (user.data === "password not match hash") {

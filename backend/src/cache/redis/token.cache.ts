@@ -34,7 +34,7 @@ export const addToken = async (payload: {}) => {
     }
   } catch (error) {
     return {
-      message: "Token not added to cache",
+      message: "Token not added to cache  : "+ error,
     };
   }
 };

@@ -74,7 +74,7 @@ export const SideBarPost = (props: any) => {
             type="text"
             placeholder="başlık oluştur"
             onChange={(e: any) => setNewCat(e.target.value)}
-            style={{width:'36.8%'}}
+            style={{width:'41.8%'}}
             value={newCat}
           />
           <button
