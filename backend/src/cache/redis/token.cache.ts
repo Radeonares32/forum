@@ -26,8 +26,10 @@ export const addToken = async (payload: {}) => {
         };
       }
     } else {
+        const del = await redis.del(token);
+        await redis.set(token, "valid");
       return {
-        message: "token already exist in cache",
+        message: "token refresh",
       };
     }
   } catch (error) {

@@ -52,6 +52,11 @@ export const Update = () => {
     if (user.data.message.message == "Success update") {
       alert("profil güncellendi yeniden giriş yapın");
       logout();
+      await axios.post(`http://80.253.246.129:3000/user/logout`, {},{
+        headers: {
+          "x-access-token": auth().token
+        },
+      })
       navigate("/");
     }
   };

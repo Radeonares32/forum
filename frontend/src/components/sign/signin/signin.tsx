@@ -20,38 +20,39 @@ export const Signin = () => {
   const signIn = useSignIn();
 
   const submit = async () => {
-    if (email.current.value === "") {
+    /* if (email.current.value === "") {
       alert("email empty");
-    }
-    if (password.current.value === "password empty") {
+    } */
+    /* if (password.current.value === "password empty") {
       alert("password empty");
-    }
-    const user = await axios.post("http://localhost:3000/user/sign", {
+    } */
+    const user = await axios.post("http://80.253.246.129:3000/user/sign", {
       email: email.current.value,
       password: password.current.value,
     });
+
     if (user.data === "users not fount") {
       setMessage("user not found");
     } else if (user.data === "password not match hash") {
       setMessage("password or email wrong");
     } else {
-      const userInfo = await axios.get("http://localhost:3000/user/getUserId", {
+      const userInfo = await axios.get("http://80.253.246.129:3000/user/getUserId", {
         headers: {
-          "x-access-token": user.data as any,
+          "x-access-token": user.data.token.token as any,
         },
       });
-      console.log(user.data)
+     
       if (
         signIn({
-          token: user.data as any,
+          token: user.data.token.token as any,
           tokenType: "Bearer",
           authState: {
             id: userInfo.data.user.user[0][0].properties.id,
             email: userInfo.data.user.user[0][0].properties.email,
             nickname:userInfo.data.user.user[0][0].properties.nickname,
-            token: user.data as any,
+            token: user.data.token.token as any,
           },
-          expiresIn: 120,
+          expiresIn: user.data.token.exp as any,
         })
       ) {
         navigate("/");

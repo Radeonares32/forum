@@ -18,7 +18,6 @@ export const Profileglobal = () => {
       setUser(users.data.user[0][0]);
     });
   }, [id]);
-  console.log(user)
   const followUserHandle = (e: any) => {
     e.target.className = "btn btn-primary w-25 h-25 disable";
     e.target.innerHTML = "takip ediliyor";
