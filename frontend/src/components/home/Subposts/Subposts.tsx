@@ -35,7 +35,13 @@ export const Subposts = () => {
   const toggleExpanded = () => {
     setExpanded(!expanded);
   };
-
+  const [show, setShow] = useState(false)
+  const handleClose = () => setShow(false)
+  const handleShow = (e:any) => {
+    setImage(e.target.src)
+    setShow(true);
+  }
+  const [image,setImage] = useState<any>()
   useEffect(() => {
     axios
       .get(`http://80.253.246.129:3000/post/getCategoryRel/${categoryId}`, {})
@@ -168,7 +174,10 @@ export const Subposts = () => {
           <div className="col-md-6">
             {posts &&
               posts.map((post: any, key: any) => (
-                <section className="main-content" style={{width:'46rem',marginLeft:'-215px'}}>
+                <section
+                  className="main-content"
+                  style={{ width: "46rem", marginLeft: "-215px" }}
+                >
                   <div className="post-block">
                     <div className="d-flex justify-content-between">
                       <div className="d-flex mb-3">
@@ -194,6 +203,7 @@ export const Subposts = () => {
                                 className="rounded-circle"
                                 width={50}
                                 height={50}
+                                
                                 src={
                                   "http://80.253.246.129:3000/public/users/" +
                                   post[1].image
@@ -220,7 +230,8 @@ export const Subposts = () => {
                         ) : (
                           <>
                             {post[0].description.length > maxLength
-                              ? post[0].description.slice(0, maxLength) + " Devamını oku..."
+                              ? post[0].description.slice(0, maxLength) +
+                                " Devamını oku..."
                               : post[0].description}
                           </>
                         )}
@@ -235,8 +246,9 @@ export const Subposts = () => {
                         />
                       ) : (
                         <img
-                          width={400}
-                          height={400}
+                          width={200}
+                          height={100}
+                          onClick={(e:any)=>{handleShow(e)}}
                           src={
                             "http://80.253.246.129:3000/public/posts/" +
                             post[0].image
@@ -396,6 +408,12 @@ export const Subposts = () => {
               Post oluştur
             </button>
           </div>
+        </Modal.Body>
+      </Modal>
+      <Modal show={show} className="text-center" onHide={handleClose}>
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <img width={200} height={100} src={image} />
         </Modal.Body>
       </Modal>
       {isSign() ? (

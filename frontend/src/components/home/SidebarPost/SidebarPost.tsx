@@ -43,7 +43,7 @@ export const SideBarPost = (props: any) => {
       });
   }, [props.categoryId]);
   return (
-    <div className="col-md-4">
+    <div className="col-md-4" style={{marginTop:'-55px'}}>
       <div className="col-lg-9">
         <p className="" style={{ fontSize: "25px", color: "#0d6df3" }}>
           Gündem
@@ -53,7 +53,7 @@ export const SideBarPost = (props: any) => {
         <div className="d-flex justify-content-between" style={{}}>
           {categories &&
             categories.slice(0, 3).map((cat: any, key: any) => (
-              <p id={cat[0].id} style={{ cursor: "grab" }} key={key}>
+              <p id={cat[0].id} style={{ cursor: "grab",fontWeight:"bold" }} key={key}>
                 {cat[0].title}
               </p>
             ))}
@@ -61,7 +61,7 @@ export const SideBarPost = (props: any) => {
         <div className="d-flex justify-content-between" style={{}}>
           {categories &&
             categories.slice(3, 6).map((cat: any, key: any) => (
-              <p id={cat[0].id} style={{ cursor: "grab" }} key={key}>
+              <p id={cat[0].id} style={{ cursor: "grab",fontWeight:"bold" }} key={key}>
                 {cat[0].title}
               </p>
             ))}

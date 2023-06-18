@@ -38,9 +38,9 @@ export const SideBar = () => {
     setCatId(catId)
   }
   return (
-    <div className="col-md-4">
-      <div className="col-lg-9">
-        <p className="" style={{ fontSize: "25px", color: '#0d6df3', }}>
+    <div className="col-md-4" style={{marginTop:'-55px'}}>
+      <div className="col-lg-4">
+        <p className="" style={{ fontSize: "25px", color: '#0d6df3',width:'20px' }}>
           Gündem
         </p>
       </div>
@@ -48,12 +48,12 @@ export const SideBar = () => {
 
         <div className="d-flex justify-content-between" style={{}}>
           {categories && categories.slice(0, 3).map((cat: any, key: any) => (
-            <p onClick={getSubCatHandle} id={cat[0].id} style={{ cursor: 'grab' }} key={key}>{cat[0].title}</p>
+            <p onClick={getSubCatHandle} id={cat[0].id} style={{ cursor: 'grab',fontWeight:"bold" }} key={key}>{cat[0].title}</p>
           ))}
         </div>
         <div className="d-flex justify-content-between" style={{}}>
           {categories && categories.slice(3, 6).map((cat: any, key: any) => (
-            <p onClick={getSubCatHandle} id={cat[0].id} style={{ cursor: 'grab' }} key={key}>{cat[0].title}</p>
+            <p onClick={getSubCatHandle} id={cat[0].id} style={{ cursor: 'grab',fontWeight:"bold" }} key={key}>{cat[0].title}</p>
           ))}
         </div>
 

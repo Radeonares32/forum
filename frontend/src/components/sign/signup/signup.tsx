@@ -11,7 +11,7 @@ export const Signup = () => {
   const email: any = useRef(null);
   const password: any = useRef(null);
   const passwordRepeat: any = useRef(null);
-  const validPassword = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+  const validPassword = /^(?=.*[a-z])(?=.*\d).+$/;
 
   const submit = async (e: any) => {
     if (nickname.current.value === "") {
@@ -23,6 +23,8 @@ export const Signup = () => {
     } else if (passwordRepeat.current.value === "") {
       alert("şifre tekar bos");
     } else if (passwordRepeat.current.value !== passwordRepeat.current.value) {
+      passwordRepeat.current.style.borderColor = "red";
+      password.current.style.borderColor = "red";
       alert("şifreler uyuşmuyor");
     } else if (
       !validPassword.test(password.current.value) &&
@@ -45,6 +47,18 @@ export const Signup = () => {
       }
     }
   };
+  const handleFocus = () => {
+    if (
+      !validPassword.test(password.current.value) &&
+      !validPassword.test(passwordRepeat.current.value)
+    ) {
+      passwordRepeat.current.style.borderColor = "red";
+      password.current.style.borderColor = "red";
+    } else {
+      password.current.style.borderColor = "#ced4da";
+      passwordRepeat.current.style.borderColor = "#ced4da";
+    }
+  };
   return (
     <div className="col-md-5 mt-5">
       <Form>
@@ -63,22 +77,21 @@ export const Signup = () => {
 
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Şifre</Form.Label>
-          <Form.Control ref={password} type="password" placeholder="Şifre" />
+          <Form.Control ref={password} onFocus={handleFocus} type="password" placeholder="Şifre" />
           <Form.Text className="text-muted">
-            şifre en az 8 karakter en az bir büyük harf a küçük harf sayı
-            içermelidir.
+            şifre de küçük harf ve sayı zorunlu
           </Form.Text>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Şifre Tekrar</Form.Label>
           <Form.Control
             ref={passwordRepeat}
+            onFocus={handleFocus}
             type="password"
             placeholder="Şifre Tekrar"
           />
           <Form.Text className="text-muted">
-            şifre en az 8 karakter en az bir büyük harf a küçük harf sayı
-            içermelidir.
+            şifre de küçük harf ve sayı zorunlu
           </Form.Text>
         </Form.Group>
         <p>
