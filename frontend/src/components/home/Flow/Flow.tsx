@@ -110,11 +110,11 @@ export const Flow = () => {
     <div className="col-md-5 ">
       {posts &&
         posts.map((post: any, key: any) => (
-          <section className="main-content" style={{width:'35rem',marginLeft:'-215px'}} key={key}>
+          <section className="main-content" style={{width:'46rem',marginLeft:'-215px'}} key={key}>
             <div className="post-block">
               <div className="d-flex justify-content-between">
                 <div className="d-flex mb-3">
-                  <div className="d-flex" style={{ marginLeft: 390 }}>
+                  <div className="d-flex" style={{ marginLeft: 550 }}>
                     <a
                       href={"/profile/" + post[0].id}
                       className="text-dark"
@@ -210,7 +210,7 @@ export const Flow = () => {
                   {isSign() ? (
                     <p
                       className="mb-0 mx-0 text-muted"
-                      style={{ display: "inline-block", paddingLeft: 300 }}
+                      style={{ display: "inline-block", paddingLeft: 500 }}
                     >
                       <div className="dropdown">
                         <a
