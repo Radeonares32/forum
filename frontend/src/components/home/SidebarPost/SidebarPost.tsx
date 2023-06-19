@@ -43,7 +43,7 @@ export const SideBarPost = (props: any) => {
       });
   }, [props.categoryId]);
   return (
-    <div className="col-md-4" style={{marginTop:'-55px',marginLeft:'-70px'}}>
+    <div className="col-md-4" style={{marginTop:'-55px'}}>
       <div className="col-lg-9">
         <p className="" style={{ fontSize: "25px", color: "#0d6df3" }}>
           Gündem
