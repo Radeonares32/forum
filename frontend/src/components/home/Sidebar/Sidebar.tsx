@@ -38,7 +38,7 @@ export const SideBar = () => {
     setCatId(catId)
   }
   return (
-    <div className="col-md-4" style={{marginTop:'-55px',marginLeft:'-70px'}}>
+    <div className="col-md-4" style={{marginTop:'-55px'}}>
       <div className="col-lg-4">
         <p className="" style={{ fontSize: "25px", color: '#0d6df3',width:'20px' }}>
           Gündem
