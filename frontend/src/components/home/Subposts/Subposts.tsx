@@ -178,7 +178,7 @@ export const Subposts = () => {
                   className="main-content"
                   style={{ width: "46rem", marginLeft: "-215px" }}
                 >
-                  <div className="post-block">
+                  <div className="">
                     <div className="d-flex justify-content-between">
                       <div className="d-flex mb-3">
                         <div className="d-flex" style={{ marginLeft: 550 }}>
@@ -231,7 +231,7 @@ export const Subposts = () => {
                           <>
                             {post[0].description.length > maxLength
                               ? post[0].description.slice(0, maxLength) +
-                                " Devamını oku..."
+                                "[ Devamını oku... ]"
                               : post[0].description}
                           </>
                         )}
@@ -410,10 +410,10 @@ export const Subposts = () => {
           </div>
         </Modal.Body>
       </Modal>
-      <Modal show={show} className="text-center" onHide={handleClose}>
+      <Modal show={show} fullscreen className="text-center" onHide={handleClose}>
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
-          <img width={200} height={100} src={image} />
+          <img style={{width:'100%',height:'100%'}} src={image} />
         </Modal.Body>
       </Modal>
       {isSign() ? (

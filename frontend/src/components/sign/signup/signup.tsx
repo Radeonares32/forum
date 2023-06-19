@@ -79,7 +79,7 @@ export const Signup = () => {
           <Form.Label>Şifre</Form.Label>
           <Form.Control ref={password} onFocus={handleFocus} type="password" placeholder="Şifre" />
           <Form.Text className="text-muted">
-            şifre de küçük harf ve sayı zorunlu
+          Şifre 8 karakter ve şifre içermelidir
           </Form.Text>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -91,7 +91,7 @@ export const Signup = () => {
             placeholder="Şifre Tekrar"
           />
           <Form.Text className="text-muted">
-            şifre de küçük harf ve sayı zorunlu
+          Şifre 8 karakter ve şifre içermelidir
           </Form.Text>
         </Form.Group>
         <p>

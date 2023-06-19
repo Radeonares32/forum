@@ -116,7 +116,7 @@ export const Flow = () => {
       {posts &&
         posts.map((post: any, key: any) => (
           <section className="main-content" style={{width:'46rem',marginLeft:'-215px'}} key={key}>
-            <div className="post-block">
+            <div className="">
               <div className="d-flex justify-content-between">
                 <div className="d-flex mb-3">
                   <div className="d-flex" style={{ marginLeft: 550 }}>
@@ -161,7 +161,7 @@ export const Flow = () => {
                   ) : (
                     <>
                       {post[1].description.length > maxLength
-                        ? post[1].description.slice(0, maxLength)+" Devamını oku..."
+                        ? post[1].description.slice(0, maxLength)+" [ Devamını oku... ]"
                         : post[1].description}
                     </>
                   )}
@@ -250,17 +250,17 @@ export const Flow = () => {
                   )}
                 </div>
               </div>
-              <Modal show={show} className="text-center" onHide={handleClose}>
+              
+              <Modal  fullscreen show={show}  className="text-center" onHide={handleClose}>
                 <Modal.Header closeButton></Modal.Header>
                 <Modal.Body>
                   <img
-                    width={200}
-                    height={100}
+                    style={{width:'100%',height:'100%'}}
                     src={image}
                   />
                 </Modal.Body>
               </Modal>
-
+              
               <Modal
                 show={showComplain}
                 className="text-center"
