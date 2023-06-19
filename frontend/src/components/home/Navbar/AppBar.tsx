@@ -29,8 +29,8 @@ export const AppBar = () => {
     <>
       <nav className="navbar navbar-expand-lg navbar-light ">
         <div className="container-fluid">
-          <a className="navbar-brand" href="/">
-            <img src="../../img/logo/logo.jpeg" alt="" width="80" height="80" />
+          <a className="navbar-brand mb-3" href="/">
+            <img src="../../img/logo/logo.jpeg" alt="" width="80" height="40" />
           </a>
           <button
             className="navbar-toggler"
@@ -131,7 +131,7 @@ export const AppBar = () => {
                     className="nav-link active"
                     aria-current="page"
                     href="#"
-                    style={{ color: "#0d6df3" }}
+                    style={{ color: "black" }}
                   >
                     Giriş Yap
                   </a>
@@ -141,7 +141,7 @@ export const AppBar = () => {
                     className="nav-link active"
                     aria-current="page"
                     href="#"
-                    style={{ color: "#0d6df3" }}
+                    style={{ color: "black" }}
                   >
                     Kayıt Ol
                   </a>

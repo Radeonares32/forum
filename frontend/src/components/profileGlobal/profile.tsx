@@ -29,10 +29,10 @@ export const Profileglobal = () => {
       <div className="container ">
         <div className="row">
           <SideBar />
-          <div className="col-md-8 mt-5" style={{ marginLeft: "-35px" }}>
+          <div className="col-md-8 mt-5" style={{ marginLeft: "-80px" }}>
             <h3>{user && user.nickname}</h3>
             <div className="d-flex justify-content-between rounded-circle">
-              <h6>834 gonderi- 32 takipçi - 3 takip</h6>
+              <h6>834 gönderi- 32 takipçi - 3 takip</h6>
               {user && (
                 <img
                   src={"http://80.253.246.129:3000/public/users/" + user.image}
@@ -42,7 +42,7 @@ export const Profileglobal = () => {
                 />
               )}
             </div>
-            <span>biyografi:</span>
+            <span style={{fontWeight:"bold"}}>biyografi:</span>
 
             <div className="d-flex justify-content-between">
               {user && (
@@ -70,12 +70,12 @@ export const Profileglobal = () => {
 
             <div className="d-flex-justify-content-between mt-5 border-bottom border-top border-2 border-dark ">
               <ul className="d-flex justify-content-around lists">
-                <li className="lists-item">gönderiler</li>
-                <li className="lists-item">
-                  <span>begeniler</span>
+                <li style={{fontWeight:"bold"}} className="lists-item">gönderiler</li>
+                <li  className="lists-item">
+                  <span style={{fontWeight:"bold"}}>begeniler</span>
                 </li>
-                <li className="lists-item">fotoğraflar</li>
-                <li className="lists-item">kaydedilenler</li>
+                <li className="lists-item" style={{fontWeight:"bold"}}>fotoğraflar</li>
+                <li className="lists-item" style={{fontWeight:"bold"}}>kaydedilenler</li>
               </ul>
             </div>
           </div>

@@ -38,10 +38,16 @@ export const Mainposts = () => {
   }
 
   const handleClose = () => setShow(false)
-  const handleShow = () => setShow(true)
+  const handleShow = (e:any) => {
+    setImage(e.target.src)
+    setShow(true);
+  }
+  const [image,setImage] = useState<any>()
 
   const handleComplainShow = () => setShowComplain(true)
   const handleComplainClose = () => setShowComplain(false)
+
+ 
 
   const [expanded, setExpanded] = useState(false);
   const toggleExpanded = () => {
@@ -121,7 +127,7 @@ export const Mainposts = () => {
 
 
               <section className="main-content" key={key} style={{width:'46rem',marginLeft:'-215px'}}>
-                <div className="post-block">
+                <div className="">
 
                   <div className="d-flex justify-content-between">
                     <div className="d-flex mb-3">
@@ -141,7 +147,7 @@ export const Mainposts = () => {
                               src="/1.jpeg"
                             />
                           ) : (
-                            <img width={50} height={50} onClick={handleShow} src={'http://80.253.246.129:3000/public/users/' + post[1].image} className='rounded-circle' />
+                            <img width={50} height={50} src={'http://80.253.246.129:3000/public/users/' + post[1].image} className='rounded-circle' />
                           )}
 
 
@@ -162,7 +168,7 @@ export const Mainposts = () => {
                         ) : (
                           <>
                             {post[0].description.length > maxLength
-                              ? post[0].description.slice(0, maxLength) + " Devamını oku..."
+                              ? post[0].description.slice(0, maxLength) + "[ Devamını oku... ]"
                               : post[0].description}
                           </>
                         )}
@@ -176,8 +182,10 @@ export const Mainposts = () => {
                         />
                       ) : (
                         <img
-                          width={400}
-                          height={400}
+                          width={200}
+                          height={100}
+                          onClick={(e:any)=>{handleShow(e)}}
+                          
                           src={
                             "http://80.253.246.129:3000/public/posts/" +
                             post[0].image
@@ -228,10 +236,10 @@ export const Mainposts = () => {
 
                     </div>
                   </div>
-                  <Modal show={show} className="text-center" onHide={handleClose}>
+                  <Modal show={show} fullscreen className="text-center" onHide={handleClose}>
                     <Modal.Header closeButton></Modal.Header>
                     <Modal.Body>
-                      <img width={300} height={300} src={'http://80.253.246.129:3000/public/posts/' + post[1].title} />
+                      <img style={{width:'100%',height:'100%'}} src={image} />
                     </Modal.Body>
                   </Modal>
 

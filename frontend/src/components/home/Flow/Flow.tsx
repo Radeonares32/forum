@@ -14,6 +14,8 @@ export const Flow = () => {
   const [complainTitle, setComplainTitle] = useState<any>();
   const [complainDesc, setComplainDesc] = useState<any>();
 
+  const [image,setImage] = useState<any>()
+
   const complainHandle = async (e: any) => {
     e.preventDefault();
     const complain = await axios.post(
@@ -35,7 +37,10 @@ export const Flow = () => {
   };
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = (e:any) => {
+    setImage(e.target.src)
+    setShow(true);
+  }
 
   const handleComplainShow = () => setShowComplain(true);
   const handleComplainClose = () => setShowComplain(false);
@@ -111,7 +116,7 @@ export const Flow = () => {
       {posts &&
         posts.map((post: any, key: any) => (
           <section className="main-content" style={{width:'46rem',marginLeft:'-215px'}} key={key}>
-            <div className="post-block">
+            <div className="">
               <div className="d-flex justify-content-between">
                 <div className="d-flex mb-3">
                   <div className="d-flex" style={{ marginLeft: 550 }}>
@@ -135,7 +140,7 @@ export const Flow = () => {
                         <img
                           width={50}
                           height={50}
-                          onClick={handleShow}
+                          onClick={(e:any)=>{handleShow(e)}}
                           src={
                             "http://80.253.246.129:3000/public/users/" +
                             post[0].image
@@ -156,7 +161,7 @@ export const Flow = () => {
                   ) : (
                     <>
                       {post[1].description.length > maxLength
-                        ? post[1].description.slice(0, maxLength)+" Devamını oku..."
+                        ? post[1].description.slice(0, maxLength)+" [ Devamını oku... ]"
                         : post[1].description}
                     </>
                   )}
@@ -171,8 +176,8 @@ export const Flow = () => {
                   />
                 ) : (
                   <img
-                    width={400}
-                    height={400}
+                    width={200}
+                    height={100}
                     onClick={handleShow}
                     src={
                       "http://80.253.246.129:3000/public/posts/" + post[1].image
@@ -245,19 +250,17 @@ export const Flow = () => {
                   )}
                 </div>
               </div>
-              <Modal show={show} className="text-center" onHide={handleClose}>
+              
+              <Modal  fullscreen show={show}  className="text-center" onHide={handleClose}>
                 <Modal.Header closeButton></Modal.Header>
                 <Modal.Body>
                   <img
-                    width={300}
-                    height={300}
-                    src={
-                      "http://80.253.246.129:3000/public/posts/" + post[1].title
-                    }
+                    style={{width:'100%',height:'100%'}}
+                    src={image}
                   />
                 </Modal.Body>
               </Modal>
-
+              
               <Modal
                 show={showComplain}
                 className="text-center"
