@@ -111,8 +111,16 @@ export const Profile = () => {
         "x-access-token": auth().token,
       },
     });
-    console.log(saved.data)
+    setPosts(saved.data.savedPost)
   }
+  const imagePostHandler = async ()=> {
+    const imagePost = await axios.get(`http://80.253.246.129:3000/post/getUserRelImagePost/`, {
+      headers: {
+        "x-access-token": auth().token,
+      },
+    });
+    setPosts(imagePost.data.getPost)
+  } 
   useEffect(() => {
     if (isSign()) {
       axios
@@ -182,7 +190,7 @@ export const Profile = () => {
                 <li className="lists-item">
                   <span onClick={likedHandle} style={{fontWeight:"bold"}} >begeniler</span>
                 </li>
-                <li className="lists-item" style={{fontWeight:"bold"}}>fotoğraflar</li>
+                <li className="lists-item" onClick={imagePostHandler} style={{fontWeight:"bold"}}>fotoğraflar</li>
                 <li className="lists-item" onClick={savedHandler} style={{fontWeight:"bold"}}>kaydedilenler</li>
               </ul>
             </div>
