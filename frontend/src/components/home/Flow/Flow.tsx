@@ -83,7 +83,7 @@ export const Flow = () => {
       alert("giriş yapınız");
     }
   };
-  console.log(posts)
+  
   const savedPostHandle = async (e: any) => {
     if (isSign()) {
       e.preventDefault();
