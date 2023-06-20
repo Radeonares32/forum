@@ -19,7 +19,7 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: admin
       ME_CONFIG_MONGODB_URL: mongodb://admin:admin@mongo:27017/
   redis:
-    image: "redis:alpine"
+    image: "redis:latest"
     command: redis-server
     expose:
      - "6379"
