@@ -5,9 +5,6 @@ import { PostRepository } from "../repository/post.repository";
 //? Entity
 import { IPost } from "../entity/IPost";
 
-//? Models
-import { Post } from "../model/Post";
-
 //? DataBase
 import { neo4j } from "../db/db";
 
@@ -80,14 +77,13 @@ export class PostDal implements PostRepository {
     return new Promise(async (resolve, reject) => {
       try {
         const post: any = await neo4j()
-          ?.readCypher("match(u:user)-[:postRel]->(p:post) return u,p", {})
+          ?.readCypher("match (u:user)-[:postRel]->(p:post) return u,p", {})
           .catch((err) => console.log(err));
         const rPost = post.records.map((uss: any) => {
           return uss.map((res: any) => {
             return res.properties;
           });
         });
-
         resolve(rPost as any);
       } catch (err) {
         reject({ message: "Error " + err });
