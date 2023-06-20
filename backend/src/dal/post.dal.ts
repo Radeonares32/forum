@@ -296,7 +296,7 @@ export class PostDal implements PostRepository {
       try {
         const isLike = await neo4j()
           ?.cypher(
-            "match(user{id:$userId}) match(p) match(u1:user) match(u)-[:savedPostRel]->(p) match(u1)-[:postRel]->(p) return p,u1",
+            "match(user{id:$userId}) match(p:post)  match(u)-[:savedPostRel]->(p) return u,p",
             { userId }
           )
           .catch((err) => console.log(err));
@@ -316,7 +316,7 @@ export class PostDal implements PostRepository {
       try {
         const isLike = await neo4j()
           ?.cypher(
-            "match(user{id:$userId}) match(p:post) match(u1:user) match(u)-[:likePostRel]->(p) match(u1)-[:postRel]->(p) return p,u1",
+            "match (u:user{id:$userId}) match(p:post) match (u)-[:likePostRel]->(p) return u,p",
             { userId }
           )
           .catch((err) => console.log(err));
