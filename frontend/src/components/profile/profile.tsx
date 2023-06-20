@@ -97,7 +97,7 @@ export const Profile = () => {
     });
     setPosts(liked.data.getLike);
   };
- 
+  console.log(posts)
   useEffect(() => {
     if (isSign()) {
       axios

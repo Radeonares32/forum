@@ -237,7 +237,7 @@ export class PostDal implements PostRepository {
       try {
         const isLike = await neo4j()
           ?.cypher(
-            "match(u:user {id:$userId})-[likeRel:likeRel]->(l:like) match(p:post {id:$postId})<-[likePostRel:likePostRel]-(l) return l",
+            "match(u:user {id:$userId}) match(p:post{id:$postId}) match(u)-[:likePostRel]->(p) return p",
             { userId, postId }
           )
           .catch((err) => console.log(err));
@@ -248,16 +248,16 @@ export class PostDal implements PostRepository {
         });
         if (rLike?.length > 0) {
           await neo4j()
-            ?.writeCypher("match(l:like {id:$id}) detach delete l", {
-              id: rLike[0][0].id,
+            ?.writeCypher("match(u:user {id:$userId}) match(p:post{id:$postId}) match (u)-[l:likePostRel]->(p) delete l", {
+               userId, postId 
             })
             .catch((err) => console.log(err));
           resolve({ message: "Success unLike" });
         } else {
           await neo4j()
             ?.writeCypher(
-              "match(u:user {id:$userId}) match(p:post {id:$postId}) create(l:like {id:$id}) create(u)-[likeRel:likeRel]->(l) create(l)-[likePostRel:likePostRel]->(p) create(p)-[postLikeRel:postLikeRel]->(l)",
-              { id: uuid(), userId, postId }
+              "match(u:user {id:$userId}) match(p:post{id:$postId}) create(u)-[:likePostRel]->(p) return p",
+              { userId, postId }
             )
             .catch((err) => console.log(err));
 
