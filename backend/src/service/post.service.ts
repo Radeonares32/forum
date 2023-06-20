@@ -264,8 +264,8 @@ export class PostService {
   async getMainPostAll(mainId: string) {
     try {
       return {
-        main: (await this.postDataAcess.getMainPostAll(mainId))
-      }
+        main: await this.postDataAcess.getMainPostAll(mainId),
+      };
     } catch (err) {
       return {
         message: err,
@@ -322,13 +322,13 @@ export class PostService {
       return {
         getCategoryRel: await this.postDataAcess.getCategoryRel(categoryId),
       };
-
     } catch (err) {
       return {
         message: err,
       };
     }
   }
+
   async getUserRelPost(token: string) {
     try {
       const email = security.jwt.token.verifyToken(token);
@@ -337,6 +337,26 @@ export class PostService {
           .properties.id;
         return {
           getPost: await this.postDataAcess.getUserRelPost(userId),
+        };
+      } else {
+        return {
+          message: email.message,
+        };
+      }
+    } catch (err) {
+      return {
+        message: "invalid token",
+      };
+    }
+  }
+  async getUserRelImagePost(token: string) {
+    try {
+      const email = security.jwt.token.verifyToken(token);
+      if (email.message === "Authorized") {
+        const userId = (await this.userService.userFind(token)).userId
+          .properties.id;
+        return {
+          getPost: await this.postDataAcess.getUserRelImagePost(userId),
         };
       } else {
         return {

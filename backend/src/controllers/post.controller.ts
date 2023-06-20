@@ -226,10 +226,25 @@ export class PostController {
       });
     }
   };
+
   static getUserRelPost: Handler = async (req, res) => {
     const token: any = req.headers["x-access-token"];
     const postService = new PostService();
     const post = await postService.getUserRelPost(token);
+    if (post.message) {
+      res.json({
+        message: post?.message,
+      });
+    } else {
+      res.json({
+        getPost: post.getPost,
+      });
+    }
+  };
+  static getUserRelImagePost: Handler = async (req, res) => {
+    const token: any = req.headers["x-access-token"];
+    const postService = new PostService();
+    const post = await postService.getUserRelImagePost(token);
     if (post.message) {
       res.json({
         message: post?.message,
