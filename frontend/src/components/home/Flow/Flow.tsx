@@ -123,12 +123,12 @@ export const Flow = () => {
                     <a
                       href={"/profile/" + post[0].id}
                       className="text-dark"
-                      style={{ fontSize: 11 }}
+                      style={{ fontSize: 11,marginTop:20 }}
                     >
                       {post[0].nickname}
                       <pre>5m</pre>
                     </a>
-                    <h5 className="mb-0 mx-2">
+                    <h5 className="mb-0 mx-2" style={{marginTop:20}}>
                       {post[0].image == "null" ? (
                         <img
                           width={50}

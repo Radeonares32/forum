@@ -134,11 +134,11 @@ export const Mainposts = () => {
 
                       <div className="d-flex" style={{ marginLeft: 550 }}>
 
-                        <a href={"/profile/"+post[1].id} className="text-dark" style={{ fontSize: 11}}>
+                        <a href={"/profile/"+post[1].id} className="text-dark" style={{ fontSize: 11,marginTop:20}}>
                           {post[1].nickname}
                           <pre>5m</pre>
                         </a>
-                        <h5 className="mb-0 mx-1">
+                        <h5 className="mb-0 mx-1"style={{marginTop:20}}>
                           {post[1].image == 'null' ? (
                             <img
                               width={40}
