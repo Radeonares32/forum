@@ -77,7 +77,7 @@ export class PostDal implements PostRepository {
     return new Promise(async (resolve, reject) => {
       try {
         const post: any = await neo4j()
-          ?.readCypher("match (u:user)-[:postRel]-(p:post) return p", {})
+          ?.readCypher("match (u:user)-[:postRel]-(p:post) return u,p", {})
           .catch((err) => console.log(err));
         const rPost = post.records.map((uss: any) => {
           return uss.map((res: any) => {
