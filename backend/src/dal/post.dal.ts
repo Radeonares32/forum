@@ -190,18 +190,40 @@ export class PostDal implements PostRepository {
   async savePost(userId: string, postId: string): Promise<{ message: string }> {
     return new Promise(async (resolve, reject) => {
       try {
-        await neo4j()
-          ?.writeCypher(
-            "match(u:user {id:$userId}) match(p:post {id:$postId}) create(u)-[savedPostRel:savedPostRel]->(p)",
-            {
-              userId,
-              postId,
-              id: uuid(),
-            }
+        const isLike = await neo4j()
+          ?.cypher(
+            "match(user{id:$userId}) match(p) match(u)-[:savedPostRel]->(p) return p,u",
+            { userId }
           )
           .catch((err) => console.log(err));
-
-        resolve({ message: "Success saved" });
+        const rLike: any = isLike?.records.map((uss: any) => {
+          return uss.map((res: any) => {
+            return res.properties;
+          });
+        });
+        if (rLike?.length) {
+          await neo4j()
+            ?.writeCypher(
+              "match(user{id:$userId}) match(p:post) match(u)-[s:savedPostRel]->(p) delete s",
+              {
+                userId,
+              }
+            )
+            .catch((err) => console.log(err));
+          resolve({ message: "Success unsaved post" });
+        } else {
+          await neo4j()
+            ?.writeCypher(
+              "match(u:user {id:$userId}) match(p:post {id:$postId}) create(u)-[savedPostRel:savedPostRel]->(p)",
+              {
+                userId,
+                postId,
+                id: uuid(),
+              }
+            )
+            .catch((err) => console.log(err));
+          resolve({ message: "Success saved post" });
+        }
       } catch (err) {
         reject({ message: "Error " + err });
       }
@@ -248,9 +270,13 @@ export class PostDal implements PostRepository {
         });
         if (rLike?.length > 0) {
           await neo4j()
-            ?.writeCypher("match(u:user {id:$userId}) match(p:post{id:$postId}) match (u)-[l:likePostRel]->(p) delete l", {
-               userId, postId 
-            })
+            ?.writeCypher(
+              "match(u:user {id:$userId}) match(p:post{id:$postId}) match (u)-[l:likePostRel]->(p) delete l",
+              {
+                userId,
+                postId,
+              }
+            )
             .catch((err) => console.log(err));
           resolve({ message: "Success unLike" });
         } else {
@@ -274,7 +300,7 @@ export class PostDal implements PostRepository {
       try {
         const isLike = await neo4j()
           ?.cypher(
-            "match(u:user {id:$userId})-[savedPostRel:savedPostRel]->(p:post) return p",
+            "match(user{id:$userId}) match(p) match(u)-[:savedPostRel]->(p) return p,u",
             { userId }
           )
           .catch((err) => console.log(err));
@@ -303,7 +329,7 @@ export class PostDal implements PostRepository {
             return res.properties;
           });
         });
-        
+
         resolve(rLike as IPost[]);
       } catch (err) {
         reject({ message: "Error " + err });
@@ -377,7 +403,10 @@ export class PostDal implements PostRepository {
   async getMainPostAll(mainId: string): Promise<IPost[]> {
     return new Promise(async (resolve, reject) => {
       try {
-        const main = await neo4j()?.cypher('match (m:main {id:$mainId})  match(c:category) match(p:post) match(u:user) match(m)-[:categoryRel]->(c)<-[:categoryPostRel]-(p) match(u)-[:postRel]->(p) return p,u', { mainId })
+        const main = await neo4j()?.cypher(
+          "match (m:main {id:$mainId})  match(c:category) match(p:post) match(u:user) match(m)-[:categoryRel]->(c)<-[:categoryPostRel]-(p) match(u)-[:postRel]->(p) return p,u",
+          { mainId }
+        );
         const rCategory = main?.records.map((uss: any) => {
           return uss.map((res: any) => {
             return res.properties;
@@ -387,6 +416,6 @@ export class PostDal implements PostRepository {
       } catch (err) {
         reject({ message: "Error " + err });
       }
-    })
+    });
   }
 }
