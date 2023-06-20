@@ -159,7 +159,6 @@ export class PostController {
   static getSavedPost: Handler = async (req, res) => {
     const token: any = req.headers["x-access-token"];
     const postService = new PostService();
-    const { postId } = req.body;
     const post = await postService.getSavedPost(token);
     if (post.message) {
       res.json({
@@ -168,6 +167,7 @@ export class PostController {
     } else {
       res.json({
         savedPost: post.savedPost,
+        count: post.savedPost?.length,
       });
     }
   };
@@ -182,16 +182,17 @@ export class PostController {
     } else {
       res.json({
         getLike: post.getLike,
+        count: post.getLike?.length,
       });
     }
   };
   static getMainPostAll: Handler = async (req, res) => {
-    const { id } = req.params
+    const { id } = req.params;
     const postService = new PostService();
     res.json({
-      main: (await postService.getMainPostAll(id)).main
-    })
-  }
+      main: (await postService.getMainPostAll(id)).main,
+    });
+  };
   static postCategoryRel: Handler = async (req, res) => {
     const token: any = req.headers["x-access-token"];
     const postService = new PostService();

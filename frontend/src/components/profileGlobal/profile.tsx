@@ -5,7 +5,7 @@ import { Link, useParams } from "react-router-dom";
 
 import axios from "axios";
 import { AppBar } from "../home/Navbar/AppBar";
-import { SideBar } from "../home/Sidebar/Sidebar";
+import { SideBar } from "../home/SidebarProfile/Sidebar";
 import { ChatFill, GearFill } from "react-bootstrap-icons";
 
 export const Profileglobal = () => {
@@ -22,6 +22,7 @@ export const Profileglobal = () => {
     e.target.className = "btn btn-primary w-25 h-25 disable";
     e.target.innerHTML = "takip ediliyor";
   };
+  console.log(user)
   return (
     <>
       <AppBar />
@@ -29,17 +30,19 @@ export const Profileglobal = () => {
       <div className="container ">
         <div className="row">
           <SideBar />
-          <div className="col-md-8 mt-5" style={{ marginLeft: "-80px" }}>
+          <div className="col-md-8 mt-5" style={{ marginLeft: "-137px" }}>
             <h3>{user && user.nickname}</h3>
             <div className="d-flex justify-content-between rounded-circle">
               <h6>834 gönderi- 32 takipçi - 3 takip</h6>
-              {user && (
+              { user && user.image != 'null' ? (
                 <img
                   src={"http://80.253.246.129:3000/public/users/" + user.image}
                   className="img-responsive rounded-circle"
                   width={100}
                   height={100}
                 />
+              ) : (
+                <img width={100} height={100} src="/1.jpeg" />
               )}
             </div>
             <span style={{fontWeight:"bold"}}>biyografi:</span>
