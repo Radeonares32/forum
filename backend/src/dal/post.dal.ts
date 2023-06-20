@@ -192,7 +192,7 @@ export class PostDal implements PostRepository {
       try {
         await neo4j()
           ?.writeCypher(
-            "match(u:user {id:$userId}) match(p:post {id:$postId}) create(u)-[savedPostRel:savedPostRel]->(p) create(p)-[postSavedRel:postSavedRel]->(u)",
+            "match(u:user {id:$userId}) match(p:post {id:$postId}) create(u)-[savedPostRel:savedPostRel]->(p)",
             {
               userId,
               postId,
