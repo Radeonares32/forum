@@ -179,15 +179,15 @@ export const Profile = () => {
                 <div className="d-flex mb-3">
                   <div className="d-flex" style={{ marginLeft: 550 }}>
                     <a
-                      href={"/profile/" + post[1].id}
+                      href={"/profile/" + post[0].id}
                       className="text-dark"
                       style={{ fontSize: 11,marginTop:20 }}
                     >
-                      {post[1].nickname}
+                      {post[0].nickname}
                       <pre>5m</pre>
                     </a>
                     <h5 className="mb-0 mx-2" style={{marginTop:20}}>
-                      {post[1].image == "null" ? (
+                      {post[0].image == "null" ? (
                         <img
                           width={50}
                           height={50}
@@ -212,19 +212,19 @@ export const Profile = () => {
               </div>
 
               <div className="post-block__content mb-2 text-start">
-                <h4 className="mt-2">{post[0].title}</h4>
+                <h4 className="mt-2">{post[1].title}</h4>
                 <p onClick={toggleExpanded}>
                   {expanded ? (
-                    <>{post[0].description}</>
+                    <>{post[1].description}</>
                   ) : (
                     <>
-                      {post[0].description.length > maxLength
-                        ? post[0].description.slice(0, maxLength)+" [ Devamını oku... ]"
-                        : post[0].description}
+                      {post[1].description.length > maxLength
+                        ? post[1].description.slice(0, maxLength)+" [ Devamını oku... ]"
+                        : post[1].description}
                     </>
                   )}
                 </p>
-                {post[0].image == "null" ? (
+                {post[1].image == "null" ? (
                   <img
                     width={300}
                     height={300}
@@ -249,7 +249,7 @@ export const Profile = () => {
                     style={{ display: "inline-block" }}
                   >
                     <i
-                      id={post[0].id}
+                      id={post[1].id}
                       style={{color:'red'}}
                       className="fa-solid fa-heart"
                     ></i>
@@ -260,7 +260,7 @@ export const Profile = () => {
                   >
                     <i
                       className="fa-solid fa-bookmark"
-                      id={post[0].id}
+                      id={post[1].id}
                       onClick={savedPostHandle}
                     ></i>
                   </p>
