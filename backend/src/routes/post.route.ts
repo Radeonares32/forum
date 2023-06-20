@@ -21,6 +21,10 @@ export const getUserRelPost = app.get(
   "/getUserRelPost",
   post.PostController.getUserRelPost
 );
+export const getUserRelImagePost = app.get(
+  "/getUserRelImagePost",
+  post.PostController.getUserRelImagePost
+);
 export const getPostRelComment = app.get(
   "/getPostRelComment",
   post.PostController.getPostRelComment

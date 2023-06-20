@@ -197,7 +197,7 @@ export class PostDal implements PostRepository {
             return res.properties;
           });
         });
-        if (rLike?.length) {
+        if (rLike?.length > 0) {
           await neo4j()
             ?.writeCypher(
               "match(user{id:$userId}) match(p:post) match(u)-[s:savedPostRel]->(p) delete s",
@@ -382,6 +382,27 @@ export class PostDal implements PostRepository {
         const category = await neo4j()
           ?.cypher(
             "match(u:user {id:$userId})-[postRel:postRel]->(p:post) return u,p",
+            { userId }
+          )
+          .catch((err) => console.log(err));
+        const rCategory = category?.records.map((uss: any) => {
+          return uss.map((res: any) => {
+            return res.properties;
+          });
+        });
+        resolve(rCategory as IPost[]);
+      } catch (err) {
+        reject({ message: "Error " + err });
+      }
+    });
+  }
+
+  async getUserRelImagePost(userId: string): Promise<IPost[]> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const category = await neo4j()
+          ?.cypher(
+            "MATCH (u:user {id: $userId})-[:postRel]->(p:post) WHERE p.image <> 'null' RETURN u, p",
             { userId }
           )
           .catch((err) => console.log(err));

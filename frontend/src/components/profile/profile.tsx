@@ -97,7 +97,22 @@ export const Profile = () => {
     });
     setPosts(liked.data.getLike);
   };
-  console.log(posts)
+  const postsHandler = async () => {
+    const posts = await axios.get(`http://80.253.246.129:3000/post/getUserRelPost/`, {
+      headers: {
+        "x-access-token": auth().token,
+      },
+    });
+    setPosts(posts.data.getPost)
+  }
+  const savedHandler = async () => {
+    const saved = await axios.get(`http://80.253.246.129:3000/post/getSavedPost/`, {
+      headers: {
+        "x-access-token": auth().token,
+      },
+    });
+    console.log(saved.data)
+  }
   useEffect(() => {
     if (isSign()) {
       axios
@@ -163,12 +178,12 @@ export const Profile = () => {
 
             <div className="d-flex-justify-content-between mt-5 border-bottom border-top border-2 border-dark ">
               <ul className="d-flex justify-content-around lists">
-                <li className="lists-item" style={{fontWeight:"bold"}}>gönderiler</li>
+                <li className="lists-item" onClick={postsHandler} style={{fontWeight:"bold"}}>gönderiler</li>
                 <li className="lists-item">
                   <span onClick={likedHandle} style={{fontWeight:"bold"}} >begeniler</span>
                 </li>
                 <li className="lists-item" style={{fontWeight:"bold"}}>fotoğraflar</li>
-                <li className="lists-item" style={{fontWeight:"bold"}}>kaydedilenler</li>
+                <li className="lists-item" onClick={savedHandler} style={{fontWeight:"bold"}}>kaydedilenler</li>
               </ul>
             </div>
             {posts &&
@@ -238,7 +253,7 @@ export const Profile = () => {
                     height={100}
                     onClick={handleShow}
                     src={
-                      "http://80.253.246.129:3000/public/posts/" + post[0].image
+                      "http://80.253.246.129:3000/public/posts/" + post[1].image
                     }
                   />
                 )}
@@ -250,7 +265,7 @@ export const Profile = () => {
                   >
                     <i
                       id={post[1].id}
-                      style={{color:'red'}}
+                     
                       className="fa-solid fa-heart"
                     ></i>
                   </p>
