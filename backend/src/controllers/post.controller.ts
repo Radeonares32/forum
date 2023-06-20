@@ -182,6 +182,7 @@ export class PostController {
     } else {
       res.json({
         getLike: post.getLike,
+        count:post.getLike?.length
       });
     }
   };
