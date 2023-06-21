@@ -283,17 +283,32 @@ export class UserDal implements UserRepository {
       }
     });
   }
-  async getSign(
-    username: string,
-    email: string,
-    password: string
-  ): Promise<{ message: string }> {
+  async getUserUsername(username: string): Promise<{ message: string }> {
     return new Promise(async (resolve, reject) => {
       try {
-        if (username.length > 0) {
+        const user = await neo4j()?.cypher(
+          "match (u:user {nickname:$username}) return u.email,u.password",
+          { username }
+        );
+        const rUser = user?.records.map((uss: any) => {
+          return uss.map((res: any) => {
+            return res;
+          });
+        });
+        resolve(rUser as any);
+      } catch (err) {
+        reject({ message: "Error " + err });
+      }
+    });
+  }
+  async getSign(email: string, password: string): Promise<{ message: string }> {
+    return new Promise(async (resolve, reject) => {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      try {
+        if (!emailRegex.test(email)) {
           const user = await neo4j()?.cypher(
-            "match (u:user {username:$username,password:$password}) return u",
-            { username, password }
+            "match (u:user {nickname:$username,password:$password}) return u",
+            { username: email, password }
           );
           const rUser = user?.records.map((uss: any) => {
             return uss.map((res: any) => {
@@ -301,7 +316,7 @@ export class UserDal implements UserRepository {
             });
           });
           resolve(rUser as any);
-        } else if (email.length > 0) {
+        } else if (emailRegex.test(email)) {
           const user = await neo4j()?.cypher(
             "match (u:user {email:$email,password:$password}) return u",
             { email, password }
