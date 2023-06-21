@@ -283,19 +283,38 @@ export class UserDal implements UserRepository {
       }
     });
   }
-  async getSign(email: string, password: string): Promise<{ message: string }> {
+  async getSign(
+    username: string,
+    email: string,
+    password: string
+  ): Promise<{ message: string }> {
     return new Promise(async (resolve, reject) => {
       try {
-        const user = await neo4j()?.cypher(
-          "match (u:user {email:$email,password:$password}) return u",
-          { email, password }
-        );
-        const rUser = user?.records.map((uss: any) => {
-          return uss.map((res: any) => {
-            return res.properties;
+        if (username.length > 0) {
+          const user = await neo4j()?.cypher(
+            "match (u:user {username:$username,password:$password}) return u",
+            { username, password }
+          );
+          const rUser = user?.records.map((uss: any) => {
+            return uss.map((res: any) => {
+              return res.properties;
+            });
           });
-        });
-        resolve(rUser as any);
+          resolve(rUser as any);
+        } else if (email.length > 0) {
+          const user = await neo4j()?.cypher(
+            "match (u:user {email:$email,password:$password}) return u",
+            { email, password }
+          );
+          const rUser = user?.records.map((uss: any) => {
+            return uss.map((res: any) => {
+              return res.properties;
+            });
+          });
+          resolve(rUser as any);
+        } else {
+          reject({ message: "username or email empty " });
+        }
       } catch (err) {
         reject({ message: "Error " + err });
       }
