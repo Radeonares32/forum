@@ -15,7 +15,7 @@ export class UserService {
   userFindAll() {
     return this.userDataAcess.findAll();
   }
-  userFindId(id:string) {
+  userFindId(id: string) {
     return this.userDataAcess.findUser(id);
   }
   async userFind(token: string) {
@@ -99,8 +99,6 @@ export class UserService {
 
     if (isValidId.isValid) {
       if (isEmail.isEmail) {
-
-
         return {
           update: this.userDataAcess.update(
             id,
@@ -112,9 +110,7 @@ export class UserService {
             note
           ),
         };
-
-      }
-      else {
+      } else {
         return {
           message: isEmail.message,
         };
@@ -197,9 +193,43 @@ export class UserService {
     }
   }
   async userSign(email: string, password: string) {
-    const isEmail = validation.isEmailValidation(email);
-    if (isEmail.isEmail) {
-      const isUser: any = await this.userDataAcess.getUserEmail(email);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (emailRegex.test(email)) {
+      const isEmail = validation.isEmailValidation(email);
+      if (isEmail.isEmail) {
+        const isUser: any = await this.userDataAcess.getUserEmail(email);
+        if (isUser.length > 0) {
+          const isHashTrue = security.bcrypt.dencrypt(password, isUser[0][1]);
+          if (isHashTrue.isDencrypt) {
+            const payload = {
+              email: isUser[0][0],
+            };
+            try {
+              return {
+                token: await cache.redis.Token.addToken(payload),
+              };
+            } catch {
+              return {
+                token: security.jwt.payload.signPayload(payload).err,
+              };
+            }
+          } else {
+            return {
+              sign: isHashTrue.message,
+            };
+          }
+        } else {
+          return {
+            sign: "users email not found",
+          };
+        }
+      } else {
+        return {
+          sign: isEmail.message,
+        };
+      }
+    } else if (!emailRegex.test(email)) {
+      const isUser: any = await this.userDataAcess.getUserUsername(email);
       if (isUser.length > 0) {
         const isHashTrue = security.bcrypt.dencrypt(password, isUser[0][1]);
         if (isHashTrue.isDencrypt) {
@@ -208,8 +238,7 @@ export class UserService {
           };
           try {
             return {
-              token: (await cache.redis.Token.addToken(payload)),
-             
+              token: await cache.redis.Token.addToken(payload),
             };
           } catch {
             return {
@@ -223,12 +252,12 @@ export class UserService {
         }
       } else {
         return {
-          sign: "users not fount",
+          sign: "user username not found",
         };
       }
     } else {
       return {
-        sign: isEmail.message,
+        sign: "username or email empty",
       };
     }
   }

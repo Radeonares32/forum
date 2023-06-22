@@ -12,11 +12,16 @@ export const SideBarPost = (props: any) => {
   const [catId, setCatId] = useState<any>();
   useEffect(() => {
     axios
+    .get(`http://80.253.246.129:3000/category/getCategory`)
+    .then((cat: any) => {
+      setSubCat(cat.data.category);
+    });
+    axios
       .get(`http://80.253.246.129:3000/category/getMainCategory`, {})
       .then((cat: any) => {
         setCategories(cat.data.category);
       });
-  }, []);
+  }, [props.categoryId]);
   const subCategoryHandle = async (e: any) => {
     await axios.post(
       "http://80.253.246.129:3000/category/postCategory",
@@ -32,22 +37,16 @@ export const SideBarPost = (props: any) => {
     );
     setNewCat("");
   };
-  useEffect(() => {
-    axios
-      .get(
-        `http://80.253.246.129:3000/category/getMainRelCategory/${props.categoryId}`
-      )
-      .then((subCat: any) => {
-        setSubCat(subCat.data.category.post);
-        setCatId(catId);
-      });
-  }, [props.categoryId]);
   return (
-    <div className="col-md-4" style={{marginTop:'-55px'}}>
+    <div className="col-md-4" style={{marginTop: "-39px"}}>
       <div className="col-lg-9">
-        <p className="" style={{ fontSize: "25px", color: "#0d6df3" }}>
+      <a
+          href="/"
+          className="text-decoration-none"
+          style={{ fontSize: "25px", color: "#0d6df3", width: "20px" }}
+        >
           Gündem
-        </p>
+        </a>
       </div>
       <div className="border border-2 border-dark p-1" style={{ width: "50%" }}>
         <div className="d-flex justify-content-between" style={{}}>

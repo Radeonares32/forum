@@ -31,10 +31,10 @@ export const Signin = () => {
       password: password.current.value,
     });
     console.log(user.data)
-    if (user.data === "users not fount") {
-      setMessage("user not found");
+    if (user.data === "users email not found" ||user.data === "user username not found") {
+      setMessage("böyle bir kullanıcı yok");
     } else if (user.data === "password not match hash") {
-      setMessage("password or email wrong");
+      setMessage("şifre yanlış");
     } else {
       const userInfo = await axios.get("http://80.253.246.129:3000/user/getUserId", {
         headers: {
@@ -69,13 +69,13 @@ export const Signin = () => {
 
       <Form>
         <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email</Form.Label>
-          <Form.Control ref={email} type="email" placeholder="Email" />
+          <Form.Label>Kullanıcı adı veya email</Form.Label>
+          <Form.Control ref={email} type="email" placeholder="Kullanıcı adı veya email" />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Şifre</Form.Label>
-          <Form.Control ref={password} type="password" placeholder="Password" />
+          <Form.Control ref={password} type="password" placeholder="Şifre" />
         </Form.Group>
 
         <Button onClick={submit} variant="primary" type="button" style={{backgroundColor:'#1D9BF0',border:'0'}}>
