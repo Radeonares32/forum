@@ -13,6 +13,11 @@ export const SideBar = () => {
   const [subCat, setSubCat] = useState<any>()
   const [catId, setCatId] = useState<any>()
   useEffect(() => {
+    axios
+    .get(`http://80.253.246.129:3000/category/getCategory`)
+    .then((cat: any) => {
+      setSubCat(cat.data.category);
+    });
     axios.get(`http://80.253.246.129:3000/category/getMainCategory`, {
 
     }).then((cat: any) => {
@@ -33,16 +38,18 @@ export const SideBar = () => {
   const getSubCatHandle = async (e: any) => {
     e.preventDefault()
     const catId = e.target.id
-    const subCat = await axios.get(`http://80.253.246.129:3000/category/getMainRelCategory/${catId}`)
-    setSubCat(subCat.data.category.post)
     setCatId(catId)
   }
   return (
-    <div className="col-md-4" style={{marginTop:'-55px',marginLeft:"-70px"}}>
+    <div className="col-md-4" style={{marginTop: "-39px",marginLeft:"-70px"}}>
       <div className="col-lg-4">
-        <p className="" style={{ fontSize: "25px", color: '#0d6df3',width:'20px' }}>
+      <a
+          href="/"
+          className="text-decoration-none"
+          style={{ fontSize: "25px", color: "#0d6df3", width: "20px" }}
+        >
           Gündem
-        </p>
+        </a>
       </div>
       <div className="border border-2 border-dark p-1" style={{ width: '50%' }}>
 
